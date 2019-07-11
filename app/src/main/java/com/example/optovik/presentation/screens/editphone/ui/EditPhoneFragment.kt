@@ -6,19 +6,13 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import br.com.sapereaude.maskedEditText.MaskedEditText
-
 import com.example.optovik.R
+import com.example.optovik.presentation.global.utils.hideKeyboard
+import com.example.optovik.presentation.global.utils.showKeyboard
+import kotlinx.android.synthetic.main.fragment_edit_phone2.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- *
- */
 class EditPhoneFragment : Fragment() {
 
     override fun onCreateView(
@@ -30,11 +24,26 @@ class EditPhoneFragment : Fragment() {
 
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        editphone.setOnTouchListener { v, _ ->
+            showKeyboard(context!!)
+            true
+        }
+
+        editphone.setOnTouchListener { v, _ ->
+            hideKeyboard(context!!, v)
+            true
+        }
+
+        phone.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                hideKeyboard(context!!, view)
+            }
+            false
+        }
 
 
     }
-
 }

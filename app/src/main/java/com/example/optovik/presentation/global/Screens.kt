@@ -14,13 +14,12 @@ object Screens {
     }
 
 
-    object Screens {
         object EditCode : SupportAppScreen() {
             override fun getFragment(): Fragment {
                 return EditCodeFragment()
             }
         }
     }
-}
+
 
 

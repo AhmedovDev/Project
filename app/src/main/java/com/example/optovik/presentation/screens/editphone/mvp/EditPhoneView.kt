@@ -1,4 +1,6 @@
 package com.example.optovik.presentation.screens.editphone.mvp
 
-interface EditPhoneView {
+import com.arellomobile.mvp.MvpView
+
+interface EditPhoneView : MvpView{
 }

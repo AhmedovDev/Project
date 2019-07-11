@@ -31,6 +31,7 @@ android {
 
     repositories {
         jcenter()
+        maven { url 'https://jitpack.io' }
     }
 }
 
@@ -99,6 +100,12 @@ dependencies {
     implementation 'info.hoang8f:android-segmented:1.0.6'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     kapt 'com.github.bumptech.glide:compiler:4.9.0'
+    // maskedEditText
+    implementation 'ru.egslava:MaskedEditText:1.0.5'
+    implementation 'com.chaos.view:pinview:1.4.2'
+
+
+
 
     // rx - network
     implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
@@ -108,7 +115,6 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.3.0'
 
-    // maskedEditText
-    implementation 'ru.egslava:MaskedEditText:1.0.5'
+
 
 }

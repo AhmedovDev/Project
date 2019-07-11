@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <android.support.constraint.ConstraintLayout
         xmlns:mask="http://schemas.android.com/apk/res-auto"
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -10,6 +12,7 @@
         android:background="@color/colorPrimaryDark"
         android:focusable="true"
         android:focusableInTouchMode="true"
+        android:id="@+id/editphone"
 >
 
 
@@ -24,13 +27,14 @@
             android:hint="9001234567"
             mask:allowed_chars="1234567890"
             mask:mask="+7 (###)###-##-##"
+            android:imeOptions="actionDone"
             android:paddingLeft="16dp"
             android:textSize="21sp"
             android:fontFamily="@font/sfprolight"
-            mask:layout_constraintTop_toBottomOf="@+id/textView3" mask:layout_constraintStart_toStartOf="parent"
+            mask:layout_constraintStart_toStartOf="parent"
             mask:layout_constraintEnd_toEndOf="parent"
-            mask:layout_constraintBottom_toTopOf="@+id/rectangle_2" android:selectAllOnFocus="false"
-            android:singleLine="false" android:includeFontPadding="false"/>
+            android:singleLine="false" android:includeFontPadding="false" mask:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginTop="80dp" mask:layout_constraintTop_toBottomOf="@+id/textView3"/>
     <Button
             android:id="@+id/rectangle_2"
             android:layout_width="180dp"
@@ -44,19 +48,20 @@
             android:typeface="monospace"
             android:textAllCaps="false"
             android:fontFamily="@font/sfprolight"
-            android:layout_marginTop="40dp"
+            android:layout_marginEnd="8dp"
+            mask:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
+            mask:layout_constraintStart_toStartOf="parent"
+            mask:layout_constraintHorizontal_bias="0.497" android:layout_marginTop="40dp"
             mask:layout_constraintTop_toBottomOf="@+id/phone"
-            mask:layout_constraintBottom_toBottomOf="parent" mask:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="97dp" mask:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="98dp" android:layout_marginBottom="150dp"/>
+    />
 
     <include
             layout="@layout/tolbar"
             android:id="@+id/include6"
             mask:layout_constraintEnd_toEndOf="parent" mask:layout_constraintStart_toStartOf="parent"
             mask:layout_constraintTop_toTopOf="parent"
-            mask:layout_constraintBottom_toTopOf="@+id/textView3" android:layout_marginBottom="101dp"
-            android:layout_width="0dp"/>
+            android:layout_width="0dp"
+    />
     <TextView
             android:text="Введите номер телефона.                                  Вам придет СМС с кодом подтверждения."
             android:layout_width="280dp"
@@ -69,11 +74,9 @@
             android:textColor="#444444"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:fontFamily="@font/sfprolight"
-            mask:layout_constraintTop_toBottomOf="@+id/include6" mask:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="50dp" mask:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="50dp"
-            mask:layout_constraintBottom_toTopOf="@+id/phone" mask:layout_constraintHorizontal_bias="0.483"
-            android:layout_marginBottom="60dp" android:layout_marginTop="101dp"/>
+            mask:layout_constraintTop_toBottomOf="@+id/include6" android:layout_marginTop="101dp"
+            mask:layout_constraintStart_toStartOf="parent" android:layout_marginStart="65dp"
+            mask:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="66dp"/>
 
 
 </android.support.constraint.ConstraintLayout>
