@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transition xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- The drawables used here can be solid colors, gradients, shapes, images, etc. -->
+    <item
+            android:drawable="@drawable/passivebutton"
+            android:id="@+id/button_disabled" />
+    <item
+            android:drawable="@drawable/activebutton"
+            android:id="@+id/ripple_button_enabled" />
+</transition>

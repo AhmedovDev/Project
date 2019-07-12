@@ -3,6 +3,8 @@ package com.example.optovik.di.global
 import android.content.Context
 import com.example.optovik.di.global.modules.*
 import com.example.optovik.di.screens.autorization.AutorizationComponent
+import com.example.optovik.di.screens.inputcode.InputCodeComponent
+import com.example.optovik.di.screens.inputphone.InputPhoneComponent
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -19,7 +21,8 @@ import javax.inject.Singleton
 @Singleton
 interface AppComponent {
    fun autorizationComponentBuilder(): AutorizationComponent.Builder
-
+    fun inputPhoneComponentBuilder(): InputPhoneComponent.Builder
+    fun inputCodeComponentBuilder(): InputCodeComponent.Builder
 
     @Component.Builder
     interface Builder {

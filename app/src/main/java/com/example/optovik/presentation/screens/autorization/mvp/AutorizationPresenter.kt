@@ -10,6 +10,6 @@ import javax.inject.Inject
 class AutorizationPresenter @Inject constructor(private val router: Router) : BasePresenter<AutorizationView>(router) {
 
     override fun onFirstViewAttach() {
-        router.newRootChain(Screens.EditPhone)
+        router.newRootChain(Screens.InputPhone)
     }
 }

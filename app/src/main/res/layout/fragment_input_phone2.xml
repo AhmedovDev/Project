@@ -8,11 +8,11 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.screens.editphone.ui.EditPhoneFragment"
+        tools:context=".presentation.screens.inputphone.ui.InputPhoneFragment"
         android:background="@color/colorPrimaryDark"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:id="@+id/editphone"
+        android:id="@+id/inputphone"
 >
 
 
@@ -33,37 +33,45 @@
             android:fontFamily="@font/sfprolight"
             mask:layout_constraintStart_toStartOf="parent"
             mask:layout_constraintEnd_toEndOf="parent"
-            android:singleLine="false" android:includeFontPadding="false" mask:layout_constraintHorizontal_bias="0.0"
-            android:layout_marginTop="80dp" mask:layout_constraintTop_toBottomOf="@+id/textView3"/>
+            android:singleLine="false"
+            android:includeFontPadding="false"
+            mask:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginTop="80dp"
+            mask:layout_constraintTop_toBottomOf="@+id/textView3"
+            mask:layout_constraintBottom_toTopOf="@+id/buttonNext"/>
     <Button
-            android:id="@+id/rectangle_2"
+            android:id="@+id/buttonNext"
             android:layout_width="180dp"
             android:layout_height="41dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:background="@drawable/passivebutton"
-            android:text="Продолжить"
+            android:background="@drawable/transition_button_auth"
+            android:text="@string/next_btton"
             android:textColor="#C6C6C6"
             android:visibility="visible"
             android:typeface="monospace"
             android:textAllCaps="false"
             android:fontFamily="@font/sfprolight"
             android:layout_marginEnd="8dp"
-            mask:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
+            mask:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="8dp"
             mask:layout_constraintStart_toStartOf="parent"
-            mask:layout_constraintHorizontal_bias="0.497" android:layout_marginTop="40dp"
+            mask:layout_constraintHorizontal_bias="0.497"
+            android:layout_marginTop="40dp"
             mask:layout_constraintTop_toBottomOf="@+id/phone"
+            android:textStyle="bold"
     />
 
     <include
             layout="@layout/tolbar"
             android:id="@+id/include6"
-            mask:layout_constraintEnd_toEndOf="parent" mask:layout_constraintStart_toStartOf="parent"
+            mask:layout_constraintEnd_toEndOf="parent"
+            mask:layout_constraintStart_toStartOf="parent"
             mask:layout_constraintTop_toTopOf="parent"
             android:layout_width="0dp"
     />
     <TextView
-            android:text="Введите номер телефона.                                  Вам придет СМС с кодом подтверждения."
+            android:text="@string/info_textview"
             android:layout_width="280dp"
             android:layout_height="49dp"
             android:id="@+id/textView3"
@@ -74,9 +82,12 @@
             android:textColor="#444444"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:fontFamily="@font/sfprolight"
-            mask:layout_constraintTop_toBottomOf="@+id/include6" android:layout_marginTop="101dp"
-            mask:layout_constraintStart_toStartOf="parent" android:layout_marginStart="65dp"
-            mask:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="66dp"/>
+            mask:layout_constraintTop_toBottomOf="@+id/include6"
+            android:layout_marginTop="101dp"
+            mask:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="65dp"
+            mask:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="66dp"/>
 
 
 </android.support.constraint.ConstraintLayout>

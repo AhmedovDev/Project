@@ -3,4 +3,16 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="confirmation_timer">Запросить код повторно можно\nчерез %1$s</string>
+    <string name="get_code_button">Получить код</string>
+    <string name="code_input">Введите код из SMS сообщения</string>
+    <string name="next_btton">Продолжить</string>
+    <string name="info_textview">Введите номер телефона. \nВам придет СМС с кодом подтверждения.</string>
+
+    <plurals name="number_of_seconds">
+        <item quantity="one">%d секунда</item>
+        <item quantity="few">%d секунды</item>
+        <item quantity="other">%d секунд</item>
+    </plurals>
 </resources>

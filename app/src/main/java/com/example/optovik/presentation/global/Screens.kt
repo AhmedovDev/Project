@@ -1,24 +1,22 @@
 package com.example.optovik.presentation.global
 
 import android.support.v4.app.Fragment
-import com.example.optovik.presentation.screens.editcode.ui.EditCodeFragment
-import com.example.optovik.presentation.screens.editphone.ui.EditPhoneFragment
+import com.example.optovik.presentation.screens.inputcode.ui.InputCodeFragment
+import com.example.optovik.presentation.screens.inputphone.ui.InputPhoneFragment
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 object Screens {
 
-    object EditPhone : SupportAppScreen() {
+    object InputPhone : SupportAppScreen() {
         override fun getFragment(): Fragment {
-            return EditPhoneFragment()
+            return InputPhoneFragment()
         }
     }
 
 
-        object EditCode : SupportAppScreen() {
-            override fun getFragment(): Fragment {
-                return EditCodeFragment()
-            }
-        }
+       class InputCode(private val phone: String) : SupportAppScreen() {
+            override fun getFragment() = InputCodeFragment.newInstance(phone)
+       }
     }
 
 
