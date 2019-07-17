@@ -9,6 +9,9 @@
     <string name="code_input">Введите код из SMS сообщения</string>
     <string name="next_btton">Продолжить</string>
     <string name="info_textview">Введите номер телефона. \nВам придет СМС с кодом подтверждения.</string>
+    <string name="Enter">Вход</string>
+    <string name="optovik">  Оптовик  </string>
+    <string name="Categoryes">Категории</string>
 
     <plurals name="number_of_seconds">
         <item quantity="one">%d секунда</item>

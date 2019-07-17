@@ -1,5 +1,6 @@
 package com.example.optovik
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.arellomobile.mvp.MvpAppCompatActivity
@@ -8,6 +9,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.optovik.presentation.global.BaseFragment
 import com.example.optovik.presentation.screens.autorization.mvp.AutorizationPresenter
 import com.example.optovik.presentation.screens.autorization.mvp.AutorizationView
+import com.example.optovik.presentation.screens.main.ui.MainActivity
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
@@ -35,6 +37,8 @@ class AutorizationActivity : MvpAppCompatActivity(),AutorizationView{
             .build()
             .inject(this)
         super.onCreate(savedInstanceState)
+        //var intent = Intent(this,MainActivity::class.java)
+        startActivity(intent)
         setContentView(R.layout.activity_autorization)
         navigator = SupportAppNavigator(this, R.id.container)
     }

@@ -1,6 +1,7 @@
 package com.example.optovik.di.global.modules
 
 import com.example.optovik.BuildConfig
+import com.example.optovik.data.global.GitHubApi
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -42,6 +43,9 @@ class NetworkModule {
             .build()
 
 
+    @Provides
+    @Singleton
+    fun provideGitHubApi(retrofit: Retrofit): GitHubApi = retrofit.create()
 
     companion object {
         private const val BASE_API_URL = "https://api.github.com/"

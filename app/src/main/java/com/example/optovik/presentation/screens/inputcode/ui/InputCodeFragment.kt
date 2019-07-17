@@ -22,7 +22,12 @@ import com.example.optovik.presentation.screens.inputcode.mvp.InputCodeView
 import com.example.optovik.presentation.screens.inputphone.mvp.InputPhonePresenter
 import kotlinx.android.synthetic.main.fragment_input_code.*
 import kotlinx.android.synthetic.main.fragment_input_phone2.*
+import kotlinx.android.synthetic.main.toolbar_autorization_with_arrow.*
 import javax.inject.Inject
+import android.content.Intent
+import android.text.Editable
+import android.text.TextWatcher
+import com.example.optovik.presentation.screens.main.ui.MainActivity
 
 
 class InputCodeFragment : BaseFragment(), InputCodeView {
@@ -80,15 +85,30 @@ class InputCodeFragment : BaseFragment(), InputCodeView {
         getCode.setOnClickListener {
             presenter.retrySendCode()
 
+            exampleCodeCheck()
+
             getCode.setOnTouchListener { v, _ ->
                 hideKeyboard(context!!, v)
                 true
             }
         }
+        back.setOnClickListener { presenter.back() }
+        PinView_confirmFragment_code.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                exampleCodeCheck()
+            }
+
+        })
     }
 
 
-    override fun onBackPressed() = presenter.onBackPressed()
+    override fun onBackPressed() = presenter.back()
 
     companion object {
 
@@ -97,5 +117,13 @@ class InputCodeFragment : BaseFragment(), InputCodeView {
         }
 
         private const val PHONE = "phone"
+    }
+
+    private fun exampleCodeCheck() {
+        var code: String = "1111"
+        var getCode: String = PinView_confirmFragment_code.text.toString()
+        if (code == getCode) {
+            startActivity(Intent(activity, MainActivity::class.java))
+        }
     }
 }

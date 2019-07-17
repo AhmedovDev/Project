@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="56dp">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:id="@+id/image_category"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+    />
+    <TextView
+            android:text="Рыбное филе"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_category"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="18dp"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="19dp"
+            app:layout_constraintVertical_bias="1.0"
+            android:layout_marginStart="64dp" app:layout_constraintStart_toStartOf="parent"
+            android:textAlignment="textStart"/>
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" app:srcCompat="@drawable/arrow_in_category"
+            android:id="@+id/imageView2" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="22dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="25dp" android:layout_marginTop="22dp"/>
+</android.support.constraint.ConstraintLayout>

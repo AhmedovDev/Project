@@ -51,5 +51,8 @@ class InputCodePresenter @Inject constructor (private val router: Router) : Base
         viewState.isVisibleTimer(true)
     }
 
+    fun back () {
+        router.replaceScreen(Screens.InputPhone)
+    }
 
 }

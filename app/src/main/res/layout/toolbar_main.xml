@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:id="@+id/tool_bar_main"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="#FFFFFF">
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:paddingRight="15dp"
+    >
+
+        <TextView
+                android:layout_width="209dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/optovik"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textSize="20dp"
+                android:textColor="#000000"
+                android:padding="10dp"
+                android:fontFamily="@font/sfprodisplay" android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" android:id="@+id/textView2"/>
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/notification_"
+                android:id="@+id/notification"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@color/colorPrimaryDark"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintVertical_bias="0.666"/>
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" app:srcCompat="@drawable/search" android:id="@+id/imageButton2"
+                android:layout_alignParentTop="true"
+                android:background="@color/colorPrimaryDark" android:layout_alignParentEnd="true"
+                app:layout_constraintStart_toEndOf="@+id/textView2"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintVertical_bias="0.571"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.Toolbar>
+
