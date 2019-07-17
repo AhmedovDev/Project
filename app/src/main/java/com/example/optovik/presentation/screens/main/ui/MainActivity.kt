@@ -1,8 +1,6 @@
 package com.example.optovik.presentation.screens.main.ui
 
 import android.os.Bundle
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatActivity
@@ -16,11 +14,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import ru.terrakok.cicerone.NavigatorHolder
 import javax.inject.Inject
 import android.R
-import android.support.v7.widget.LinearSnapHelper
-import android.support.v7.widget.SnapHelper
-
-
-
+import android.support.v7.widget.*
 
 
 class MainActivity : MvpAppCompatActivity(), MainView {
@@ -58,8 +52,10 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
         event_recycler.run {
             layoutManager = LinearLayoutManager(event_recycler.context,LinearLayoutManager.HORIZONTAL,false)
-            val snapHelper = LinearSnapHelper()
+            val snapHelper = PagerSnapHelper()
             snapHelper.attachToRecyclerView(event_recycler)
+            addItemDecoration(CirclePagerIndicatorDecoration()
+            )
 
         }
     }

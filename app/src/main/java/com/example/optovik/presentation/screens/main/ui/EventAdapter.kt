@@ -40,7 +40,8 @@ class EventAdapter(private val users: List<User>) :
         fun bind(user: User, clickListener: OnEventClickListener?) {
             Picasso.get()
                 .load(user.image)
-                .fit().centerInside()
+                .fit()
+                .centerCrop()
                 .placeholder(R.drawable.box)
                 .into(containerView.image_event)
 
