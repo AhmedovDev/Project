@@ -1,15 +1,16 @@
 package com.example.optovik.data.global
 
+import com.example.optovik.data.global.models.DataModel
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class DataManagerlmpl @Inject constructor(
-    private val api: GitHubApi
+    private val api: OptovikApi
 ) : DataManager {
 
-    override fun getUsers(): Single<List<User>> =
-        api.getUsers()
+    override fun getData(): Single<DataModel> =
+        api.getData()
             .subscribeOn(Schedulers.io())
 
 

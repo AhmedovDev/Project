@@ -5,47 +5,47 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.optovik.R
-import com.example.optovik.data.global.User
+import com.example.optovik.data.global.models.Event
+import com.example.optovik.data.global.models.DataModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.item_category.view.*
 import kotlinx.android.synthetic.main.item_event.view.*
 
-private typealias OnEventClickListener = ((User) -> Unit)
+private typealias OnEventClickListener = ((Event) -> Unit)
 
-class EventAdapter(private val users: List<User>) :
-    RecyclerView.Adapter<EventAdapter.UserViewHolder>() {
+class EventAdapter(private val event: List<Event>) :
+    RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
 
     private var clickListener: OnEventClickListener? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
         val itemView = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.item_event, parent, false)
-        return UserViewHolder(itemView)
+        return EventViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: UserViewHolder, position: Int) =
-        holder.bind(users[position], clickListener)
+    override fun onBindViewHolder(holder: EventViewHolder, position: Int) =
+        holder.bind(event[position], clickListener)
 
-    override fun getItemCount(): Int = users.size
+    override fun getItemCount(): Int = event.size
 
     fun setOnUserClickListener(listener: OnEventClickListener?) {
         clickListener = listener
     }
 
-    class UserViewHolder(override val containerView: View) :
+    class EventViewHolder(override val containerView: View) :
         RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-        fun bind(user: User, clickListener: OnEventClickListener?) {
+        fun bind(event: Event, clickListener: OnEventClickListener?) {
             Picasso.get()
-                .load(user.image)
+                .load(event.image)
                 .fit()
                 .centerCrop()
                 .placeholder(R.drawable.box)
                 .into(containerView.image_event)
 
-            itemView.setOnClickListener { clickListener?.invoke(user) }
+            itemView.setOnClickListener { clickListener?.invoke(event) }
         }
     }
 }

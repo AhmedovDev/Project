@@ -24,7 +24,9 @@
             app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="19dp"
             app:layout_constraintVertical_bias="1.0"
             android:layout_marginStart="64dp" app:layout_constraintStart_toStartOf="parent"
-            android:textAlignment="textStart"/>
+            android:textAlignment="textStart"
+    android:fontFamily="@font/sfpromedium"
+    android:textColor="#000"/>
     <ImageView
             android:layout_width="6dp"
             android:layout_height="11dp" app:srcCompat="@drawable/arrow_category"

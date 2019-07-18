@@ -33,6 +33,9 @@ android {
         jcenter()
         maven { url 'https://jitpack.io' }
     }
+    androidExtensions {
+        experimental true
+    }
 }
 
 dependencies {
