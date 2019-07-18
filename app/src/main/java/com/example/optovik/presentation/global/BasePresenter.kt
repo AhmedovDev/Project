@@ -12,6 +12,7 @@ open class BasePresenter<T : MvpView>(private val router: Router) : MvpPresenter
 
     override fun onDestroy() {
         subscriptions.dispose()
+        super.onDestroy()
     }
 
     protected fun Disposable.connect() = subscriptions.add(this)

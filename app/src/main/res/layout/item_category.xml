@@ -26,8 +26,8 @@
             android:layout_marginStart="64dp" app:layout_constraintStart_toStartOf="parent"
             android:textAlignment="textStart"/>
     <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" app:srcCompat="@drawable/arrow_in_category"
+            android:layout_width="6dp"
+            android:layout_height="11dp" app:srcCompat="@drawable/arrow_category"
             android:id="@+id/imageView2" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="22dp" app:layout_constraintEnd_toEndOf="parent"

@@ -18,35 +18,35 @@ class  MainPresenter @Inject constructor(private val router: Router, private val
     }
 
  fun getAllCategories() {
-        dataManager.getUsers()
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { viewState.showProgress(true) }
-            .doAfterTerminate { viewState.showProgress(false) }
-            .subscribe(
-                { users ->
-                    val list = users
-                    viewState.showCategories(users) },
-                {
-                    viewState.showError("Данные не пришли")
-                }
-            )
-            .connect()
+//        dataManager.getUsers()
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .doOnSubscribe { viewState.showProgress(true) }
+//            .doAfterTerminate { viewState.showProgress(false) }
+//            .subscribe(
+//                { users ->
+//                    val list = users
+//                    viewState.showCategories(users) },
+//                {
+//                    viewState.showError("Данные не пришли")
+//                }
+//            )
+//            .connect()
     }
 
     fun getEvents() {
-        dataManager.getUsers()
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { viewState.showProgress(true) }
-            .doAfterTerminate { viewState.showProgress(false) }
-            .subscribe(
-                { users ->
-                    val list = users
-                    viewState.showEvents(users) },
-                {
-                    viewState.showError("Данные не пришли")
-                }
-            )
-            .connect()
+//        dataManager.getUsers()
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .doOnSubscribe { viewState.showProgress(true) }
+//            .doAfterTerminate { viewState.showProgress(false) }
+//            .subscribe(
+//                { users ->
+//                    val list = users
+//                    viewState.showEvents(users) },
+//                {
+//                    viewState.showError("Данные не пришли")
+//                }
+//            )
+//            .connect()
     }
 
     fun retryCheck() {

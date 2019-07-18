@@ -23,13 +23,13 @@
                   android:fontFamily="@font/sfprodisplay"
                   android:layout_alignParentEnd="true" android:layout_marginEnd="137dp"
                   android:layout_alignParentBottom="true" android:layout_marginBottom="0dp"/>
-        <ImageButton
+        <ImageView
                 android:padding="10dp"
                 android:text="Button"
                 android:layout_width="16dp"
                 android:layout_height="14dp" android:id="@+id/back" android:layout_weight="1"
                 android:layout_alignParentStart="true" android:layout_marginStart="2dp"
-                android:background="@drawable/arrow"
+                android:background="@drawable/ic_back_arrow"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="14dp"
                 android:clickable="true"
