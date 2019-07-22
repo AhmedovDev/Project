@@ -24,6 +24,7 @@ class InputCodePresenter @Inject constructor (private val router: Router) : Base
         updateTimer()
     }
 
+    // Отсчет времени до отображкния кнопки для повторного запроса код
      fun updateTimer() {
         var firstIsVisibleSendCodeAgainFlag = true
         rx = io.reactivex.Observable.interval(1, TimeUnit.SECONDS)
@@ -43,6 +44,7 @@ class InputCodePresenter @Inject constructor (private val router: Router) : Base
             }
     }
 
+    // повторный отсчет
     fun retrySendCode() {
         rx?.dispose()
         time = 60

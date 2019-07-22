@@ -1,7 +1,7 @@
 package com.example.optovik.di.global.modules
 
 import com.example.optovik.BuildConfig
-import com.example.optovik.data.global.OptovikApi
+import com.example.optovik.data.network.OptovikApi
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module
 import dagger.Provides

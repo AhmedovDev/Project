@@ -1,14 +1,11 @@
 package com.example.optovik.presentation.screens.inputcode.ui
 
 
-import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.optovik.App
@@ -19,9 +16,7 @@ import com.example.optovik.presentation.global.utils.hideKeyboard
 import com.example.optovik.presentation.global.utils.withArgs
 import com.example.optovik.presentation.screens.inputcode.mvp.InputCodePresenter
 import com.example.optovik.presentation.screens.inputcode.mvp.InputCodeView
-import com.example.optovik.presentation.screens.inputphone.mvp.InputPhonePresenter
 import kotlinx.android.synthetic.main.fragment_input_code.*
-import kotlinx.android.synthetic.main.fragment_input_phone2.*
 import kotlinx.android.synthetic.main.toolbar_autorization_with_arrow.*
 import javax.inject.Inject
 import android.content.Intent
@@ -41,7 +36,6 @@ class InputCodeFragment : BaseFragment(), InputCodeView {
             getCode.visibility = View.VISIBLE
         }
     }
-
 
     override fun showTimeProgress(progress: Int) {
         Log.e("dfgfddsfgf", "fdgdfgdgf")
@@ -84,16 +78,19 @@ class InputCodeFragment : BaseFragment(), InputCodeView {
         phoneOnEditCode.text = phone
         getCode.setOnClickListener {
             presenter.retrySendCode()
-
             exampleCodeCheck()
-
             getCode.setOnTouchListener { v, _ ->
                 hideKeyboard(context!!, v)
                 true
             }
         }
+
         back.setOnClickListener { presenter.back() }
-        PinView_confirmFragment_code.addTextChangedListener(object : TextWatcher {
+
+        // Постоянная проверка поля для ввода кода на соответствие
+
+        PinView_inputCodeFragment_code.addTextChangedListener(object : TextWatcher {
+
             override fun afterTextChanged(s: Editable?) {
             }
 
@@ -115,13 +112,13 @@ class InputCodeFragment : BaseFragment(), InputCodeView {
         fun newInstance(phone: String) = InputCodeFragment().withArgs {
             putString(PHONE, phone)
         }
-
         private const val PHONE = "phone"
     }
 
+// todo временная проверка кода
     private fun exampleCodeCheck() {
         var code: String = "1111"
-        var getCode: String = PinView_confirmFragment_code.text.toString()
+        var getCode: String = PinView_inputCodeFragment_code.text.toString()
         if (code == getCode) {
             startActivity(Intent(activity, MainActivity::class.java))
         }

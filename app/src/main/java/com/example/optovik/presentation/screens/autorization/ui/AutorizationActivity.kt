@@ -37,8 +37,6 @@ class AutorizationActivity : MvpAppCompatActivity(),AutorizationView{
             .build()
             .inject(this)
         super.onCreate(savedInstanceState)
-        //var intent = Intent(this,MainActivity::class.java)
-        startActivity(intent)
         setContentView(R.layout.activity_autorization)
         navigator = SupportAppNavigator(this, R.id.container)
     }

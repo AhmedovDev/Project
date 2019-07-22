@@ -40,8 +40,6 @@ class InputPhoneFragment : BaseFragment(), InputPhoneView {
             .build()
             .inject(this)
         super.onCreate(savedInstanceState)
-
-
     }
 
     var nextButtonTransitionIsStarted = false
@@ -52,18 +50,18 @@ class InputPhoneFragment : BaseFragment(), InputPhoneView {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_input_phone2, container, false)
-
     }
 
     @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // показать клаву
         inputphone.setOnTouchListener { v, _ ->
             showKeyboard(context!!)
             true
         }
-
+         // скрыть клаву
         inputphone.setOnTouchListener { v, _ ->
             hideKeyboard(context!!, v)
             true
@@ -76,6 +74,7 @@ class InputPhoneFragment : BaseFragment(), InputPhoneView {
             false
         }
 
+        // проверка поля на заполненность для активации кнопки
         phone.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}

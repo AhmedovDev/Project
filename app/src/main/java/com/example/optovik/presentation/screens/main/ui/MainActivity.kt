@@ -13,9 +13,15 @@ import ru.terrakok.cicerone.NavigatorHolder
 import javax.inject.Inject
 import android.support.v7.widget.*
 import android.view.View
+import com.example.optovik.R
 import com.example.optovik.data.global.models.Category
 import com.example.optovik.data.global.models.DataModel
 import com.example.optovik.data.global.models.Event
+import com.example.optovik.presentation.global.BaseFragment
+import kotlinx.android.synthetic.main.fragment_input_code.*
+import kotlinx.android.synthetic.main.item_event.*
+import ru.terrakok.cicerone.Navigator
+import ru.terrakok.cicerone.android.support.SupportAppNavigator
 
 
 class MainActivity : MvpAppCompatActivity(), MainView {
@@ -30,6 +36,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     @ProvidePresenter
     fun providePresenter() = presenter
 
+    private lateinit var navigator: Navigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         App.appComponent.mainComponentBuilder()
@@ -37,13 +44,13 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             .inject(this)
         super.onCreate(savedInstanceState)
         setContentView(com.example.optovik.R.layout.activity_main)
-         initViews()
-
+        initViews()
+        navigator = SupportAppNavigator(this, R.id.mainactivity_container)
 
     }
 
-    //Основная реализация
-  private fun initViews() {
+    // настройка визуального представления recycler-ов
+    private fun initViews() {
         category_recycler.run {
             layoutManager = LinearLayoutManager(category_recycler.context)
             addItemDecoration(
@@ -58,15 +65,23 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             addItemDecoration(
                 CirclePagerIndicatorDecoration()
             )
-
         }
+        updateClick()
     }
 
-    override fun showError(error: String) {
-        Toast.makeText(this, error, Toast.LENGTH_LONG).show()
+    fun updateClick() {
+        update.setOnClickListener { presenter.getAllData() }
     }
 
+    override fun showError() {
+        nestedScrollView.visibility = View.GONE
+        mainactivity_container.visibility = View.VISIBLE
+    }
 
+    override fun visiblMain() {
+        nestedScrollView.visibility =View.VISIBLE
+        mainactivity_container.visibility = View.GONE
+    }
 
 
     override fun showProgress(show: Boolean) {
@@ -81,11 +96,19 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     override fun showEvents(event: List<Event>) {
         val adapter = EventAdapter(event)
         event_recycler.adapter = adapter
-
     }
 
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        navigatorHolder.setNavigator(navigator)
+    }
 
-    override fun onBackPressed() = finish()
+    override fun onPause() {
+        navigatorHolder.removeNavigator()
+        super.onPause()
+    }
+
+    override fun onBackPressed() = presenter.onBackPressed()
 }
 
 

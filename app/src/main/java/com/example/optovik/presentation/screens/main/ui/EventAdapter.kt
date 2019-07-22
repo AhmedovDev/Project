@@ -40,9 +40,9 @@ class EventAdapter(private val event: List<Event>) :
         fun bind(event: Event, clickListener: OnEventClickListener?) {
             Picasso.get()
                 .load(event.image)
-                .fit()
-                .centerCrop()
-                .placeholder(R.drawable.box)
+    //            .fit()
+         //       .centerCrop()
+              //  .placeholder(R.drawable.box)
                 .into(containerView.image_event)
 
             itemView.setOnClickListener { clickListener?.invoke(event) }

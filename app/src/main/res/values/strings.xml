@@ -10,8 +10,10 @@
     <string name="next_btton">Продолжить</string>
     <string name="info_textview">Введите номер телефона. \nВам придет СМС с кодом подтверждения.</string>
     <string name="Enter">Вход</string>
-    <string name="optovik">  Оптовик  </string>
+    <string name="optovik">Оптовик</string>
     <string name="Categoryes">Категории</string>
+    <string name="connect_problem">Проблемы со связью</string>
+    <string name="check_settings">Проверьте настройки сети \n или обновите экран</string>
 
     <plurals name="number_of_seconds">
         <item quantity="one">%d секунда</item>

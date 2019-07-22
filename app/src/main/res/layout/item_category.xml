@@ -13,7 +13,6 @@
             android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp"
     />
     <TextView
             android:text="Рыбное филе"
@@ -28,10 +27,10 @@
     android:fontFamily="@font/sfpromedium"
     android:textColor="#000"/>
     <ImageView
-            android:layout_width="6dp"
-            android:layout_height="11dp" app:srcCompat="@drawable/arrow_category"
+            android:layout_width="8dp"
+            android:layout_height="13dp" app:srcCompat="@drawable/arrow_category"
             android:id="@+id/imageView2" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="22dp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="25dp" android:layout_marginTop="22dp"/>
+            android:layout_marginTop="22dp" app:layout_constraintVertical_bias="1.0"/>
 </android.support.constraint.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.example.optovik.data.global
+package com.example.optovik.data.network
 
 import com.example.optovik.data.global.models.DataModel
 import io.reactivex.Single

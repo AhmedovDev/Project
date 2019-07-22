@@ -30,7 +30,7 @@
                 android:layout_marginBottom="32dp"/>
 
         <com.chaos.view.PinView
-                android:id="@+id/PinView_confirmFragment_code"
+                android:id="@+id/PinView_inputCodeFragment_code"
                 style="@style/PinWidget.PinView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -67,8 +67,8 @@
                 android:textAllCaps="false"
                 android:fontFamily="@font/sfprolight"
                 android:layout_marginTop="40dp"
-                mask:layout_constraintTop_toBottomOf="@+id/PinView_confirmFragment_code"
-                android:layout_below="@+id/PinView_confirmFragment_code" mask:layout_constraintStart_toStartOf="parent"
+                mask:layout_constraintTop_toBottomOf="@+id/PinView_inputCodeFragment_code"
+                android:layout_below="@+id/PinView_inputCodeFragment_code" mask:layout_constraintStart_toStartOf="parent"
                 mask:layout_constraintEnd_toEndOf="parent"
                 android:textStyle="bold"/>
     </android.support.constraint.ConstraintLayout>

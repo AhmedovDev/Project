@@ -21,7 +21,7 @@ import javax.inject.Singleton
 )
 @Singleton
 interface AppComponent {
-   fun autorizationComponentBuilder(): AutorizationComponent.Builder
+    fun autorizationComponentBuilder(): AutorizationComponent.Builder
     fun inputPhoneComponentBuilder(): InputPhoneComponent.Builder
     fun inputCodeComponentBuilder(): InputCodeComponent.Builder
     fun mainComponentBuilder(): MainComponent.Builder

@@ -14,10 +14,11 @@ object Screens {
     }
 
 
-       class InputCode(private val phone: String) : SupportAppScreen() {
-            override fun getFragment() = InputCodeFragment.newInstance(phone)
-       }
+    class InputCode(private val phone: String) : SupportAppScreen() {
+        override fun getFragment() = InputCodeFragment.newInstance(phone)
     }
+
+}
 
 
 

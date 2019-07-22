@@ -1,7 +1,6 @@
 package com.example.optovik.presentation.screens.main.ui;
 
 
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -15,9 +14,9 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
 
+// Класс реализующий точки под списком Акций
+
 public class CirclePagerIndicatorDecoration extends RecyclerView.ItemDecoration {
-
-
 
     private int colorActive = Color.WHITE;
     private int colorInactive = Color.LTGRAY;
@@ -108,7 +107,7 @@ public class CirclePagerIndicatorDecoration extends RecyclerView.ItemDecoration 
         float start = indicatorStartX;
         for (int i = 0; i < itemCount; i++) {
 
-            c.drawCircle(start, indicatorPosY-65, mIndicatorItemLength / 2F, mPaint);
+            c.drawCircle(start, indicatorPosY - 65, mIndicatorItemLength / 2F, mPaint);
 
             start += itemWidth;
         }
@@ -125,14 +124,14 @@ public class CirclePagerIndicatorDecoration extends RecyclerView.ItemDecoration 
             // no swipe, draw a normal indicator
             float highlightStart = indicatorStartX + itemWidth * highlightPosition;
 
-            c.drawCircle(highlightStart, indicatorPosY-65, mIndicatorItemLength / 2F, mPaint);
+            c.drawCircle(highlightStart, indicatorPosY - 65, mIndicatorItemLength / 2F, mPaint);
 
         } else {
             float highlightStart = indicatorStartX + itemWidth * highlightPosition;
             // calculate partial highlight
             float partialLength = mIndicatorItemLength * progress + mIndicatorItemPadding * progress;
 
-            c.drawCircle(highlightStart + partialLength, indicatorPosY-65, mIndicatorItemLength / 2F, mPaint);
+            c.drawCircle(highlightStart + partialLength, indicatorPosY - 65, mIndicatorItemLength / 2F, mPaint);
         }
     }
 
