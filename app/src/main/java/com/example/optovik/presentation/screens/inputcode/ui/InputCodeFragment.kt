@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.fragment_input_code.*
 import kotlinx.android.synthetic.main.toolbar_autorization_with_arrow.*
 import javax.inject.Inject
 import android.content.Intent
+import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
 import com.example.optovik.presentation.screens.main.ui.MainActivity
@@ -36,14 +37,18 @@ class InputCodeFragment : BaseFragment(), InputCodeView {
             getCode.visibility = View.VISIBLE
         }
     }
-
+// todo реализовать через CountDownTimer
     override fun showTimeProgress(progress: Int) {
-        Log.e("dfgfddsfgf", "fdgdfgdgf")
         val progressSeconds = resources.getQuantityString(R.plurals.number_of_seconds, progress, progress)
         val progressText = getString(R.string.confirmation_timer, progressSeconds)
         timer.text = progressText
     }
 
+    val timmer = object: CountDownTimer(60000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {millisUntilFinished/1000}
+
+        override fun onFinish() {}
+    }
 
     @Inject
     @InjectPresenter

@@ -11,5 +11,6 @@ interface MainView : MvpView {
     fun showError()
     fun showEvents(banner: List<Event>)
     fun visiblMain()
+    fun categoryesClick()
 
 }

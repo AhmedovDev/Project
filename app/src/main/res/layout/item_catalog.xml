@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="112dp">
+
+
+    <ImageView
+            android:layout_width="72dp"
+            android:layout_height="72dp" app:srcCompat="@drawable/free"
+            android:id="@+id/image_product" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp" android:layout_marginTop="20dp"
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    <TextView
+            android:text="Картошка фри 9мл LW(S01) «Стелс» "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/product_name" android:layout_marginTop="20dp"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toEndOf="@+id/image_product"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/sfpromedium"
+            android:textColor="#444444"
+            android:textSize="14sp"/>
+
+    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  app:layout_constraintStart_toEndOf="@+id/image_product" android:layout_marginStart="16dp"
+                  android:layout_marginTop="31dp" app:layout_constraintTop_toBottomOf="@+id/product_name">
+
+        <TextView
+                android:text="≈"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" tools:layout_editor_absoluteY="67dp"
+                tools:layout_editor_absoluteX="107dp" android:id="@+id/isEstimatedPrise"
+                android:textColor="#000000"
+                android:fontFamily="@font/sfpromedium"
+                android:textSize="14sp"
+                android:paddingRight="4dp"
+                android:visibility="gone"/>
+
+        <TextView
+                android:text="345"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" tools:layout_editor_absoluteY="67dp"
+                tools:layout_editor_absoluteX="107dp" android:id="@+id/price"
+                android:textColor="#000000"
+                android:fontFamily="@font/sfpromedium"
+                android:textSize="14sp"
+                android:paddingRight="4dp"/>
+        <TextView
+                android:text="₽"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:layout_editor_absoluteY="67dp"
+                tools:layout_editor_absoluteX="165dp"
+                android:textColor="#000000"
+                android:fontFamily="@font/sfpromedium" android:textSize="14sp"
+        />
+        <TextView
+                android:text="/"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" tools:layout_editor_absoluteY="65dp"
+                tools:layout_editor_absoluteX="223dp"
+                android:textColor="#C6C6C6"
+                android:fontFamily="@font/sfpromedium"
+                android:textSize="12sp"
+                android:paddingRight="4dp"
+                android:paddingLeft="4dp"/>
+        <TextView
+                android:text="2,5кг"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" tools:layout_editor_absoluteY="46dp"
+                tools:layout_editor_absoluteX="198dp" android:id="@+id/count_product"
+                android:textColor="#C6C6C6"
+                android:fontFamily="@font/sfpromedium"
+                android:textSize="12sp"/>
+    </LinearLayout>
+    <EditText
+            android:text="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/input_product" android:layout_marginTop="73dp"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="25dp" app:layout_constraintEnd_toStartOf="@+id/plus"
+            android:layout_marginEnd="16dp"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            android:fontFamily="@font/sfpromedium"
+            android:inputType="number"
+            android:background="@color/colorPrimaryDark"
+            android:focusable="true"
+            android:maxEms="2"
+            android:cursorVisible="true"
+            android:visibility="gone"
+    />
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" app:srcCompat="@drawable/ic_active_button_plus"
+            android:id="@+id/plus"
+            android:background="@color/colorPrimaryDark" tools:ignore="VectorDrawableCompat"
+            android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" app:srcCompat="@drawable/ic_button_minus"
+            android:id="@+id/minus"
+            tools:ignore="VectorDrawableCompat"
+            android:background="@color/colorPrimaryDark" android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/input_product" android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"/>
+
+</android.support.constraint.ConstraintLayout>

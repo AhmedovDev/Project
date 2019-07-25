@@ -25,7 +25,25 @@ class InputCodePresenter @Inject constructor (private val router: Router) : Base
     }
 
     // Отсчет времени до отображкния кнопки для повторного запроса код
-     fun updateTimer() {
+//     fun updateTimer() {
+//        var firstIsVisibleSendCodeAgainFlag = true
+//        rx = io.reactivex.Observable.interval(1, TimeUnit.SECONDS)
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe {
+//                time--
+//                if (time == 0) {
+//                    time = 60
+//                    viewState.isVisibleTimer(false)
+//                } else {
+//                    if (firstIsVisibleSendCodeAgainFlag) {
+//                        viewState.isVisibleTimer(true)
+//                    }
+//                    firstIsVisibleSendCodeAgainFlag = false
+//                    viewState.showTimeProgress(time)
+//                }
+//            }
+//    }
+    fun updateTimer() {
         var firstIsVisibleSendCodeAgainFlag = true
         rx = io.reactivex.Observable.interval(1, TimeUnit.SECONDS)
             .observeOn(AndroidSchedulers.mainThread())

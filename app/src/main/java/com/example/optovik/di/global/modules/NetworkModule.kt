@@ -1,6 +1,7 @@
 package com.example.optovik.di.global.modules
 
 import com.example.optovik.BuildConfig
+import com.example.optovik.data.network.CatalogApi
 import com.example.optovik.data.network.OptovikApi
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module
@@ -10,6 +11,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -34,7 +36,8 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(client: OkHttpClient): Retrofit =
+    @Named("MAIN_RETROFIT")
+    fun provideMainRetrofit(client: OkHttpClient): Retrofit =
         Retrofit.Builder()
             .baseUrl(BASE_API_URL)
             .client(client)
@@ -42,12 +45,93 @@ class NetworkModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
+    @Provides
+    @Singleton
+    @Named("CATALOG_RETROFIT")
+    fun provideCatalogRetrofit(client: OkHttpClient): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(BASE_API_URL_CATALOG)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+
+
 
     @Provides
     @Singleton
-    fun provideGitHubApi(retrofit: Retrofit): OptovikApi = retrofit.create()
+    @Named("BASE_API_URL")
+    fun provideBaseUrlCrm() = BASE_API_URL
+
+    @Provides
+    @Singleton
+    @Named("BASE_API_URL_CATALOG")
+    fun provideBaseUrlPeretz() = BASE_API_URL_CATALOG
+
 
     companion object {
         private const val BASE_API_URL = "https://my-json-server.typicode.com"
+        private const val BASE_API_URL_CATALOG = "https://raw.githubusercontent.com"
+
     }
+
+//    @Provides
+//    @Singleton
+//    @Named("MAIN_RETROFIT")
+//    fun provideRetrofitPeretz(
+//        @Named("BASE_URl") baseUrl: String = BASE_API_URL,
+//        client: OkHttpClient,
+//        rxJava2CallAdapterFactory: RxJava2CallAdapterFactory
+//    ) = Retrofit.Builder().baseUrl(baseUrl)
+//        .addConverterFactory(GsonConverterFactory.create())
+//        .client(client)
+//        .addCallAdapterFactory(rxJava2CallAdapterFactory)
+//        .build()
+//
+//    @Provides
+//    @Singleton
+//    @Named("CATALOG_RETROFIT")
+//    fun provideRetrofitDiv(
+//        @Named("BASE_API_URL_CATALOG") baseUrl: String = BASE_API_URL_CATALOG,
+//        client: OkHttpClient,
+//        rxJava2CallAdapterFactory: RxJava2CallAdapterFactory
+//    ) = Retrofit.Builder().baseUrl(baseUrl)
+//        .addConverterFactory(GsonConverterFactory.create())
+//        .client(client)
+//        .addCallAdapterFactory(rxJava2CallAdapterFactory)
+//        .build()
+
+
+    @Provides
+    @Singleton
+    fun provideRxJavaAdapter(): RxJava2CallAdapterFactory {
+        return RxJava2CallAdapterFactory.create()
+    }
+
+    @Provides
+    @Singleton
+    @Named("API_OPTOVIK")
+    fun provideOptovikApi(@Named("MAIN_RETROFIT") retrofit: Retrofit) =
+        retrofit.create(OptovikApi::class.java)
+
+//    @Provides
+//    @Singleton
+//    @Named("API_OPTOVIK")
+//    fun provideOptovikApi(retrofit: Retrofit): OptovikApi = retrofit.create()
+//
+//
+//
+//    @Provides
+//    @Singleton
+//    @Named("API_CATALOG")
+//    fun provideCatalog(retrofit: Retrofit): CatalogApi = retrofit.create()
+
+
+    @Provides
+    @Singleton
+    @Named("API_CATALOG")
+    fun provideApiCatalog(@Named("CATALOG_RETROFIT") retrofit: Retrofit) =
+        retrofit.create(CatalogApi::class.java)
+
 }
