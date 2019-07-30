@@ -2,7 +2,6 @@ package com.example.optovik.presentation.screens.main.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -16,12 +15,8 @@ import android.support.v7.widget.*
 import android.view.View
 import com.example.optovik.R
 import com.example.optovik.data.global.models.Category
-import com.example.optovik.data.global.models.DataModel
 import com.example.optovik.data.global.models.Event
-import com.example.optovik.presentation.global.BaseFragment
 import com.example.optovik.presentation.screens.catalog.ui.CatalogActivity
-import kotlinx.android.synthetic.main.fragment_input_code.*
-import kotlinx.android.synthetic.main.item_event.*
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 
@@ -98,7 +93,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     override fun showCategories(category: List<Category>) {
         val adapter = CategoryAdapter(category)
         category_recycler.adapter = adapter
-        adapter.setOnUserClickListener { val intent = Intent(this,CatalogActivity::class.java)
+        adapter.setOnCategoryClickListener { val intent = Intent(this,CatalogActivity::class.java)
             startActivity(intent) }
     }
 

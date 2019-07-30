@@ -3,6 +3,7 @@ package com.example.optovik.di.global.modules
 import com.example.optovik.BuildConfig
 import com.example.optovik.data.network.CatalogApi
 import com.example.optovik.data.network.OptovikApi
+import com.example.optovik.data.network.ProductCardApi
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -57,6 +58,17 @@ class NetworkModule {
             .build()
 
 
+    @Provides
+    @Singleton
+    @Named("PRODUCT_CARD_RETROFIT")
+    fun provideProductCardRetrofit(client: OkHttpClient): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(BASE_API_URL_PRODUCTCARD)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
 
 
     @Provides
@@ -69,10 +81,15 @@ class NetworkModule {
     @Named("BASE_API_URL_CATALOG")
     fun provideBaseUrlPeretz() = BASE_API_URL_CATALOG
 
+    @Provides
+    @Singleton
+    @Named("BASE_API_URL_PRODUCT_CARD")
+    fun provideBaseUrlProductCard() = BASE_API_URL_PRODUCTCARD
 
     companion object {
         private const val BASE_API_URL = "https://my-json-server.typicode.com"
         private const val BASE_API_URL_CATALOG = "https://raw.githubusercontent.com"
+        private const val BASE_API_URL_PRODUCTCARD = "https://raw.githubusercontent.com"
 
     }
 
@@ -133,5 +150,11 @@ class NetworkModule {
     @Named("API_CATALOG")
     fun provideApiCatalog(@Named("CATALOG_RETROFIT") retrofit: Retrofit) =
         retrofit.create(CatalogApi::class.java)
+
+    @Provides
+    @Singleton
+    @Named("API_PRODUCT_CARD")
+    fun provideApiProductCard(@Named("PRODUCT_CARD_RETROFIT") retrofit: Retrofit) =
+        retrofit.create(ProductCardApi::class.java)
 
 }

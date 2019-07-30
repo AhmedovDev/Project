@@ -26,46 +26,64 @@
             app:layout_constraintEnd_toEndOf="parent" android:id="@+id/include"
     />
 
-    <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/include"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            android:background="#14FFC700" android:id="@+id/constraintLayout"
-    >
-
-        <TextView
-                android:text=" Здесь находятся товары, доступные под заказ. Доставка от 7 до 14 дней."
-                android:layout_width="311dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView6"
-                app:layout_constraintStart_toEndOf="@+id/imageView3"
-                android:layout_marginStart="12dp" android:layout_marginTop="13dp"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginBottom="12dp" app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="16dp"
-                android:textSize="12dp"
-                android:fontFamily="@font/sfpromedium"
-                android:textColor="#000000"/>
-        <ImageView
-                android:layout_width="20dp"
-                android:layout_height="29dp" app:srcCompat="@drawable/attention"
-                android:id="@+id/imageView3" android:layout_marginTop="12dp" app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"/>
-
-    </android.support.constraint.ConstraintLayout>
-
-    <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
+    <android.support.v4.widget.NestedScrollView
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" android:id="@+id/product_recycler"
-            android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/button_green"
-            app:layout_constraintVertical_bias="0.0"/>
+            app:layout_constraintBottom_toTopOf="@+id/button_green" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/nestedScrollView2"
+            app:layout_constraintTop_toBottomOf="@+id/include">
 
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:layout_marginTop="0dp" app:layout_constraintTop_toBottomOf="@+id/include">
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:background="#14FFC700" android:id="@+id/reletiv"
+            >
+
+                <TextView
+                        android:text=" Здесь находятся товары, доступные под заказ. Доставка от 7 до 14 дней."
+                        android:layout_width="311dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView6"
+                        app:layout_constraintStart_toEndOf="@+id/imageView3"
+                        android:layout_marginStart="20dp" android:layout_marginTop="12dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginBottom="12dp" app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:textSize="12dp"
+                        android:fontFamily="@font/sfpromedium"
+                        android:textColor="#000000" android:layout_alignParentTop="true"
+                        android:layout_toEndOf="@+id/imageView3"/>
+                <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="29dp" app:srcCompat="@drawable/attention"
+                        android:id="@+id/imageView3" android:layout_marginTop="12dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="17dp"
+                        android:layout_alignParentTop="true" android:layout_alignParentStart="true"/>
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="564dp"
+                    app:layout_constraintTop_toBottomOf="@+id/reletiv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" android:id="@+id/product_recycler"
+                    android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/button_green"
+                    app:layout_constraintVertical_bias="0.0" android:layout_alignParentStart="true"/>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -75,7 +93,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:background="@color/colorPrimaryDark"
-    android:elevation="4dp">
+            android:elevation="4dp">
 
         <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
@@ -241,5 +259,15 @@
 
 
     </FrameLayout>
+
+    <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/button_green"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/container_productcard"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.0"/>
+
 
 </android.support.constraint.ConstraintLayout>

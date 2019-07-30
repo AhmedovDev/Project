@@ -7,7 +7,7 @@ import com.example.optovik.data.global.models.Event
 
 interface MainView : MvpView {
     fun showProgress(progress: Boolean)
-    fun showCategories(users: List<Category>)
+    fun showCategories(category: List<Category>)
     fun showError()
     fun showEvents(banner: List<Event>)
     fun visiblMain()

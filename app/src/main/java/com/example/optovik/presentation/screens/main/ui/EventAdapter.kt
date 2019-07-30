@@ -30,7 +30,7 @@ class EventAdapter(private val event: List<Event>) :
 
     override fun getItemCount(): Int = event.size
 
-    fun setOnUserClickListener(listener: OnEventClickListener?) {
+    fun setOnEventClickListener(listener: OnEventClickListener?) {
         clickListener = listener
     }
 

@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @InjectViewState
 class CatalogPresenter @Inject constructor(
-    private val router: Router, private val dataManager: DataManager, val networkChecking: NetworkChecking
+    private val router: Router, private val dataManager: DataManager
 ) : BasePresenter<CatalogView>(router) {
 
     override fun onFirstViewAttach() {
@@ -37,6 +37,10 @@ class CatalogPresenter @Inject constructor(
                 }
             )
             .connect()
+    }
+
+    fun gotoProducCard(){
+        router.navigateTo(Screens.ProductCard)
     }
 
 

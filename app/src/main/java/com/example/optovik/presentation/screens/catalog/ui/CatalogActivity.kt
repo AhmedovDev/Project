@@ -1,10 +1,9 @@
 package com.example.optovik.presentation.screens.catalog.ui
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.PagerSnapHelper
+import android.util.Log
 import android.view.View
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -12,17 +11,14 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.optovik.App
 import com.example.optovik.R
 import com.example.optovik.data.global.models.Products
+import com.example.optovik.presentation.global.BaseFragment
 import com.example.optovik.presentation.screens.catalog.mvp.CatalogPresenter
 import com.example.optovik.presentation.screens.catalog.mvp.CatalogView
-import com.example.optovik.presentation.screens.main.mvp.MainPresenter
-import com.example.optovik.presentation.screens.main.ui.CirclePagerIndicatorDecoration
-import com.example.optovik.presentation.screens.main.ui.EventAdapter
 import kotlinx.android.synthetic.main.activity_catalog.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.toolbar_autorization_with_arrow.*
 import kotlinx.android.synthetic.main.toolbar_catalog.*
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
+import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import javax.inject.Inject
 
 class CatalogActivity : MvpAppCompatActivity(), CatalogView {
@@ -39,6 +35,10 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView {
 
     private lateinit var navigator: Navigator
 
+    private val currentFragment
+        get() = supportFragmentManager.findFragmentById(R.id.container_productcard) as BaseFragment?
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         App.appComponent.catalogComponentBuilder()
             .build()
@@ -47,6 +47,8 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView {
         setContentView(R.layout.activity_catalog)
         initViews()
         backArrowClickListener()
+        navigator = SupportAppNavigator(this, R.id.container_productcard)
+
     }
 
     private fun initViews() {
@@ -70,6 +72,9 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView {
     override fun showProducts(products: List<Products>) {
         val adapter = CatalogAdapter(products)
         product_recycler.adapter = adapter
+        adapter.setOnCatalogClickListener {
+            presenter.gotoProducCard()
+        }
     }
 
     override fun showInformation(information: String) {
@@ -78,22 +83,31 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView {
 
     override fun showError() {
         constraintLayout2.visibility = View.GONE
-        constraintLayout.visibility = View.GONE
+        reletiv.visibility = View.GONE
         catalogactivity_container.visibility = View.VISIBLE
     }
 
     override fun visiblCatalog() {
         constraintLayout2.visibility = View.VISIBLE
-        constraintLayout.visibility = View.VISIBLE
+        reletiv.visibility = View.VISIBLE
         catalogactivity_container.visibility = View.GONE
+
     }
 
     fun backArrowClickListener() {
         back_arrow.setOnClickListener { finish() }
     }
 
-    override fun onBackPressed() {
-        finish()
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        navigatorHolder.setNavigator(navigator)
     }
+
+    override fun onPause() {
+        navigatorHolder.removeNavigator()
+        super.onPause()
+    }
+
+    override fun onBackPressed() =  currentFragment?.onBackPressed() ?: presenter.onBackPressed()
 
 }

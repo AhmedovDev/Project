@@ -7,6 +7,7 @@ import com.example.optovik.di.screens.catalog.CatalogComponent
 import com.example.optovik.di.screens.inputcode.InputCodeComponent
 import com.example.optovik.di.screens.inputphone.InputPhoneComponent
 import com.example.optovik.di.screens.main.MainComponent
+import com.example.optovik.di.screens.productcard.ProductCardComponent
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -27,6 +28,7 @@ interface AppComponent {
     fun inputCodeComponentBuilder(): InputCodeComponent.Builder
     fun mainComponentBuilder(): MainComponent.Builder
     fun catalogComponentBuilder(): CatalogComponent.Builder
+    fun productCardComponentBuilder(): ProductCardComponent.Builder
 
     @Component.Builder
     interface Builder {

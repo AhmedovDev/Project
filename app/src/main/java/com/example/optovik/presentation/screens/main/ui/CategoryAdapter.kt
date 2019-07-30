@@ -30,7 +30,7 @@ class CategoryAdapter(private val categoryes: List<Category>) :
 
     override fun getItemCount(): Int = categoryes.size
 
-    fun setOnUserClickListener(listener: OnCategoryClickListener?) {
+    fun setOnCategoryClickListener(listener: OnCategoryClickListener?) {
         clickListener = listener
     }
 
@@ -42,9 +42,9 @@ class CategoryAdapter(private val categoryes: List<Category>) :
                 .load(categoryes.image)
                 .placeholder(R.drawable.box)
                 .into(containerView.image_category)
-          containerView.text_category.text = categoryes.name
+            containerView.text_category.text = categoryes.name
+            itemView.setOnClickListener { clickListener?.invoke(categoryes)}
 
-            itemView.setOnClickListener { clickListener?.invoke(categoryes) }
         }
     }
 }
