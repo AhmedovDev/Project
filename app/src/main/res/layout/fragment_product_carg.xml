@@ -1,295 +1,329 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:mask="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".presentation.screens.productcard.ui.ProductCargFragment"
-        android:background="@color/colorPrimaryDark">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mask="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".presentation.screens.productcard.ui.ProductCargFragment">
 
     <ImageButton
-            android:id="@+id/back_button"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_button_backarrow_white" android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/ic_button_backarrow_white"
-            tools:ignore="VectorDrawableCompat"
-            android:elevation="1dp"
+        android:id="@+id/back_button"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/ic_button_backarrow_white"
+        android:elevation="1dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="VectorDrawableCompat"
+        tools:src="@drawable/ic_button_backarrow_white"
 
 
-    />
+        />
 
     <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" tools:layout_editor_absoluteY="-36dp"
-            tools:layout_editor_absoluteX="-16dp" android:id="@+id/nestedScrollView_productCard">
+        android:id="@+id/nestedScrollView_productCard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="-36dp">
 
         <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
 
             <android.support.v7.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:id="@+id/recycler_images" app:layout_constraintHorizontal_bias="0.0"/>
+                android:id="@+id/recycler_images"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <TextView
 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/title" android:layout_marginTop="24dp"
-                    app:layout_constraintTop_toBottomOf="@+id/recycler_images"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="16dp" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="16dp" app:layout_constraintHorizontal_bias="0.0"
-                    android:fontFamily="@font/sfpromedium"
-                    android:textColor="#444444"
-                    android:textSize="14sp"/>
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/sfpromedium"
+                android:textColor="#444444"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recycler_images" />
 
             <android.support.constraint.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    android:layout_marginTop="19dp"
-                    app:layout_constraintTop_toBottomOf="@+id/title"
-                    android:id="@+id/constraintLayout">
+                android:id="@+id/constraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="19dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title">
 
 
                 <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/isEstimatedPrise"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:layout_marginStart="16dp" android:id="@+id/linearLayout"
-                        android:layout_marginBottom="8dp"
-                        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent">
+                        android:fontFamily="@font/sfpromedium"
+                        android:paddingRight="4dp"
+                        android:text="≈"
+                        android:textColor="#000000"
+                        android:textSize="18sp"
+                        android:visibility="gone"
+                        tools:layout_editor_absoluteX="107dp"
+                        tools:layout_editor_absoluteY="67dp" />
 
                     <TextView
-                            android:text="≈"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" tools:layout_editor_absoluteY="67dp"
-                            tools:layout_editor_absoluteX="107dp" android:id="@+id/isEstimatedPrise"
-                            android:textColor="#000000"
-                            android:fontFamily="@font/sfpromedium"
-                            android:textSize="18sp"
-                            android:paddingRight="4dp"
-                            android:visibility="gone"/>
+                        android:id="@+id/price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sfpromedium"
+                        android:paddingRight="4dp"
+                        android:text="345"
+                        android:textColor="#000000"
+                        android:textSize="18sp"
+                        tools:layout_editor_absoluteX="107dp"
+                        tools:layout_editor_absoluteY="67dp" />
 
                     <TextView
-                            android:text="345"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" tools:layout_editor_absoluteY="67dp"
-                            tools:layout_editor_absoluteX="107dp" android:id="@+id/price"
-                            android:textColor="#000000"
-                            android:fontFamily="@font/sfpromedium"
-                            android:textSize="18sp"
-                            android:paddingRight="4dp"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sfpromedium"
+                        android:text="₽"
+                        android:textColor="#000000"
+                        android:textSize="18sp"
+                        tools:layout_editor_absoluteX="165dp"
+                        tools:layout_editor_absoluteY="67dp" />
+
                     <TextView
-                            android:text="₽"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            tools:layout_editor_absoluteY="67dp"
-                            tools:layout_editor_absoluteX="165dp"
-                            android:textColor="#000000"
-                            android:fontFamily="@font/sfpromedium"
-                            android:textSize="18sp"
-                    />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sfpromedium"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:text="/"
+                        android:textColor="#C6C6C6"
+                        android:textSize="14sp"
+                        tools:layout_editor_absoluteX="223dp"
+                        tools:layout_editor_absoluteY="65dp" />
+
                     <TextView
-                            android:text="/"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            tools:layout_editor_absoluteY="65dp"
-                            tools:layout_editor_absoluteX="223dp"
-                            android:textColor="#C6C6C6"
-                            android:fontFamily="@font/sfpromedium"
-                            android:textSize="14sp"
-                            android:paddingRight="4dp"
-                            android:paddingLeft="4dp"/>
-                    <TextView
-                            android:text="2,5кг"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" tools:layout_editor_absoluteY="46dp"
-                            tools:layout_editor_absoluteX="198dp" android:id="@+id/count_product"
-                            android:textColor="#C6C6C6"
-                            android:fontFamily="@font/sfpromedium"
-                            android:textSize="14sp"/>
+                        android:id="@+id/count_product"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sfpromedium"
+                        android:text="2,5кг"
+                        android:textColor="#C6C6C6"
+                        android:textSize="14sp"
+                        tools:layout_editor_absoluteX="198dp"
+                        tools:layout_editor_absoluteY="46dp" />
                 </LinearLayout>
 
-                <LinearLayout android:layout_width="wrap_content"
-                              android:layout_height="wrap_content"
-                              android:orientation="horizontal"
-                              app:layout_constraintEnd_toEndOf="parent"
-                              android:layout_marginEnd="16dp"
-                              app:layout_constraintTop_toTopOf="parent"
-                              app:layout_constraintBottom_toBottomOf="parent"
-                >
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
 
                     <ImageButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/ic_button_minus_big"
-                            android:id="@+id/minus"
-                            tools:ignore="VectorDrawableCompat"
-                            android:background="@color/colorPrimaryDark"
-                            android:visibility="gone"
+                        android:id="@+id/minus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimaryDark"
+                        android:visibility="gone"
+                        app:srcCompat="@drawable/ic_button_minus_big"
+                        tools:ignore="VectorDrawableCompat"
 
-                    />
+                        />
 
                     <br.com.sapereaude.maskedEditText.MaskedEditText
-                            android:text="0"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/input_product"
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:fontFamily="@font/sfpromedium"
-                            android:inputType="number"
-                            android:background="@color/colorPrimaryDark"
-                            android:focusable="true"
-                            android:maxEms="4"
-                            android:cursorVisible="true"
-                            android:paddingTop="5dp"
-                            android:paddingLeft="16dp"
-                            android:paddingRight="16dp"
-                            android:visibility="gone"
-                            android:digits="0123456789"
-                            mask:mask="####"
+                        android:id="@+id/input_product"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimaryDark"
+                        android:cursorVisible="true"
+                        android:digits="0123456789"
+                        android:focusable="true"
+                        android:fontFamily="@font/sfpromedium"
+                        android:inputType="number"
+                        android:maxEms="4"
+                        android:paddingLeft="16dp"
+                        android:paddingTop="5dp"
+                        android:paddingRight="16dp"
+                        android:text="0"
+                        android:textColor="#000000"
+                        android:textSize="14sp"
+                        android:visibility="gone"
+                        mask:mask="####"
 
 
-                    />
+                        />
+
                     <ImageButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/ic_button_plus_big"
-                            android:id="@+id/plus"
-                            android:background="@color/colorPrimaryDark"
-                            tools:ignore="VectorDrawableCompat"
-                    />
+                        android:id="@+id/plus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimaryDark"
+                        app:srcCompat="@drawable/ic_button_plus_big"
+                        tools:ignore="VectorDrawableCompat" />
 
 
                 </LinearLayout>
             </android.support.constraint.ConstraintLayout>
 
-            <LinearLayout android:layout_width="match_parent" android:layout_height="1dp"
-                          android:background="#F6F6F6" app:layout_constraintStart_toStartOf="parent"
-                          app:layout_constraintEnd_toEndOf="parent"
-                          android:textSize="14sp" android:layout_marginTop="24dp"
-                          app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-            />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="24dp"
+                android:background="#F6F6F6"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
             <TextView
-                    android:text="Описание :"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView9"
-                    android:fontFamily="@font/sfpromedium"
-                    android:textColor="#000000"
-                    android:textSize="14sp" android:layout_marginTop="24dp"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout" android:layout_marginStart="16dp"
-                    app:layout_constraintStart_toStartOf="parent"
-            />
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/sfpromedium"
+                android:text="Описание :"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
             <TextView
 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/discription"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/sfpromedium"
-                    android:textSize="12sp" app:layout_constraintTop_toBottomOf="@+id/textView9"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginBottom="16dp"/>
+                android:id="@+id/discription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/sfpromedium"
+                android:textColor="#000000"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
-    <FrameLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/product_card_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent">
+
+        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/product_card_container"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintBottom_toTopOf="parent"
-            android:visibility="gone"
-    >
-
-        <android.support.constraint.ConstraintLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#FFFFFF"
-                android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:background="#FFFFFF">
 
 
             <ImageView
-                    android:src="@drawable/ic_wifi"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:id="@+id/imageView" app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="175dp" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="176dp" android:layout_marginTop="200dp"
-            />
+                android:id="@+id/imageView"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="175dp"
+                android:layout_marginTop="200dp"
+                android:layout_marginEnd="176dp"
+                android:src="@drawable/ic_wifi"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <Button
-                    android:layout_width="160dp"
-                    android:layout_height="41dp"
-                    android:id="@+id/update_productcard"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="109dp" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="106dp"
-                    android:textAlignment="center"
-                    android:layout_marginTop="40dp" app:layout_constraintTop_toBottomOf="@+id/textView5"
-                    android:background="@drawable/activebutton" android:textAllCaps="false"
-                    android:text="Обновить"
-                    android:textColor="#FFFFFF"
-                    android:textSize="14sp"
-                    android:clickable="true"/>
+                android:id="@+id/update_productcard"
+                android:layout_width="160dp"
+                android:layout_height="41dp"
+                android:layout_marginStart="109dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="106dp"
+                android:background="@drawable/activebutton"
+                android:clickable="true"
+                android:text="Обновить"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
             <TextView
-                    android:text="@string/connect_problem"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/sfprodisplay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView4" android:layout_marginTop="26dp"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="175dp" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="178dp"
-                    android:textSize="18sp"/>
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="175dp"
+                android:layout_marginTop="26dp"
+                android:layout_marginEnd="178dp"
+                android:fontFamily="@font/sfprodisplay"
+                android:text="@string/connect_problem"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
             <TextView
-                    android:text="@string/check_settings"
-                    android:layout_width="191dp"
-                    android:layout_height="57dp"
-                    android:id="@+id/textView5" android:layout_marginTop="12dp"
-                    app:layout_constraintTop_toBottomOf="@+id/textView4"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="101dp" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="101dp" android:textAlignment="center"
-                    android:textColor="#444444"
-                    android:textSize="14sp" app:layout_constraintHorizontal_bias="0.666"
-                    android:fontFamily="@font/sfprolight"/>
+                android:id="@+id/textView5"
+                android:layout_width="191dp"
+                android:layout_height="57dp"
+                android:layout_marginStart="101dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="101dp"
+                android:fontFamily="@font/sfprolight"
+                android:text="@string/check_settings"
+                android:textAlignment="center"
+                android:textColor="#444444"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.666"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
         </android.support.constraint.ConstraintLayout>
 
 
@@ -297,13 +331,16 @@
 
 
     <ProgressBar
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/progressBar_productcard"
-            android:layout_gravity="center"
-            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="parent"/>
+        android:id="@+id/progressBar_productcard"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

@@ -1,36 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="56dp">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="56dp">
 
 
     <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:id="@+id/image_category"
-            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-    />
+        android:id="@+id/image_category"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
-            android:text="Рыбное филе"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/text_category"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="18dp"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="19dp"
-            app:layout_constraintVertical_bias="1.0"
-            android:layout_marginStart="64dp" app:layout_constraintStart_toStartOf="parent"
-            android:textAlignment="textStart"
-    android:fontFamily="@font/sfpromedium"
-    android:textColor="#000"/>
+        android:id="@+id/text_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="19dp"
+        android:fontFamily="@font/sfpromedium"
+        android:text="Рыбное филе"
+        android:textAlignment="textStart"
+        android:textColor="#000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
     <ImageView
-            android:layout_width="8dp"
-            android:layout_height="13dp" app:srcCompat="@drawable/arrow_category"
-            android:id="@+id/imageView2" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="22dp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="22dp" app:layout_constraintVertical_bias="1.0"/>
+        android:id="@+id/imageView2"
+        android:layout_width="8dp"
+        android:layout_height="13dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginBottom="22dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/arrow_category" />
 </android.support.constraint.ConstraintLayout>
