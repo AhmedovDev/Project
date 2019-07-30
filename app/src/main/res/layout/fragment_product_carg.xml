@@ -3,6 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        xmlns:mask="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.screens.productcard.ui.ProductCargFragment"
@@ -143,10 +144,11 @@
                             android:id="@+id/minus"
                             tools:ignore="VectorDrawableCompat"
                             android:background="@color/colorPrimaryDark"
+                            android:visibility="gone"
 
                     />
 
-                    <EditText
+                    <br.com.sapereaude.maskedEditText.MaskedEditText
                             android:text="0"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -162,6 +164,10 @@
                             android:paddingTop="5dp"
                             android:paddingLeft="16dp"
                             android:paddingRight="16dp"
+                            android:visibility="gone"
+                            android:digits="0123456789"
+                            mask:mask="####"
+
 
                     />
                     <ImageButton

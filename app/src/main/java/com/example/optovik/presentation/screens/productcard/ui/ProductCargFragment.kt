@@ -99,6 +99,8 @@ class ProductCargFragment : BaseFragment(), ProductCardView {
             input_product.visibility = View.VISIBLE
             sum++
             input_product.setText("$sum")
+
+
         }
     }
 
@@ -118,6 +120,7 @@ class ProductCargFragment : BaseFragment(), ProductCardView {
                 }
                 input_product.setText("$sum")
             }
+
 
         }
     }
