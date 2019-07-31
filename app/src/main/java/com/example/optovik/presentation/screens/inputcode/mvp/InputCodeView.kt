@@ -4,6 +4,6 @@ import com.arellomobile.mvp.MvpView
 
 interface InputCodeView : MvpView {
     fun isVisibleTimer(visible: Boolean)
-    fun showTimeProgress(progress: Int)
+    fun showTimeProgress()
 
 }

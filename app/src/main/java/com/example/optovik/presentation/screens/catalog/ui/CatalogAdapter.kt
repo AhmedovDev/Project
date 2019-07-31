@@ -17,12 +17,13 @@ import kotlinx.android.synthetic.main.item_catalog.*
 import kotlinx.android.synthetic.main.item_catalog.view.*
 
 private typealias OnCategoryClickListener = ((Products) -> Unit)
-lateinit var basket: Basket
 
-class CatalogAdapter(private val products: List<Products>) :
+class CatalogAdapter(private val products: List<Products>, private val clickListener1: (Products) -> Unit) :
     RecyclerView.Adapter<CatalogAdapter.CatalogViewHolder>() {
 
     private var clickListener: OnCategoryClickListener? = null
+
+    private var basket: Basket? = null
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatalogViewHolder {
@@ -35,8 +36,8 @@ class CatalogAdapter(private val products: List<Products>) :
     override fun onBindViewHolder(holder: CatalogViewHolder, position: Int) {
         holder.bind(products[position], clickListener!!)
         // todo сделать нормально
-        holder.PlusClick()
-        holder.MinusClick()
+        holder.PlusClick(products[position])
+        holder.MinusClick(products[position])
         holder.keyboardHide()
     }
 
@@ -47,10 +48,10 @@ class CatalogAdapter(private val products: List<Products>) :
     }
 
 
-    class CatalogViewHolder(override val containerView: View) :
+    inner class CatalogViewHolder(override val containerView: View) :
         RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-        fun PlusClick() {
+        fun PlusClick(products: Products) {
             var sum = 0
             with(containerView) {
                 plus.setOnClickListener {
@@ -61,11 +62,12 @@ class CatalogAdapter(private val products: List<Products>) :
                     input_product.visibility = View.VISIBLE
                     sum++
                     input_product.setText("$sum")
+                    clickListener1(products)
                 }
             }
         }
 
-        fun MinusClick() {
+        fun MinusClick(products: Products) {
             var sum = 0
             minus.setOnClickListener {
                 if (input_product.text.toString() == "" || input_product.text.toString() == "0") {
@@ -80,6 +82,7 @@ class CatalogAdapter(private val products: List<Products>) :
                     }
                     input_product.setText("$sum")
                 }
+                clickListener1(products)
             }
         }
 
@@ -98,7 +101,6 @@ class CatalogAdapter(private val products: List<Products>) :
         fun bind(products: Products, clickListener: OnCategoryClickListener) {
             Picasso.get()
                 .load(products.image)
-                .placeholder(R.drawable.box)
                 .into(containerView.image_product)
             containerView.product_name.text = products.name
             containerView.price.text = products.price.toString()

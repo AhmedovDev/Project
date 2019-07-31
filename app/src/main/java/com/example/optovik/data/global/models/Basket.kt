@@ -4,7 +4,7 @@ class Basket {
 
     class Item(val products: Products, var quantity: Int)
 
-    lateinit var items: MutableList<Item>
+     var items: MutableList<Item> = ArrayList()
 
     fun addProduct(products: Products, quantity: Int) {
 

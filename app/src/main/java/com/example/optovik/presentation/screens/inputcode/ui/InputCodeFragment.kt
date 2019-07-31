@@ -37,18 +37,25 @@ class InputCodeFragment : BaseFragment(), InputCodeView {
             getCode.visibility = View.VISIBLE
         }
     }
-// todo реализовать через CountDownTimer
-    override fun showTimeProgress(progress: Int) {
-        val progressSeconds = resources.getQuantityString(R.plurals.number_of_seconds, progress, progress)
-        val progressText = getString(R.string.confirmation_timer, progressSeconds)
-        timer.text = progressText
+
+    // таймер
+    override fun showTimeProgress() {
+
+        val countDownTimer = object : CountDownTimer(60000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                var time = millisUntilFinished/1000
+                val progressSeconds = resources.getQuantityString(R.plurals.number_of_seconds, time.toInt(),time)
+                val progressText = getString(R.string.confirmation_timer, progressSeconds)
+                timer.text = progressText
+            }
+            override fun onFinish() {
+                isVisibleTimer(false)
+                getCode.setOnClickListener { presenter.retrySendCode() }
+            }
+        }
+        var timmer = countDownTimer.start()
     }
 
-    val timmer = object: CountDownTimer(60000, 1000) {
-        override fun onTick(millisUntilFinished: Long) {millisUntilFinished/1000}
-
-        override fun onFinish() {}
-    }
 
     @Inject
     @InjectPresenter
@@ -58,15 +65,6 @@ class InputCodeFragment : BaseFragment(), InputCodeView {
     fun providePresenter() = presenter
 
     private var phone = ""
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_input_code, container, false)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         App.appComponent.inputCodeComponentBuilder()
             .build()
@@ -77,12 +75,20 @@ class InputCodeFragment : BaseFragment(), InputCodeView {
         }
     }
 
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_input_code, container, false)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         phoneOnEditCode.text = phone
         getCode.setOnClickListener {
-            presenter.retrySendCode()
             exampleCodeCheck()
             getCode.setOnTouchListener { v, _ ->
                 hideKeyboard(context!!, v)
@@ -117,10 +123,11 @@ class InputCodeFragment : BaseFragment(), InputCodeView {
         fun newInstance(phone: String) = InputCodeFragment().withArgs {
             putString(PHONE, phone)
         }
+
         private const val PHONE = "phone"
     }
 
-// todo временная проверка кода
+    // todo временная проверка кода
     private fun exampleCodeCheck() {
         var code: String = "1111"
         var getCode: String = PinView_inputCodeFragment_code.text.toString()

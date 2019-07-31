@@ -12,8 +12,10 @@ import com.example.optovik.App
 import com.example.optovik.R
 import com.example.optovik.data.global.models.Products
 import com.example.optovik.presentation.global.BaseFragment
+import com.example.optovik.presentation.global.utils.UpdateBasket
 import com.example.optovik.presentation.screens.catalog.mvp.CatalogPresenter
 import com.example.optovik.presentation.screens.catalog.mvp.CatalogView
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_catalog.*
 import kotlinx.android.synthetic.main.toolbar_catalog.*
 import ru.terrakok.cicerone.Navigator
@@ -33,7 +35,12 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView {
     @ProvidePresenter
     fun providePresenter() = presenter
 
+    @field:Inject
+    lateinit var updateBasket: UpdateBasket
+
     private lateinit var navigator: Navigator
+
+    lateinit var disposable: Disposable
 
     private val currentFragment
         get() = supportFragmentManager.findFragmentById(R.id.container_productcard) as BaseFragment?
@@ -48,6 +55,10 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView {
         initViews()
         backArrowClickListener()
         navigator = SupportAppNavigator(this, R.id.container_productcard)
+        disposable = updateBasket.subscribe().subscribe {
+            //Для обновления корзины
+            Log.e("DSFDSF", "DSAFFAS")
+        }
 
     }
 
@@ -70,7 +81,7 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView {
     }
 
     override fun showProducts(products: List<Products>) {
-        val adapter = CatalogAdapter(products)
+        val adapter = CatalogAdapter(products) { presenter.updateBasket.notify1(Pair(122, 122)) }
         product_recycler.adapter = adapter
         adapter.setOnCatalogClickListener {
             presenter.gotoProducCard()
@@ -108,6 +119,12 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView {
         super.onPause()
     }
 
-    override fun onBackPressed() =  currentFragment?.onBackPressed() ?: presenter.onBackPressed()
+    override fun onDestroy() {
+        super.onDestroy()
+        disposable.dispose()
+
+    }
+
+    override fun onBackPressed() = currentFragment?.onBackPressed() ?: presenter.onBackPressed()
 
 }
