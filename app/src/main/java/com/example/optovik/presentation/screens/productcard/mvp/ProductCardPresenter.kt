@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 @InjectViewState
 class ProductCardPresenter @Inject constructor(private val router: Router, private val dataManager: DataManager) :
-    BasePresenter<ProductCardView>(router) {
+    BasePresenter<ProductCardView>(router,dataManager) {
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         getAllData()

@@ -40,7 +40,6 @@ class CategoryAdapter(private val categoryes: List<Category>) :
         fun bind(categoryes: Category, clickListener: OnCategoryClickListener?) {
             Picasso.get()
                 .load(categoryes.image)
-                .placeholder(R.drawable.box)
                 .into(containerView.image_category)
             containerView.text_category.text = categoryes.name
             itemView.setOnClickListener { clickListener?.invoke(categoryes)}

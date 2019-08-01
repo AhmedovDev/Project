@@ -15,6 +15,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.activity_catalog.view.*
 import kotlinx.android.synthetic.main.item_catalog.*
 import kotlinx.android.synthetic.main.item_catalog.view.*
+import javax.inject.Inject
 
 private typealias OnCategoryClickListener = ((Products) -> Unit)
 
@@ -23,8 +24,8 @@ class CatalogAdapter(private val products: List<Products>, private val clickList
 
     private var clickListener: OnCategoryClickListener? = null
 
-    private var basket: Basket? = null
-
+//    @Inject
+//    lateinit var basket: Basket
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatalogViewHolder {
         val itemView = LayoutInflater
@@ -110,6 +111,7 @@ class CatalogAdapter(private val products: List<Products>, private val clickList
                 containerView.plus.visibility = View.GONE
                 containerView.input_product.visibility = View.VISIBLE
                 containerView.input_product.maxEms = 6
+                containerView.input_product.mask = "#############"
                 containerView.input_product.setTextColor(R.color.colorTextHint)
                 containerView.input_product.setText("Нет в наличии")
                 containerView.input_product.isEnabled = false
@@ -120,6 +122,8 @@ class CatalogAdapter(private val products: List<Products>, private val clickList
             if (input_product.text.toString() == "") minus.visibility = View.GONE
 
             containerView.image_product.setOnClickListener { clickListener.invoke(products) }
+            containerView.product_name.setOnClickListener { clickListener.invoke(products) }
+            containerView.price_and_count.setOnClickListener { clickListener.invoke(products) }
         }
     }
 }

@@ -63,15 +63,14 @@
     <include
         android:id="@+id/toolbarmain"
         layout="@layout/toolbar_autorization"
-        android:layout_width="0dp"
         mask:layout_constraintEnd_toEndOf="parent"
         mask:layout_constraintStart_toStartOf="parent"
         mask:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="280dp"
-        android:layout_height="49dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="65dp"
         android:layout_marginTop="101dp"
         android:layout_marginEnd="66dp"

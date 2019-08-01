@@ -6,10 +6,8 @@ import com.example.optovik.data.global.models.Basket
 import com.example.optovik.data.global.models.Products
 import com.example.optovik.presentation.global.BasePresenter
 import com.example.optovik.presentation.global.Screens
-import com.example.optovik.presentation.global.utils.NetworkChecking
 import com.example.optovik.presentation.global.utils.UpdateBasket
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.subjects.PublishSubject
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
@@ -17,9 +15,8 @@ import javax.inject.Inject
 @InjectViewState
 class CatalogPresenter @Inject constructor(
     private val router: Router, private val dataManager: DataManager, val updateBasket: UpdateBasket
-) : BasePresenter<CatalogView>(router) {
+) : BasePresenter<CatalogView>(router,dataManager) {
 
-    lateinit var basket: Basket
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -28,7 +25,6 @@ class CatalogPresenter @Inject constructor(
     }
 
     fun getAllCatalog() {
-        //q.onNext("12223")
         dataManager.getDataCatalog()
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { viewState.showProgress(true) }
@@ -52,12 +48,12 @@ class CatalogPresenter @Inject constructor(
     }
 
     fun addProduct(products: Products) {
-        basket.addProduct(products,1)
+//        basket.addProduct(products, 1)
 
     }
 
     fun removeProduct(products: Products) {
-        basket.deleteProduct(products,1)
+//        basket.deleteProduct(products, 1)
     }
 
 

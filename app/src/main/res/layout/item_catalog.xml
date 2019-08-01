@@ -21,7 +21,7 @@
 
     <TextView
         android:id="@+id/product_name"
-        android:layout_width="wrap_content"
+        android:layout_width="243dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
@@ -33,12 +33,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        android:id="@+id/price_and_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="31dp"
-        app:layout_constraintStart_toEndOf="@+id/image_product"
-        app:layout_constraintTop_toBottomOf="@+id/product_name">
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/image_product">
 
         <TextView
             android:id="@+id/isEstimatedPrise"
@@ -98,6 +99,8 @@
             tools:layout_editor_absoluteX="198dp"
             tools:layout_editor_absoluteY="46dp" />
     </LinearLayout>
+
+
 
     <br.com.sapereaude.maskedEditText.MaskedEditText
         android:id="@+id/input_product"

@@ -16,6 +16,7 @@ import android.view.View
 import com.example.optovik.R
 import com.example.optovik.data.global.models.Category
 import com.example.optovik.data.global.models.Event
+import com.example.optovik.presentation.global.BaseFragment
 import com.example.optovik.presentation.screens.catalog.ui.CatalogActivity
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
@@ -36,6 +37,9 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     private lateinit var navigator: Navigator
 
+    private val currentFragment
+        get() = supportFragmentManager.findFragmentById(R.id.container_main_activity) as BaseFragment?
+
     override fun onCreate(savedInstanceState: Bundle?) {
         App.appComponent.mainComponentBuilder()
             .build()
@@ -43,7 +47,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         super.onCreate(savedInstanceState)
         setContentView(com.example.optovik.R.layout.activity_main)
         initViews()
-        navigator = SupportAppNavigator(this, R.id.mainactivity_container)
+        navigator = SupportAppNavigator(this, R.id.container_main_activity)
 
     }
 
@@ -100,6 +104,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     override fun showEvents(event: List<Event>) {
         val adapter = EventAdapter(event)
         event_recycler.adapter = adapter
+        adapter.setOnEventClickListener { presenter.onEventClick() }
     }
 
     override fun onResumeFragments() {

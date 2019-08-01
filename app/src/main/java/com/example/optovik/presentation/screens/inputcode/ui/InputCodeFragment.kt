@@ -40,20 +40,7 @@ class InputCodeFragment : BaseFragment(), InputCodeView {
 
     // таймер
     override fun showTimeProgress() {
-
-        val countDownTimer = object : CountDownTimer(60000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                var time = millisUntilFinished/1000
-                val progressSeconds = resources.getQuantityString(R.plurals.number_of_seconds, time.toInt(),time)
-                val progressText = getString(R.string.confirmation_timer, progressSeconds)
-                timer.text = progressText
-            }
-            override fun onFinish() {
-                isVisibleTimer(false)
-                getCode.setOnClickListener { presenter.retrySendCode() }
-            }
-        }
-        var timmer = countDownTimer.start()
+        countDownTimer.start()
     }
 
 
@@ -63,6 +50,19 @@ class InputCodeFragment : BaseFragment(), InputCodeView {
 
     @ProvidePresenter
     fun providePresenter() = presenter
+
+    private val countDownTimer = object : CountDownTimer(60000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {
+            var time = millisUntilFinished/1000
+            val progressSeconds = resources.getQuantityString(R.plurals.number_of_seconds, time.toInt(), time.toInt())
+            val progressText = getString(R.string.confirmation_timer, progressSeconds)
+            timer.text = progressText
+        }
+        override fun onFinish() {
+            isVisibleTimer(false)
+            getCode.setOnClickListener { presenter.retrySendCode() }
+        }
+    }
 
     private var phone = ""
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -113,6 +113,11 @@ class InputCodeFragment : BaseFragment(), InputCodeView {
             }
 
         })
+    }
+
+    override fun onStop() {
+        super.onStop()
+        countDownTimer.cancel()
     }
 
 

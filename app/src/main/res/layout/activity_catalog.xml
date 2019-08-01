@@ -41,18 +41,18 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="0dp"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/include">
+            android:focusable="true"
+            app:layout_constraintTop_toBottomOf="@+id/include"
+            >
 
             <RelativeLayout
                 android:id="@+id/reletiv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="59dp"
                 android:background="#14FFC700"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+          >
 
                 <TextView
                     android:id="@+id/textView6"
@@ -89,14 +89,12 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/product_recycler"
                 android:layout_width="match_parent"
-                android:layout_height="564dp"
-                android:layout_alignParentStart="true"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/button_green"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reletiv"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@+id/reletiv" />
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
@@ -144,11 +142,9 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="130dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView13"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView

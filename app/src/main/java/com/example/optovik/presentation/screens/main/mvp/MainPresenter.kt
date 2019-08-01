@@ -13,7 +13,7 @@ import javax.inject.Inject
 @InjectViewState
 class MainPresenter @Inject constructor(
     private val router: Router, private val dataManager: DataManager, val networkChecking: NetworkChecking
-) : BasePresenter<MainView>(router) {
+) : BasePresenter<MainView>(router,dataManager) {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -37,6 +37,10 @@ class MainPresenter @Inject constructor(
                                     }
             )
             .connect()
+    }
+
+    fun onEventClick() {
+        router.navigateTo(Screens.ProductCard)
     }
 
 

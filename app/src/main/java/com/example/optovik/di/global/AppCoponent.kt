@@ -19,6 +19,8 @@ import javax.inject.Singleton
         PrefsModule::class,
         DataModule::class,
         DatabaseModule::class
+     //   BasketModule::class
+
     ]
 )
 @Singleton
