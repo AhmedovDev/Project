@@ -1,5 +1,6 @@
 package com.example.optovik.data.global
 
+import com.example.optovik.data.global.models.Basket
 import com.example.optovik.data.global.models.Catalog
 import com.example.optovik.data.global.models.DataModel
 import com.example.optovik.data.global.models.ProductCard
@@ -11,5 +12,7 @@ interface DataManager {
     fun getDataCatalog(): Single<Catalog>
 
     fun getProducCard(): Single<ProductCard>
+
+    fun getBasket(): Single<List<Basket>>
 
 }

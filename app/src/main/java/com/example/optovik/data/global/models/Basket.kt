@@ -1,34 +1,12 @@
 package com.example.optovik.data.global.models
 
+import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
-public class Basket  {
+@Parcelize
+class Basket (
+    @SerializedName("product") val products: Products,
+    @SerializedName("quantity") val quantity: Int
+) : Parcelable
 
-    class Item(val products: Products, var quantity: Int)
-
-    var items: MutableList<Item> = ArrayList()
-
-    fun addProduct(products: Products, quantity: Int) {
-        for (item in items) {
-            if (item.products.id == products.id) {
-                items[products.id].quantity = quantity
-            } else {
-                items.add(Item(products, quantity))
-            }
-        }
-    }
-
-    fun deleteProduct(products: Products, quantity: Int) {
-        for (item in items) {
-            items.removeAt(item.products.id)
-        }
-    }
-
-    fun reduceProductInBasket(products: Products, quantity: Int) {
-        for (item in items) {
-            if (item.products.id == products.id)
-                item.quantity = quantity
-        }
-    }
-
-    //todo добавить запрос на получение корзины
-}

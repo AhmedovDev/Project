@@ -1,19 +1,19 @@
 package com.example.optovik.presentation.screens.catalog.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.View
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.optovik.App
 import com.example.optovik.R
-import com.example.optovik.data.global.models.Basket
 import com.example.optovik.data.global.models.Products
 import com.example.optovik.presentation.global.BaseFragment
 import com.example.optovik.presentation.global.utils.UpdateBasket
+import com.example.optovik.presentation.screens.basket.ui.BasketActivity
 import com.example.optovik.presentation.screens.catalog.mvp.CatalogPresenter
 import com.example.optovik.presentation.screens.catalog.mvp.CatalogView
 import io.reactivex.disposables.Disposable
@@ -57,6 +57,7 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView {
         setContentView(R.layout.activity_catalog)
         initViews()
         backArrowClickListener()
+        basketButtonClick()
         navigator = SupportAppNavigator(this, R.id.container_productcard)
 //        disposable = updateBasket.subscribe().subscribe {
 //            //Для обновления корзины
@@ -73,6 +74,11 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView {
             )
         }
         updateClick()
+    }
+
+    fun basketButtonClick(){
+        button_green.setOnClickListener {  val intent = Intent(this, BasketActivity::class.java)
+            startActivity(intent) }
     }
 
     fun updateClick() {

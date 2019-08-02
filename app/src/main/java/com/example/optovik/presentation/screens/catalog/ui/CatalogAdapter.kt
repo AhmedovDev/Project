@@ -7,15 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import com.example.optovik.R
-import com.example.optovik.data.global.models.Basket
 import com.example.optovik.data.global.models.Products
 import com.example.optovik.presentation.global.utils.hideKeyboard
 import com.squareup.picasso.Picasso
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.activity_catalog.view.*
 import kotlinx.android.synthetic.main.item_catalog.*
 import kotlinx.android.synthetic.main.item_catalog.view.*
-import javax.inject.Inject
 
 private typealias OnCategoryClickListener = ((Products) -> Unit)
 
@@ -25,7 +22,7 @@ class CatalogAdapter(private val products: List<Products>, private val clickList
     private var clickListener: OnCategoryClickListener? = null
 
 //    @Inject
-//    lateinit var basket: Basket
+//    lateinit var basket: BasketHolder
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatalogViewHolder {
         val itemView = LayoutInflater

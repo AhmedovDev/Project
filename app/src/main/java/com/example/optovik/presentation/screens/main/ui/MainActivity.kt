@@ -14,6 +14,7 @@ import javax.inject.Inject
 import android.support.v7.widget.*
 import android.view.View
 import com.example.optovik.R
+import com.example.optovik.data.basketholder.BasketHolder
 import com.example.optovik.data.global.models.Category
 import com.example.optovik.data.global.models.Event
 import com.example.optovik.presentation.global.BaseFragment
@@ -27,6 +28,9 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
+
+    @Inject
+    lateinit var basketHolder: BasketHolder
 
     @Inject
     @InjectPresenter
@@ -48,6 +52,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         setContentView(com.example.optovik.R.layout.activity_main)
         initViews()
         navigator = SupportAppNavigator(this, R.id.container_main_activity)
+
 
     }
 

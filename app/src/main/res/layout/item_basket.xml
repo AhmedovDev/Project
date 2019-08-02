@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mask="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="112dp">
+
+
+    <ImageView
+        android:id="@+id/image_product_basket"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/free" />
+
+    <TextView
+        android:id="@+id/product_name_basket"
+        android:layout_width="223dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/sfpromedium"
+        android:text="Картошка фри 9мл LW(S01) «Стелс» "
+        android:textColor="#444444"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/exit"
+        app:layout_constraintStart_toEndOf="@+id/image_product_basket"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/price_and_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/image_product_basket">
+
+        <TextView
+            android:id="@+id/isEstimatedPrise_basket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sfpromedium"
+            android:paddingRight="4dp"
+            android:text="≈"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:visibility="gone"
+            tools:layout_editor_absoluteX="107dp"
+            tools:layout_editor_absoluteY="67dp" />
+
+        <TextView
+            android:id="@+id/price_basket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sfpromedium"
+            android:paddingRight="4dp"
+            android:text="345"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            tools:layout_editor_absoluteX="107dp"
+            tools:layout_editor_absoluteY="67dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sfpromedium"
+            android:text="₽"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            tools:layout_editor_absoluteX="165dp"
+            tools:layout_editor_absoluteY="67dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sfpromedium"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="/"
+            android:textColor="#C6C6C6"
+            android:textSize="12sp"
+            tools:layout_editor_absoluteX="223dp"
+            tools:layout_editor_absoluteY="65dp" />
+
+        <TextView
+            android:id="@+id/count_product_basket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sfpromedium"
+            android:text="2,5кг"
+            android:textColor="#C6C6C6"
+            android:textSize="12sp"
+            tools:layout_editor_absoluteX="198dp"
+            tools:layout_editor_absoluteY="46dp" />
+    </LinearLayout>
+
+
+    <br.com.sapereaude.maskedEditText.MaskedEditText
+        android:id="@+id/input_product_basket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="73dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="25dp"
+        android:background="@color/colorPrimaryDark"
+        android:cursorVisible="true"
+        android:digits="0123456789"
+        android:focusable="true"
+        android:fontFamily="@font/sfpromedium"
+        android:inputType="number"
+        android:text="0"
+        android:textColor="#000000"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/plus_basket"
+        app:layout_constraintTop_toTopOf="parent"
+        mask:mask="####" />
+
+    <ImageButton
+        android:id="@+id/plus_basket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_active_button_plus"
+        tools:ignore="VectorDrawableCompat" />
+
+    <ImageButton
+        android:id="@+id/minus_basket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/input_product_basket"
+        app:srcCompat="@drawable/ic_button_minus"
+        tools:ignore="VectorDrawableCompat" />
+
+    <ImageView
+        android:id="@+id/exit"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="22dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        mask:srcCompat="@drawable/xxl" />
+
+</android.support.constraint.ConstraintLayout>
