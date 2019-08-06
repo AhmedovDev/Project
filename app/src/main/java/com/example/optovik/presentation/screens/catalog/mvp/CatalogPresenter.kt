@@ -1,6 +1,7 @@
 package com.example.optovik.presentation.screens.catalog.mvp
 
 import com.arellomobile.mvp.InjectViewState
+import com.example.optovik.data.basketholder.BasketHolder
 import com.example.optovik.data.global.DataManager
 import com.example.optovik.data.global.models.Products
 import com.example.optovik.presentation.global.BasePresenter
@@ -13,8 +14,11 @@ import javax.inject.Inject
 
 @InjectViewState
 class CatalogPresenter @Inject constructor(
-    private val router: Router, private val dataManager: DataManager, val updateBasket: UpdateBasket
-) : BasePresenter<CatalogView>(router,dataManager) {
+    private val router: Router,
+    private val dataManager: DataManager,
+    val updateBasket: UpdateBasket,
+    private val basketHolder: BasketHolder
+) : BasePresenter<CatalogView>(router, dataManager) {
 
 
     override fun onFirstViewAttach() {
@@ -30,6 +34,12 @@ class CatalogPresenter @Inject constructor(
             .doAfterTerminate { viewState.showProgress(false) }
             .subscribe(
                 { data ->
+                    data.products.forEach { product ->
+                        basketHolder.basketlist.forEach { basket ->
+                            if (product.id == basket.products.id)
+                                product.quantity = basket.quantity
+                        }
+                    }
                     viewState.showProducts(data.products)
 //                    viewState.showEvents(data.events)
                     viewState.visiblCatalog()

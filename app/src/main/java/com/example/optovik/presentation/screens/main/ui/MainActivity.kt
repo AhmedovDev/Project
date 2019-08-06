@@ -103,7 +103,8 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         val adapter = CategoryAdapter(category)
         category_recycler.adapter = adapter
         adapter.setOnCategoryClickListener { val intent = Intent(this,CatalogActivity::class.java)
-            startActivity(intent) }
+            startActivity(intent)
+        }
     }
 
     override fun showEvents(event: List<Event>) {

@@ -21,8 +21,6 @@ class CatalogAdapter(private val products: List<Products>, private val clickList
 
     private var clickListener: OnCategoryClickListener? = null
 
-//    @Inject
-//    lateinit var basket: BasketHolder
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatalogViewHolder {
         val itemView = LayoutInflater
@@ -103,6 +101,12 @@ class CatalogAdapter(private val products: List<Products>, private val clickList
             containerView.product_name.text = products.name
             containerView.price.text = products.price.toString()
             containerView.count_product.text = products.count
+            if (products.quantity != null) {
+                containerView.input_product.visibility = View.VISIBLE
+                containerView.minus.visibility = View.VISIBLE
+                containerView.input_product.setText("${products.quantity}")
+            }
+            products.quantity
             var presence = products.presence
             if (presence == false) {
                 containerView.plus.visibility = View.GONE

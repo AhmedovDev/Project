@@ -108,6 +108,7 @@ class BasketAdapter(private val basket: List<Basket>, private val clickListener1
             var presence = products.presence
             if (presence == false) {
                 containerView.plus_basket.visibility = View.GONE
+                containerView.minus_basket.visibility = View.GONE
                 containerView.input_product_basket.visibility = View.VISIBLE
                 containerView.input_product_basket.maxEms = 6
                 containerView.input_product_basket.mask = "#############"

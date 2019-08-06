@@ -82,7 +82,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/basket_recycler">
+                app:layout_constraintTop_toBottomOf="@+id/basket_recycler"
+                android:background="@color/colorPrimaryDark">
 
                 <TextView
                     android:id="@+id/textView8"
@@ -148,11 +149,12 @@
                     android:layout_toEndOf="@+id/textView10"
                     android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="274dp"
+                    <View
+                        android:layout_width="0dp"
                         android:layout_height="1dp"
+                        android:layout_weight="1"
                         android:layout_gravity="bottom"
-                        android:background="#F6F6F6"></LinearLayout>
+                        android:background="#F6F6F6"/>
 
                     <TextView
                         android:id="@+id/product_price"
@@ -192,13 +194,12 @@
                     android:layout_toEndOf="@+id/textView11"
                     android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="280dp"
+                    <View
+                        android:layout_width="0dp"
                         android:layout_height="1dp"
+                        android:layout_weight="1"
                         android:layout_gravity="bottom"
-                        android:background="#F6F6F6"
-                        android:paddingRight="8dp"></LinearLayout>
-
+                        android:background="#F6F6F6"/>
                     <TextView
                         android:id="@+id/diliviry_price"
                         android:layout_width="wrap_content"
@@ -236,12 +237,13 @@
                     android:layout_toEndOf="@+id/textView12"
                     android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="274dp"
+
+                    <View
+                        android:layout_width="0dp"
                         android:layout_height="1dp"
+                        android:layout_weight="1"
                         android:layout_gravity="bottom"
-                        android:background="#F6F6F6"
-                        android:paddingRight="8dp"></LinearLayout>
+                        android:background="#F6F6F6"/>
 
                     <TextView
                         android:id="@+id/all_price"
@@ -404,6 +406,7 @@
         android:id="@+id/container_basket"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
 
        />
 

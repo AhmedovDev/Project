@@ -42,7 +42,7 @@ class CategoryAdapter(private val categoryes: List<Category>) :
                 .load(categoryes.image)
                 .into(containerView.image_category)
             containerView.text_category.text = categoryes.name
-            itemView.setOnClickListener { clickListener?.invoke(categoryes)}
+            itemView.setOnClickListener { clickListener?.invoke(categoryes) }
 
         }
     }

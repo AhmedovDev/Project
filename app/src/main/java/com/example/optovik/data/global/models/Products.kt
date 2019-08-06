@@ -12,6 +12,7 @@ class Products (
     @SerializedName("price") val price: Int,
     @SerializedName("count") val count: String,
     @SerializedName("isEstimatedPrice") val isEstimatedPrice: Boolean,
-    @SerializedName("presence") val presence: Boolean
+    @SerializedName("presence") val presence: Boolean,
+    var quantity: Int?
 
 ) : Parcelable

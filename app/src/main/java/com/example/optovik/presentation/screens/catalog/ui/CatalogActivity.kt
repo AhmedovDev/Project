@@ -10,6 +10,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.optovik.App
 import com.example.optovik.R
+import com.example.optovik.data.basketholder.BasketHolder
 import com.example.optovik.data.global.models.Products
 import com.example.optovik.presentation.global.BaseFragment
 import com.example.optovik.presentation.global.utils.UpdateBasket
@@ -29,7 +30,8 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView {
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
 
-
+    @Inject
+    lateinit var basket: BasketHolder
 
     @Inject
     @InjectPresenter
@@ -76,9 +78,11 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView {
         updateClick()
     }
 
-    fun basketButtonClick(){
-        button_green.setOnClickListener {  val intent = Intent(this, BasketActivity::class.java)
-            startActivity(intent) }
+    fun basketButtonClick() {
+        button_green.setOnClickListener {
+            val intent = Intent(this, BasketActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     fun updateClick() {
@@ -91,8 +95,9 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView {
 
     override fun showProducts(products: List<Products>) {
         val adapter = CatalogAdapter(products) {
-
-             }
+            basket.addProduct(it)
+            basket.items
+        }
         product_recycler.adapter = adapter
         adapter.setOnCatalogClickListener {
             presenter.gotoProducCard()

@@ -38,6 +38,22 @@ class BasketPresenter @Inject constructor(
             .connect()
     }
 
+
+    fun getBasketlocal (){
+        return
+        dataManager.getBasket()
+            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe(
+//                { data ->
+//
+//
+//                },
+//                {
+//                }
+//            )
+//            .connect()
+    }
+
     fun gotoProductCard(){
         router.navigateTo(Screens.ProductCard)
     }

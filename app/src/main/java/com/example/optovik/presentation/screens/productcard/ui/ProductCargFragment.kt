@@ -13,6 +13,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.optovik.App
 
 import com.example.optovik.R
+import com.example.optovik.data.basketholder.BasketHolder
 import com.example.optovik.data.global.models.ProductCard
 import com.example.optovik.presentation.global.BaseFragment
 import com.example.optovik.presentation.global.utils.hideKeyboard
@@ -22,6 +23,7 @@ import com.example.optovik.presentation.screens.productcard.mvp.ProductCardPrese
 import com.example.optovik.presentation.screens.productcard.mvp.ProductCardView
 import kotlinx.android.synthetic.main.fragment_input_phone2.*
 import kotlinx.android.synthetic.main.fragment_product_carg.*
+import kotlinx.android.synthetic.main.toolbar_product_card.*
 import javax.inject.Inject
 
 
@@ -31,6 +33,9 @@ class ProductCargFragment : BaseFragment(), ProductCardView {
     @Inject
     @InjectPresenter
     lateinit var presenter: ProductCardPresenter
+
+    @Inject
+    lateinit var basketHolder: BasketHolder
 
     private var productCard: ProductCard? = null
 
@@ -70,7 +75,7 @@ class ProductCargFragment : BaseFragment(), ProductCardView {
         plusClick()
         minusClick()
 
-        back_button.setOnClickListener { presenter.gotoback() }
+        back_arrow_product_card.setOnClickListener { presenter.gotoback() }
 
     }
 
@@ -144,13 +149,13 @@ class ProductCargFragment : BaseFragment(), ProductCardView {
     override fun showError() {
         product_card_container.visibility = View.VISIBLE
         nestedScrollView_productCard.visibility = View.GONE
-        back_button.visibility = View.GONE
+        back_arrow_product_card.visibility = View.GONE
     }
 
     override fun visiblProductCard() {
         product_card_container.visibility = View.GONE
         nestedScrollView_productCard.visibility = View.VISIBLE
-        back_button.visibility = View.VISIBLE
+        back_arrow_product_card.visibility = View.VISIBLE
     }
 
     override fun showProductCardImages(productCard: ProductCard) {
