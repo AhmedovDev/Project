@@ -7,33 +7,33 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.Retrofit
 
 
-
-
 public class BasketHolder {
 
     class Item(val products: Products, var quantity: Int)
 
-    var basket : List<Basket> = ArrayList()
+    var basket: List<Basket> = ArrayList()
 
     var basketlist: MutableList<Basket> = ArrayList()
 
     var items: MutableList<Item> = ArrayList()
 
     fun addProduct(product: Products) {
-//        for (item in basketlist) {
-//            if (item.products.id == product.id) {
-//                basketlist[product.id].quantity = quantity
-//            } else {
-                basketlist.add(Basket(product, 1))
-//            }
-//        }
-    }
+            if (product.quantity == null)
+                product.quantity = 0
 
-    fun deleteProduct(product: Products) {
-        for (item in basketlist) {
-            basketlist.removeAt(item.products.id)
+            basketlist.add(Basket(product, product.quantity!! + 1))
+
         }
-    }
+
+
+
+        fun deleteProduct(product: Products) {
+            if (product.quantity == 0)
+                product.quantity = null
+            //  if(product.quantity != null && product.quantity != 0)
+            basketlist.add(Basket(product, product.quantity!! - 1))
+
+        }
 
 
 //    fun addProduct(products: Products, quantity: Int) {
@@ -52,16 +52,16 @@ public class BasketHolder {
 //        }
 //    }
 
-    fun reduceProductInBasket(products: Products, quantity: Int) {
+        fun reduceProductInBasket(products: Products, quantity: Int) {
 
-        for (item in items) {
-            if (item.products.id == products.id)
-                item.quantity = quantity
+            for (item in items) {
+                if (item.products.id == products.id)
+                    item.quantity = quantity
+            }
         }
+
+        fun updateBasket(basket: List<Basket>) {
+
+        }
+
     }
-
-    fun updateBasket(basket: List<Basket>) {
-
-    }
-
-}

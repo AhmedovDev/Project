@@ -94,10 +94,19 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView {
     }
 
     override fun showProducts(products: List<Products>) {
-        val adapter = CatalogAdapter(products) {
-            basket.addProduct(it)
-            basket.items
-        }
+        val adapter = CatalogAdapter(
+            products = products,
+            clickListenerPlus = {
+                basket.addProduct(it)
+                basket.items
+                presenter.getAllCatalog()
+            },
+            clickListenerMinus = {
+                basket.deleteProduct(it)
+                presenter.getAllCatalog()
+            }
+
+        )
         product_recycler.adapter = adapter
         adapter.setOnCatalogClickListener {
             presenter.gotoProducCard()

@@ -16,7 +16,11 @@ import kotlinx.android.synthetic.main.item_catalog.view.*
 
 private typealias OnCategoryClickListener = ((Products) -> Unit)
 
-class CatalogAdapter(private val products: List<Products>, private val clickListener1: (Products) -> Unit) :
+class CatalogAdapter(
+    private val products: List<Products>,
+    private val clickListenerPlus: (Products) -> Unit,
+    private val clickListenerMinus: (Products) -> Unit
+) :
     RecyclerView.Adapter<CatalogAdapter.CatalogViewHolder>() {
 
     private var clickListener: OnCategoryClickListener? = null
@@ -58,7 +62,7 @@ class CatalogAdapter(private val products: List<Products>, private val clickList
                     input_product.visibility = View.VISIBLE
                     sum++
                     input_product.setText("$sum")
-                    clickListener1(products)
+                    clickListenerPlus(products)
                 }
             }
         }
@@ -77,8 +81,9 @@ class CatalogAdapter(private val products: List<Products>, private val clickList
                         input_product.visibility = View.GONE
                     }
                     input_product.setText("$sum")
+                    clickListenerMinus(products)
                 }
-                clickListener1(products)
+
             }
         }
 

@@ -1,6 +1,7 @@
 package com.example.optovik.presentation.screens.basket.mvp
 
 import com.arellomobile.mvp.InjectViewState
+import com.example.optovik.data.basketholder.BasketHolder
 import com.example.optovik.data.global.DataManager
 import com.example.optovik.presentation.global.BasePresenter
 import com.example.optovik.presentation.global.Screens
@@ -12,7 +13,7 @@ import javax.inject.Inject
 
 @InjectViewState
 class BasketPresenter @Inject constructor(
-    private val router: Router, private val dataManager: DataManager, val updateBasket: UpdateBasket
+    private val router: Router, private val dataManager: DataManager, val updateBasket: UpdateBasket, basketHolder: BasketHolder
 ) : BasePresenter<BasketView>(router,dataManager) {
 
 

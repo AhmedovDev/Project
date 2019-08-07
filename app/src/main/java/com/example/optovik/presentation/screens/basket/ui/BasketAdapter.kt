@@ -105,17 +105,6 @@ class BasketAdapter(private val basket: List<Basket>, private val clickListener1
             containerView.price_basket.text = products.price.toString()
             containerView.count_product_basket.text = products.count
             containerView.input_product_basket.setText("$quantity")
-            var presence = products.presence
-            if (presence == false) {
-                containerView.plus_basket.visibility = View.GONE
-                containerView.minus_basket.visibility = View.GONE
-                containerView.input_product_basket.visibility = View.VISIBLE
-                containerView.input_product_basket.maxEms = 6
-                containerView.input_product_basket.mask = "#############"
-                containerView.input_product_basket.setTextColor(R.color.colorTextHint)
-                containerView.input_product_basket.setText("Нет в наличии")
-                containerView.input_product_basket.isEnabled = false
-            }
             var isEstimatedPrice = products.isEstimatedPrice
             if (isEstimatedPrice == true) containerView.isEstimatedPrise_basket.visibility = View.VISIBLE
 
