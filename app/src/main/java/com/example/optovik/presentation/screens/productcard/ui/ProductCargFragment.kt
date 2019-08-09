@@ -1,6 +1,7 @@
 package com.example.optovik.presentation.screens.productcard.ui
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.PagerSnapHelper
@@ -11,17 +12,15 @@ import android.view.inputmethod.EditorInfo
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.optovik.App
-
-import com.example.optovik.R
 import com.example.optovik.data.basketholder.BasketHolder
+import com.example.optovik.data.global.models.Product
 import com.example.optovik.data.global.models.ProductCard
 import com.example.optovik.presentation.global.BaseFragment
 import com.example.optovik.presentation.global.utils.hideKeyboard
-import com.example.optovik.presentation.global.utils.showKeyboard
+import com.example.optovik.presentation.screens.basket.ui.BasketActivity
 import com.example.optovik.presentation.screens.main.ui.CirclePagerIndicatorDecoration
 import com.example.optovik.presentation.screens.productcard.mvp.ProductCardPresenter
 import com.example.optovik.presentation.screens.productcard.mvp.ProductCardView
-import kotlinx.android.synthetic.main.fragment_input_phone2.*
 import kotlinx.android.synthetic.main.fragment_product_carg.*
 import kotlinx.android.synthetic.main.toolbar_product_card.*
 import javax.inject.Inject
@@ -35,10 +34,9 @@ class ProductCargFragment : BaseFragment(), ProductCardView {
     lateinit var presenter: ProductCardPresenter
 
     @Inject
-    lateinit var basketHolder: BasketHolder
+    lateinit var basket: BasketHolder
 
     private var productCard: ProductCard? = null
-
 
     @ProvidePresenter
     fun providePresenter() = presenter
@@ -56,7 +54,7 @@ class ProductCargFragment : BaseFragment(), ProductCardView {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_product_carg, container, false)
+        return inflater.inflate(com.example.optovik.R.layout.fragment_product_carg, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -72,11 +70,11 @@ class ProductCargFragment : BaseFragment(), ProductCardView {
             false
         }
 
-        plusClick()
-        minusClick()
 
         back_arrow_product_card.setOnClickListener { presenter.gotoback() }
-
+        button_green.setOnClickListener {
+            startActivity(Intent(activity, BasketActivity::class.java))
+        }
     }
 
     private fun initViews() {
@@ -93,40 +91,72 @@ class ProductCargFragment : BaseFragment(), ProductCardView {
 
     }
 
-    fun plusClick() {
-        var sum = 0
+    //
+    fun plusClick(productCard: ProductCard) {
 
-        plus.setOnClickListener {
-            if (input_product.text.toString() == "")
-                input_product.setText("0")
-            sum = input_product.text.toString().toInt()
-            minus.visibility = View.VISIBLE
-            input_product.visibility = View.VISIBLE
-            sum++
-            input_product.setText("$sum")
+        basket.items.forEach { item ->
+            if (item.product.id == productCard.id) {
+                input_product.setText("${item.quantity}")
+                input_product.visibility = View.VISIBLE
+                minus.visibility = View.VISIBLE
 
+
+                var sum = 0
+
+                plus.setOnClickListener {
+                    if (input_product.text.toString() == "")
+                        input_product.setText("0")
+                    sum = input_product.text.toString().toInt()
+                    minus.visibility = View.VISIBLE
+                    input_product.visibility = View.VISIBLE
+                    sum++
+                    input_product.setText("$sum")
+                    basket.addProduct(item.product)
+                }
+            } else {
+                var sum = 0
+
+                plus.setOnClickListener {
+                    if (input_product.text.toString() == "")
+                        input_product.setText("0")
+                    sum = input_product.text.toString().toInt()
+                    minus.visibility = View.VISIBLE
+                    input_product.visibility = View.VISIBLE
+                    sum++
+                    input_product.setText("$sum")
+                    basket.addProduct(item.product)
+                }
+            }
 
         }
     }
 
+    fun minusClick(productCard: ProductCard) {
 
-    fun minusClick() {
-        var sum = 0
-        minus.setOnClickListener {
-            if (input_product.text.toString() == "" || input_product.text.toString() == "0") {
-                minus.visibility = View.GONE
-            } else {
-                minus.isEnabled = true
-                sum = input_product.text.toString().toInt()
-                sum--
-                if (sum == 0) {
-                    minus.visibility = View.GONE
-                    input_product.visibility = View.GONE
+        basket.items.forEach { item ->
+            if (item.product.id == productCard.id) {
+                input_product.setText("${item.quantity}")
+                input_product.visibility = View.VISIBLE
+                minus.visibility = View.VISIBLE
+
+                var sum = 0
+                minus.setOnClickListener {
+                    if (input_product.text.toString() == "" || input_product.text.toString() == "0") {
+                        minus.visibility = View.GONE
+                    } else {
+                        minus.isEnabled = true
+                        sum = input_product.text.toString().toInt()
+                        sum--
+                        if (sum == 0) {
+                            minus.visibility = View.GONE
+                            input_product.visibility = View.GONE
+                        }
+                        input_product.setText("$sum")
+                    }
+                    if (sum == 0)
+                        basket.deleteProduct(item.product)
                 }
-                input_product.setText("$sum")
             }
-
-
         }
     }
 
@@ -163,11 +193,27 @@ class ProductCargFragment : BaseFragment(), ProductCardView {
         recycler_images.adapter = adapter
     }
 
+    override fun onResume() {
+        super.onResume()
+        presenter.getAllData()
+    }
+
     override fun showProductCardInformation(productCard: ProductCard) {
+        basket.items.forEach {
+            if (it.product.id == productCard.id) {
+                input_product.setText("${it.quantity}")
+                input_product.visibility = View.VISIBLE
+                minus.visibility = View.VISIBLE
+            }
+            plusClick(productCard)
+            minusClick(productCard)
+        }
         title.text = productCard.title
         price.text = productCard.price.toString()
         count_product.text = productCard.count
         discription.text = productCard.description
+
+
     }
 
     override fun onBackPressed() = presenter.gotoback()

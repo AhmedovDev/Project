@@ -6,7 +6,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 class Basket (
-    @SerializedName("product") val products: Products,
+    @SerializedName("product") val product: Product,
     @SerializedName("quantity") var quantity: Int
 ) : Parcelable
 

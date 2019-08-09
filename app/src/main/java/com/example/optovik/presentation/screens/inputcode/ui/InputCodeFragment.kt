@@ -134,9 +134,8 @@ class InputCodeFragment : BaseFragment(), InputCodeView {
 
     // todo временная проверка кода
     private fun exampleCodeCheck() {
-        var code: String = "1111"
         var getCode: String = PinView_inputCodeFragment_code.text.toString()
-        if (code == getCode) {
+        if ( getCode.length == 4) {
             startActivity(Intent(activity, MainActivity::class.java))
         }
     }

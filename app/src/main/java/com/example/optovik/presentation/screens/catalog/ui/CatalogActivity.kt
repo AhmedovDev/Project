@@ -11,7 +11,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.optovik.App
 import com.example.optovik.R
 import com.example.optovik.data.basketholder.BasketHolder
-import com.example.optovik.data.global.models.Products
+import com.example.optovik.data.global.models.Product
 import com.example.optovik.presentation.global.BaseFragment
 import com.example.optovik.presentation.global.utils.UpdateBasket
 import com.example.optovik.presentation.screens.basket.ui.BasketActivity
@@ -25,7 +25,7 @@ import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 import javax.inject.Inject
 
-class CatalogActivity : MvpAppCompatActivity(), CatalogView {
+class CatalogActivity : MvpAppCompatActivity(), CatalogView, View.OnClickListener {
 
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
@@ -50,6 +50,7 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView {
     private val currentFragment
         get() = supportFragmentManager.findFragmentById(R.id.container_productcard) as BaseFragment?
 
+    private var isFirstStart = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         App.appComponent.catalogComponentBuilder()
@@ -68,6 +69,12 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView {
 
     }
 
+    override fun onClick(view: View?) {
+        when (view?.id) {
+            R.id.update_catalog -> presenter.getAllCatalog()
+        }
+    }
+
     private fun initViews() {
         product_recycler.run {
             layoutManager = LinearLayoutManager(product_recycler.context)
@@ -75,7 +82,6 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView {
                 DividerItemDecoration(product_recycler.context, DividerItemDecoration.VERTICAL)
             )
         }
-        updateClick()
     }
 
     fun basketButtonClick() {
@@ -85,26 +91,20 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView {
         }
     }
 
-    fun updateClick() {
-        update_catalog.setOnClickListener { presenter.getAllCatalog() }
-    }
-
     override fun showProgress(progress: Boolean) {
         progressBar_Catalog.visibility = if (progress) View.VISIBLE else View.GONE
     }
 
-    override fun showProducts(products: List<Products>) {
+    override fun showProducts(products: List<Product>) {
+        isFirstStart = false
         val adapter = CatalogAdapter(
             products = products,
-            clickListenerPlus = {
-                basket.addProduct(it)
-                basket.items
-                presenter.getAllCatalog()
+            clickListenerPlus = { basket.addProduct(it)
             },
             clickListenerMinus = {
-                basket.deleteProduct(it)
-                presenter.getAllCatalog()
-            }
+            basket.deleteProduct(it)
+            },
+            basket = basket
 
         )
         product_recycler.adapter = adapter
@@ -132,6 +132,11 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView {
 
     fun backArrowClickListener() {
         back_arrow.setOnClickListener { finish() }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!isFirstStart) presenter.getAllCatalog()
     }
 
     override fun onResumeFragments() {

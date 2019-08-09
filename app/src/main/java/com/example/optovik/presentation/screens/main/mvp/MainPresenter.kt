@@ -53,7 +53,7 @@ class MainPresenter @Inject constructor(
             .subscribeOn(Schedulers.io())
             .subscribe(
                 { basket ->
-                    basketHolder.basketlist = basket as MutableList<Basket>
+                    basketHolder.items = basket.map { BasketHolder.Item(it.product,it.quantity) } as MutableList
                 },
                 {
                     viewState.showError()

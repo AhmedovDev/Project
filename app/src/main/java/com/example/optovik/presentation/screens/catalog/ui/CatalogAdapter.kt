@@ -7,19 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import com.example.optovik.R
-import com.example.optovik.data.global.models.Products
+import com.example.optovik.data.basketholder.BasketHolder
+import com.example.optovik.data.global.models.Basket
+import com.example.optovik.data.global.models.Product
 import com.example.optovik.presentation.global.utils.hideKeyboard
 import com.squareup.picasso.Picasso
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_catalog.*
 import kotlinx.android.synthetic.main.item_catalog.view.*
 
-private typealias OnCategoryClickListener = ((Products) -> Unit)
+private typealias OnCategoryClickListener = ((Product) -> Unit)
 
 class CatalogAdapter(
-    private val products: List<Products>,
-    private val clickListenerPlus: (Products) -> Unit,
-    private val clickListenerMinus: (Products) -> Unit
+    private val products: List<Product>,
+    private val clickListenerPlus: (Product) -> Unit,
+    private val clickListenerMinus: (Product) -> Unit,
+    private val basket: BasketHolder
 ) :
     RecyclerView.Adapter<CatalogAdapter.CatalogViewHolder>() {
 
@@ -51,7 +54,9 @@ class CatalogAdapter(
     inner class CatalogViewHolder(override val containerView: View) :
         RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-        fun PlusClick(products: Products) {
+        lateinit var product: Product
+
+        fun PlusClick(product: Product) {
             var sum = 0
             with(containerView) {
                 plus.setOnClickListener {
@@ -62,12 +67,13 @@ class CatalogAdapter(
                     input_product.visibility = View.VISIBLE
                     sum++
                     input_product.setText("$sum")
-                    clickListenerPlus(products)
+                    clickListenerPlus(product)
                 }
             }
+
         }
 
-        fun MinusClick(products: Products) {
+        fun MinusClick(product: Product) {
             var sum = 0
             minus.setOnClickListener {
                 if (input_product.text.toString() == "" || input_product.text.toString() == "0") {
@@ -81,7 +87,7 @@ class CatalogAdapter(
                         input_product.visibility = View.GONE
                     }
                     input_product.setText("$sum")
-                    clickListenerMinus(products)
+                    clickListenerMinus(product)
                 }
 
             }
@@ -99,20 +105,28 @@ class CatalogAdapter(
 
 
         @SuppressLint("ResourceAsColor")
-        fun bind(products: Products, clickListener: OnCategoryClickListener) {
+        fun bind(product: Product, clickListener: OnCategoryClickListener) {
+            this.product = product
+            basket.items.forEach {
+                if (it.product.id == product.id) {
+                    containerView.input_product.setText("${it.quantity}")
+                    containerView.input_product.visibility = View.VISIBLE
+                    containerView.minus.visibility = View.VISIBLE
+                }
+            }
             Picasso.get()
-                .load(products.image)
+                .load(product.image)
                 .into(containerView.image_product)
-            containerView.product_name.text = products.name
-            containerView.price.text = products.price.toString()
-            containerView.count_product.text = products.count
-            if (products.quantity != null) {
+            containerView.product_name.text = product.name
+            containerView.price.text = product.price.toString()
+            containerView.count_product.text = product.count
+            if (product.quantity != null) {
                 containerView.input_product.visibility = View.VISIBLE
                 containerView.minus.visibility = View.VISIBLE
-                containerView.input_product.setText("${products.quantity}")
+                containerView.input_product.setText("${product.quantity}")
             }
-            products.quantity
-            var presence = products.presence
+            product.quantity
+            var presence = product.presence
             if (presence == false) {
                 containerView.plus.visibility = View.GONE
                 containerView.input_product.visibility = View.VISIBLE
@@ -122,14 +136,14 @@ class CatalogAdapter(
                 containerView.input_product.setText("Нет в наличии")
                 containerView.input_product.isEnabled = false
             }
-            var isEstimatedPrice = products.isEstimatedPrice
+            var isEstimatedPrice = product.isEstimatedPrice
             if (isEstimatedPrice == true) containerView.isEstimatedPrise.visibility = View.VISIBLE
 
             if (input_product.text.toString() == "") minus.visibility = View.GONE
 
-            containerView.image_product.setOnClickListener { clickListener.invoke(products) }
-            containerView.product_name.setOnClickListener { clickListener.invoke(products) }
-            containerView.price_and_count.setOnClickListener { clickListener.invoke(products) }
+            containerView.image_product.setOnClickListener { clickListener.invoke(product) }
+            containerView.product_name.setOnClickListener { clickListener.invoke(product) }
+            containerView.price_and_count.setOnClickListener { clickListener.invoke(product) }
         }
     }
 }

@@ -9,6 +9,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.optovik.App
 import com.example.optovik.R
+import com.example.optovik.data.basketholder.BasketHolder
 import com.example.optovik.data.global.models.Basket
 import com.example.optovik.presentation.global.BaseFragment
 import com.example.optovik.presentation.screens.basket.mvp.BasketPresenter
@@ -31,6 +32,9 @@ class BasketActivity : MvpAppCompatActivity(), BasketView {
     @InjectPresenter
     lateinit var presenter: BasketPresenter
 
+    @Inject
+    lateinit var basketHolder: BasketHolder
+
     @ProvidePresenter
     fun providePresenter() = presenter
 
@@ -50,7 +54,26 @@ class BasketActivity : MvpAppCompatActivity(), BasketView {
         initViews()
         backArrowClickListener()
         navigator = SupportAppNavigator(this, R.id.container_basket)
+        delete_basket.setOnClickListener {
+            deleteBasket()
+            // Узнать как обновлять экран
+            // И создать диалог
+        }
+        chek()
+    }
 
+    private fun chek() {
+        product_price.setText(price().toString())
+        if (price() < 3000) {
+            all_price.setText((price() + 100).toString())
+            diliviry_price.setText("100")
+        } else {
+            rubl.visibility = View.GONE
+            diliviry_price.setText("бесплатная")
+            all_price.setText(price().toString())
+        }
+        if (price() == 0)
+            all_price.setText(price().toString())
     }
 
     private fun initViews() {
@@ -72,13 +95,34 @@ class BasketActivity : MvpAppCompatActivity(), BasketView {
     }
 
     override fun showBasket(basket: List<Basket>) {
-        val adapter = BasketAdapter(basket) {
+        val adapter = BasketAdapter(
+            basketholder = basketHolder,
+            clickListenerPlus = {
+                basketHolder.addProduct(it)
 
-        }
+                chek()
+                basketHolder.items
+            },
+            clickListenerMinus = {
+                basketHolder.deleteProduct(it)
+                chek()
+                basketHolder.items
+            },
+            clickListenerdrop = {
+            basketHolder.dropProduct(it)
+
+
+            })
         basket_recycler.adapter = adapter
         adapter.setOnBasketClickListener {
+            container_basket.visibility = View.VISIBLE
             presenter.gotoProductCard()
         }
+
+    }
+
+    fun deleteBasket() {
+        basketHolder.items.removeAll(basketHolder.items)
     }
 
     override fun showInformation(information: String) {
@@ -110,6 +154,13 @@ class BasketActivity : MvpAppCompatActivity(), BasketView {
     override fun onPause() {
         navigatorHolder.removeNavigator()
         super.onPause()
+
+    }
+
+    fun price(): Int {
+        var productPrice = 0
+        basketHolder.items.forEach { productPrice += (it.product.price * it.quantity) }
+        return productPrice
     }
 
 //    override fun onDestroy() {
@@ -118,6 +169,6 @@ class BasketActivity : MvpAppCompatActivity(), BasketView {
 //
 //    }
 
-   override fun onBackPressed() = currentFragment?.onBackPressed() ?: presenter.onBackPressed()
+    override fun onBackPressed() = currentFragment?.onBackPressed() ?: presenter.onBackPressed()
 
 }

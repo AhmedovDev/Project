@@ -36,6 +36,7 @@ class ProductCardPresenter @Inject constructor(private val router: Router, priva
 
     fun gotoback () {
         router.exit()
+
     }
 
 }

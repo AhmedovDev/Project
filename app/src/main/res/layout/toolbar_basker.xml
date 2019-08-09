@@ -48,7 +48,7 @@
             app:srcCompat="@drawable/ic_back_arrow" />
 
         <ImageView
-            android:id="@+id/isearch_basket"
+            android:id="@+id/delete_basket"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignParentTop="true"
@@ -62,7 +62,7 @@
             app:layout_constraintStart_toEndOf="@+id/textView2"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.571"
-            app:srcCompat="@drawable/ic_search" />
+            app:srcCompat="@drawable/ic_frame" />
 
     </android.support.constraint.ConstraintLayout>
 

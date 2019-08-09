@@ -3,7 +3,7 @@ package com.example.optovik.presentation.screens.catalog.mvp
 import com.arellomobile.mvp.InjectViewState
 import com.example.optovik.data.basketholder.BasketHolder
 import com.example.optovik.data.global.DataManager
-import com.example.optovik.data.global.models.Products
+import com.example.optovik.data.global.models.Product
 import com.example.optovik.presentation.global.BasePresenter
 import com.example.optovik.presentation.global.Screens
 import com.example.optovik.presentation.global.utils.UpdateBasket
@@ -34,12 +34,6 @@ class CatalogPresenter @Inject constructor(
             .doAfterTerminate { viewState.showProgress(false) }
             .subscribe(
                 { data ->
-                    data.products.forEach { product ->
-                        basketHolder.basketlist.forEach { basket ->
-                            if (product.id == basket.products.id)
-                                product.quantity = basket.quantity
-                        }
-                    }
                     viewState.showProducts(data.products)
 //                    viewState.showEvents(data.events)
                     viewState.visiblCatalog()
@@ -56,13 +50,13 @@ class CatalogPresenter @Inject constructor(
         router.navigateTo(Screens.ProductCard)
     }
 
-    fun addProduct(products: Products) {
-//        basket.addProduct(products, 1)
+    fun addProduct(product: Product) {
+//        basket.addProduct(product, 1)
 
     }
 
-    fun removeProduct(products: Products) {
-//        basket.deleteProduct(products, 1)
+    fun removeProduct(product: Product) {
+//        basket.deleteProduct(product, 1)
     }
 
 

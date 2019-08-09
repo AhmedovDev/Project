@@ -112,9 +112,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="25dp"
         android:background="@color/colorPrimaryDark"
-        android:cursorVisible="true"
         android:digits="0123456789"
-        android:focusable="true"
         android:fontFamily="@font/sfpromedium"
         android:inputType="number"
         android:text="0"
@@ -123,7 +121,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/plus_basket"
         app:layout_constraintTop_toTopOf="parent"
-        mask:mask="####" />
+        mask:mask="####"
+        android:visibility="gone"/>
 
     <ImageButton
         android:id="@+id/plus_basket"
@@ -147,10 +146,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/input_product_basket"
         app:srcCompat="@drawable/ic_button_minus"
-        tools:ignore="VectorDrawableCompat" />
+        tools:ignore="VectorDrawableCompat"
+        android:visibility="gone"/>
 
     <ImageView
-        android:id="@+id/exit"
+        android:id="@+id/drop"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginTop="20dp"

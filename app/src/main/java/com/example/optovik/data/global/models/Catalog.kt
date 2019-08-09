@@ -7,5 +7,5 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 class Catalog (
     @SerializedName("information") val information: String,
-    @SerializedName("products") val products: List<Products>
+    @SerializedName("products") val products: List<Product>
 ): Parcelable
