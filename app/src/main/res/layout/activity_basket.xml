@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     tools:context=".presentation.screens.basket.ui.BasketActivity">
 
     <include
-        android:id="@+id/include2"
+        android:id="@+id/tool_bar_basket"
         layout="@layout/toolbar_basker"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/basket_nestedscroll"
@@ -20,22 +22,21 @@
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include2">
+        app:layout_constraintTop_toBottomOf="@+id/tool_bar_basket">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-           >
+            app:layout_constraintStart_toStartOf="parent">
 
             <RelativeLayout
                 android:id="@+id/reletiv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#14FFC700"
-                app:layout_constraintTop_toBottomOf="@+id/include2">
+                app:layout_constraintTop_toBottomOf="@+id/tool_bar_basket">
 
                 <TextView
                     android:id="@+id/textView6"
@@ -49,7 +50,7 @@
                     android:fontFamily="@font/sfpromedium"
                     android:text="При заказе на сумму от 3000 ₽ доставка бесплатная."
                     android:textColor="#000000"
-                    android:textSize="12dp"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView3"
@@ -76,14 +77,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/reletiv" />
 
             <RelativeLayout
+                android:id="@+id/check"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
+                android:background="@color/colorPrimaryDark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/basket_recycler"
-                android:background="@color/colorPrimaryDark">
+                app:layout_constraintTop_toBottomOf="@+id/basket_recycler">
 
                 <TextView
                     android:id="@+id/textView8"
@@ -94,9 +96,9 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/sfpromedium"
-                    android:text="Сумма"
+                    android:text="@string/sum"
                     android:textColor="@color/black"
-                    android:textSize="16dp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/textView10"
@@ -109,7 +111,7 @@
                     android:fontFamily="@font/sfprolight"
                     android:text="Товары"
                     android:textColor="#444444"
-                    android:textSize="12dp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/textView11"
@@ -122,7 +124,7 @@
                     android:fontFamily="@font/sfprolight"
                     android:text="Доставка"
                     android:textColor="#444444"
-                    android:textSize="12dp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/textView12"
@@ -136,7 +138,7 @@
                     android:fontFamily="@font/sfpromedium"
                     android:text="Итого"
                     android:textColor="@color/black"
-                    android:textSize="12dp" />
+                    android:textSize="12sp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -152,9 +154,9 @@
                     <View
                         android:layout_width="0dp"
                         android:layout_height="1dp"
-                        android:layout_weight="1"
                         android:layout_gravity="bottom"
-                        android:background="#F6F6F6"/>
+                        android:layout_weight="1"
+                        android:background="#F6F6F6" />
 
                     <TextView
                         android:id="@+id/product_price"
@@ -178,7 +180,7 @@
                         android:paddingLeft="4dp"
                         android:text="₽"
                         android:textColor="#444444"
-                        android:textSize="12dp" />
+                        android:textSize="spdp" />
 
 
                 </LinearLayout>
@@ -197,9 +199,10 @@
                     <View
                         android:layout_width="0dp"
                         android:layout_height="1dp"
-                        android:layout_weight="1"
                         android:layout_gravity="bottom"
-                        android:background="#F6F6F6"/>
+                        android:layout_weight="1"
+                        android:background="#F6F6F6" />
+
                     <TextView
                         android:id="@+id/diliviry_price"
                         android:layout_width="wrap_content"
@@ -210,7 +213,7 @@
                         android:paddingLeft="8dp"
                         android:text="100"
                         android:textColor="#444444"
-                        android:textSize="12dp" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/rubl"
@@ -222,7 +225,7 @@
                         android:paddingLeft="4dp"
                         android:text="₽"
                         android:textColor="#444444"
-                        android:textSize="12dp" />
+                        android:textSize="12sp" />
 
 
                 </LinearLayout>
@@ -242,9 +245,9 @@
                     <View
                         android:layout_width="0dp"
                         android:layout_height="1dp"
-                        android:layout_weight="1"
                         android:layout_gravity="bottom"
-                        android:background="#F6F6F6"/>
+                        android:layout_weight="1"
+                        android:background="#F6F6F6" />
 
                     <TextView
                         android:id="@+id/all_price"
@@ -256,7 +259,7 @@
                         android:paddingLeft="8dp"
                         android:text="17 970"
                         android:textColor="#000000"
-                        android:textSize="14dp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -267,7 +270,7 @@
                         android:paddingLeft="4dp"
                         android:text="₽"
                         android:textColor="#000000"
-                        android:textSize="14dp" />
+                        android:textSize="14sp" />
 
 
                 </LinearLayout>
@@ -283,7 +286,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
-        android:elevation="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -403,17 +405,100 @@
 
     </FrameLayout>
 
+    <FrameLayout
+        android:id="@+id/basletactivity_empty_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        tools:context=".presentation.screens.catalog.ui.CatalogActivity"
+
+        >
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF">
+
+
+            <ImageView
+                android:id="@+id/basket"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="175dp"
+                android:layout_marginEnd="176dp"
+                android:src="@drawable/framebasket"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/go_to_catalog"
+                android:layout_width="160dp"
+                android:layout_height="41dp"
+                android:layout_marginStart="109dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="106dp"
+                android:background="@drawable/activebutton"
+                android:clickable="true"
+                android:text="В каталог"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView111" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="175dp"
+                android:layout_marginTop="26dp"
+                android:layout_marginEnd="178dp"
+                android:fontFamily="@font/sfprodisplay"
+                android:text="@string/empty_basket"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/basket" />
+
+            <TextView
+                android:id="@+id/textView111"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="101dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="101dp"
+                android:fontFamily="@font/sfprolight"
+                android:text="@string/go_to_catalog"
+                android:textAlignment="center"
+                android:textColor="#444444"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.666"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        </android.support.constraint.ConstraintLayout>
+
+
+    </FrameLayout>
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/container_basket"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-android:elevation="5dp"
+        android:elevation="5dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"
-   />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <ProgressBar
@@ -425,6 +510,5 @@ android:elevation="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/container_basket" />
-
 
 </android.support.constraint.ConstraintLayout>

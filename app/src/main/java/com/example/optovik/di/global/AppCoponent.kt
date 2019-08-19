@@ -6,10 +6,12 @@ import com.example.optovik.di.global.modules.*
 import com.example.optovik.di.screens.autorization.AutorizationComponent
 import com.example.optovik.di.screens.basket.BasketComponent
 import com.example.optovik.di.screens.catalog.CatalogComponent
+import com.example.optovik.di.screens.dialogbasket.DialogBasketComponent
 import com.example.optovik.di.screens.inputcode.InputCodeComponent
 import com.example.optovik.di.screens.inputphone.InputPhoneComponent
 import com.example.optovik.di.screens.main.MainComponent
 import com.example.optovik.di.screens.productcard.ProductCardComponent
+import com.example.optovik.di.screens.splash.SplashComponent
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -34,6 +36,8 @@ interface AppComponent {
     fun catalogComponentBuilder(): CatalogComponent.Builder
     fun productCardComponentBuilder(): ProductCardComponent.Builder
     fun basketComponentBuilder(): BasketComponent.Builder
+    fun dialogBasketComponentBuilder(): DialogBasketComponent.Builder
+    fun splashComponentBuilder(): SplashComponent.Builder
 
     @Component.Builder
     interface Builder {

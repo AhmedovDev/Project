@@ -39,8 +39,8 @@ class CatalogAdapter(
     override fun onBindViewHolder(holder: CatalogViewHolder, position: Int) {
         holder.bind(products[position], clickListener!!)
         // todo сделать нормально
-        holder.PlusClick(products[position])
-        holder.MinusClick(products[position])
+        holder.plusClick(products[position])
+        holder.minusClick(products[position])
         holder.keyboardHide()
     }
 
@@ -56,7 +56,7 @@ class CatalogAdapter(
 
         lateinit var product: Product
 
-        fun PlusClick(product: Product) {
+        fun plusClick(product: Product) {
             var sum = 0
             with(containerView) {
                 plus.setOnClickListener {
@@ -73,7 +73,7 @@ class CatalogAdapter(
 
         }
 
-        fun MinusClick(product: Product) {
+        fun minusClick(product: Product) {
             var sum = 0
             minus.setOnClickListener {
                 if (input_product.text.toString() == "" || input_product.text.toString() == "0") {
@@ -85,6 +85,7 @@ class CatalogAdapter(
                     if (sum == 0) {
                         minus.visibility = View.GONE
                         input_product.visibility = View.GONE
+                        input_product.setText("$sum")
                     }
                     input_product.setText("$sum")
                     clickListenerMinus(product)
@@ -106,14 +107,20 @@ class CatalogAdapter(
 
         @SuppressLint("ResourceAsColor")
         fun bind(product: Product, clickListener: OnCategoryClickListener) {
+
             this.product = product
-            basket.items.forEach {
-                if (it.product.id == product.id) {
-                    containerView.input_product.setText("${it.quantity}")
-                    containerView.input_product.visibility = View.VISIBLE
-                    containerView.minus.visibility = View.VISIBLE
-                }
+
+            val item  = basket.items.filter { it.product.id == product.id }.firstOrNull()
+
+            if (item != null) {
+                containerView.input_product.setText("${item.quantity}")
+                containerView.input_product.visibility = View.VISIBLE
+                containerView.minus.visibility = View.VISIBLE
+            } else {
+                containerView.input_product.visibility = View.GONE
+                containerView.minus.visibility = View.GONE
             }
+
             Picasso.get()
                 .load(product.image)
                 .into(containerView.image_product)
@@ -126,9 +133,9 @@ class CatalogAdapter(
                 containerView.input_product.setText("${product.quantity}")
             }
             product.quantity
-            var presence = product.presence
-            if (presence == false) {
+            if (product.presence == false) {
                 containerView.plus.visibility = View.GONE
+                containerView.minus.visibility = View.GONE
                 containerView.input_product.visibility = View.VISIBLE
                 containerView.input_product.maxEms = 6
                 containerView.input_product.mask = "#############"
@@ -136,8 +143,8 @@ class CatalogAdapter(
                 containerView.input_product.setText("Нет в наличии")
                 containerView.input_product.isEnabled = false
             }
-            var isEstimatedPrice = product.isEstimatedPrice
-            if (isEstimatedPrice == true) containerView.isEstimatedPrise.visibility = View.VISIBLE
+            val isEstimatedPrice = product.isEstimatedPrice
+            if (isEstimatedPrice) containerView.isEstimatedPrise.visibility = View.VISIBLE
 
             if (input_product.text.toString() == "") minus.visibility = View.GONE
 

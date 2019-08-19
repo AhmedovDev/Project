@@ -15,11 +15,17 @@ import com.example.optovik.data.global.models.Product
 import com.example.optovik.presentation.global.BaseFragment
 import com.example.optovik.presentation.global.utils.UpdateBasket
 import com.example.optovik.presentation.screens.basket.ui.BasketActivity
+import com.example.optovik.presentation.screens.basket.ui.BasketAdapter
 import com.example.optovik.presentation.screens.catalog.mvp.CatalogPresenter
 import com.example.optovik.presentation.screens.catalog.mvp.CatalogView
 import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.activity_basket.*
 import kotlinx.android.synthetic.main.activity_catalog.*
+import kotlinx.android.synthetic.main.activity_catalog.constraintLayout2
+import kotlinx.android.synthetic.main.activity_catalog.reletiv
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar_catalog.*
+import kotlinx.android.synthetic.main.toolbar_product_card.*
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
@@ -58,6 +64,7 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView, View.OnClickListene
             .inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catalog)
+        updateBasketButton()
         initViews()
         backArrowClickListener()
         basketButtonClick()
@@ -91,6 +98,22 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView, View.OnClickListene
         }
     }
 
+    override fun updateBasketButton() {
+        var priceAll : Int = 0
+        basket.items.forEach { item ->
+            priceAll +=  (item.product.price * item.quantity)
+        }
+        val haveItem = basket.items.filter {
+            it.product.isEstimatedPrice == true
+        }.firstOrNull()
+        if (haveItem == null)
+            isEstimatedPrise_catalog.visibility = View.GONE
+        else
+            isEstimatedPrise_catalog.visibility = View.VISIBLE
+        price_on_button.setText("$priceAll")
+        count_on_button.setText("${basket.items.size}")
+    }
+
     override fun showProgress(progress: Boolean) {
         progressBar_Catalog.visibility = if (progress) View.VISIBLE else View.GONE
     }
@@ -99,18 +122,26 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView, View.OnClickListene
         isFirstStart = false
         val adapter = CatalogAdapter(
             products = products,
-            clickListenerPlus = { basket.addProduct(it)
+            clickListenerPlus = {
+                basket.addProduct(it)
+                updateBasketButton()
             },
             clickListenerMinus = {
-            basket.deleteProduct(it)
+                basket.deleteProduct(it)
+                updateBasketButton()
             },
             basket = basket
 
         )
         product_recycler.adapter = adapter
         adapter.setOnCatalogClickListener {
-            presenter.gotoProducCard()
+            presenter.gotoProducCard(it)
         }
+    }
+
+    override fun adapterUpdate() {
+        (product_recycler.adapter as CatalogAdapter).notifyDataSetChanged()
+
     }
 
     override fun showInformation(information: String) {
@@ -137,16 +168,24 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView, View.OnClickListene
     override fun onResume() {
         super.onResume()
         if (!isFirstStart) presenter.getAllCatalog()
+        updateBasketButton()
     }
 
     override fun onResumeFragments() {
         super.onResumeFragments()
         navigatorHolder.setNavigator(navigator)
+        presenter.getAllCatalog()
+
     }
 
     override fun onPause() {
         navigatorHolder.removeNavigator()
         super.onPause()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        presenter.getAllCatalog()
     }
 
 //    override fun onDestroy() {

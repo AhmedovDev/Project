@@ -2,8 +2,10 @@ package com.example.optovik.presentation.screens.main.mvp
 
 import com.arellomobile.mvp.InjectViewState
 import com.example.optovik.data.basketholder.BasketHolder
+import com.example.optovik.data.basketholder.BasketListener
 import com.example.optovik.data.global.DataManager
 import com.example.optovik.data.global.models.Basket
+import com.example.optovik.data.global.models.Product
 import com.example.optovik.presentation.global.BasePresenter
 import com.example.optovik.presentation.global.Screens
 import com.example.optovik.presentation.global.utils.NetworkChecking
@@ -18,15 +20,15 @@ import javax.inject.Inject
 class MainPresenter @Inject constructor(
     private val router: Router,
     private val dataManager: DataManager,
-    val networkChecking: NetworkChecking,
     private var basketHolder: BasketHolder
-) : BasePresenter<MainView>(router,dataManager) {
+) : BasePresenter<MainView>(router,dataManager){
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         getAllData()
-        getBasket()
     }
+
+
 
     fun getAllData() {
         subscriptions += dataManager.getData()
@@ -46,23 +48,8 @@ class MainPresenter @Inject constructor(
                                     }
             )
     }
-
-    private fun getBasket() {
-        subscriptions += dataManager.getBasket()
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe(
-                { basket ->
-                    basketHolder.items = basket.map { BasketHolder.Item(it.product,it.quantity) } as MutableList
-                },
-                {
-                    viewState.showError()
-                }
-            )
-    }
-
-    fun onEventClick() {
-        router.navigateTo(Screens.ProductCard)
+    fun onEventClick(product: Product) {
+        router.navigateTo(Screens.ProductCard(product))
     }
 
 

@@ -13,12 +13,15 @@ import ru.terrakok.cicerone.NavigatorHolder
 import javax.inject.Inject
 import android.support.v7.widget.*
 import android.view.View
+import com.example.optovik.AutorizationActivity
 import com.example.optovik.R
 import com.example.optovik.data.basketholder.BasketHolder
 import com.example.optovik.data.global.models.Category
 import com.example.optovik.data.global.models.Event
 import com.example.optovik.presentation.global.BaseFragment
+import com.example.optovik.presentation.screens.basket.ui.BasketActivity
 import com.example.optovik.presentation.screens.catalog.ui.CatalogActivity
+import kotlinx.android.synthetic.main.activity_catalog.*
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 
@@ -50,10 +53,32 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             .inject(this)
         super.onCreate(savedInstanceState)
         setContentView(com.example.optovik.R.layout.activity_main)
+//        presenter.getBasket()
         initViews()
+        updateBasketButton()
         navigator = SupportAppNavigator(this, R.id.container_main_activity)
+        button_basket_main.setOnClickListener {
+            val intent = Intent(this, BasketActivity::class.java)
+            startActivity(intent)
+        }
 
+    }
 
+    private fun updateBasketButton() {
+        var priceAll: Int = 0
+        basketHolder.items.forEach { item ->
+            priceAll += (item.product.price * item.quantity)
+        }
+        val haveItem = basketHolder.items.filter {
+            it.product.isEstimatedPrice == true
+        }.firstOrNull()
+        if (haveItem == null)
+            isEstimatedPrise_main.visibility = View.GONE
+        else
+            isEstimatedPrise_main.visibility = View.VISIBLE
+
+        price_on_button_main.setText("$priceAll")
+        count_on_button_main.setText("${basketHolder.items.size}")
     }
 
     // настройка визуального представления recycler-ов
@@ -74,6 +99,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             )
         }
         updateClick()
+        updateBasketButton()
     }
 
     override fun categoryesClick() {
@@ -90,27 +116,39 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     }
 
     override fun visiblMain() {
-        nestedScrollView.visibility =View.VISIBLE
+        nestedScrollView.visibility = View.VISIBLE
         mainactivity_container.visibility = View.GONE
     }
 
 
     override fun showProgress(show: Boolean) {
         progressBar.visibility = if (show) View.VISIBLE else View.GONE
+        category.visibility = if (show) View.GONE else View.VISIBLE
+        event_recycler.visibility = if (show) View.GONE else View.VISIBLE
+
     }
 
     override fun showCategories(category: List<Category>) {
         val adapter = CategoryAdapter(category)
         category_recycler.adapter = adapter
-        adapter.setOnCategoryClickListener { val intent = Intent(this,CatalogActivity::class.java)
+        adapter.setOnCategoryClickListener {
+            val intent = Intent(this, CatalogActivity::class.java)
             startActivity(intent)
         }
     }
 
     override fun showEvents(event: List<Event>) {
+
         val adapter = EventAdapter(event)
         event_recycler.adapter = adapter
-        adapter.setOnEventClickListener { presenter.onEventClick() }
+        adapter.setOnEventClickListener {
+            val haveItem = basketHolder.items.filter { item ->
+                item.product.id == it.idProduct
+            }.firstOrNull()
+            if (haveItem != null) {
+                presenter.onEventClick(haveItem.product)
+            }
+        }
     }
 
     override fun onResumeFragments() {
@@ -121,6 +159,11 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     override fun onPause() {
         navigatorHolder.removeNavigator()
         super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateBasketButton()
     }
 
     override fun onBackPressed() = presenter.onBackPressed()

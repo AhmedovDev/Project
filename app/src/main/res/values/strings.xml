@@ -19,6 +19,12 @@
         становится невероятно мягким и сочным, а сверху появляется тонкая и весьма аппетитная корочка.
     </string>
     <string name="Optivik">Оптовик</string>
+    <string name="empty_basket">Корзина пуста</string>
+    <string name="go_to_catalog">Перейдите в каталог и добавьте \n товары в корзину</string>
+    <string name="clean_basket">Вы точно хотите очистить корзину ?</string>
+    <string name="no">Нет,не хочу</string>
+    <string name="yas">Да, удалить</string>
+    <string name="sum">Сумма</string>
 
     <plurals name="number_of_seconds">
         <item quantity="one">%d секунда</item>

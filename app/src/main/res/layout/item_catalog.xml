@@ -26,7 +26,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/sfpromedium"
-        android:text="Картошка фри 9мл LW(S01) «Стелс» "
         android:textColor="#444444"
         android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/image_product"
@@ -101,7 +100,6 @@
     </LinearLayout>
 
 
-
     <br.com.sapereaude.maskedEditText.MaskedEditText
         android:id="@+id/input_product"
         android:layout_width="wrap_content"
@@ -110,9 +108,11 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="25dp"
         android:background="@color/colorPrimaryDark"
+        android:clickable="false"
         android:cursorVisible="true"
         android:digits="0123456789"
-        android:focusable="true"
+        android:editable="false"
+        android:focusable="false"
         android:fontFamily="@font/sfpromedium"
         android:inputType="number"
         android:text="0"

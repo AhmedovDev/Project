@@ -166,7 +166,7 @@
                         android:background="@color/colorPrimaryDark"
                         android:cursorVisible="true"
                         android:digits="0123456789"
-                        android:focusable="true"
+                        android:focusable="false"
                         android:fontFamily="@font/sfpromedium"
                         android:inputType="number"
                         android:maxEms="4"
@@ -178,6 +178,9 @@
                         android:textSize="14sp"
                         android:visibility="gone"
                         mask:mask="####"
+                        android:editable="false"
+                        android:clickable="false"
+
 
 
                         />
@@ -328,7 +331,7 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="@color/colorPrimaryDark"
-        android:elevation="5dp"
+        android:elevation="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -413,7 +416,6 @@
                     android:text="≈"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="17sp"
-                    android:visibility="gone"
                     tools:layout_editor_absoluteX="296dp" />
 
                 <TextView

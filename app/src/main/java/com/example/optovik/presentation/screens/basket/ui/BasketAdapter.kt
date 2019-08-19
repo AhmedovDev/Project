@@ -22,7 +22,7 @@ private typealias OnCategoryClickListener = ((Product) -> Unit)
 class BasketAdapter(
     private val clickListenerPlus: (Product) -> Unit,
     private val clickListenerMinus: (Product) -> Unit,
-    private val basketholder: BasketHolder,
+    val basketholder: BasketHolder,
     private val clickListenerdrop: (Product) -> Unit
 ) :
     RecyclerView.Adapter<BasketAdapter.BasketViewHolder>() {
@@ -104,7 +104,7 @@ class BasketAdapter(
             drop.setOnClickListener {
                 clickListenerdrop(product)
                 notifyItemRemoved(adapterPosition)
-                basketholder.items
+                notifyDataSetChanged()
             }
         }
 
@@ -133,14 +133,13 @@ class BasketAdapter(
                     input_product_basket.visibility = View.VISIBLE
                     minus_basket.visibility = View.VISIBLE
                 }
-                var isEstimatedPrice = item.product.isEstimatedPrice
-                if (isEstimatedPrice == true) containerView.isEstimatedPrise_basket.visibility = View.VISIBLE
+
 
                 if (input_product_basket.text.toString() == "") minus.visibility = View.GONE
             }
-//            containerView.image_product_basket.setOnClickListener { clickListener.invoke(product) }
-//            containerView.product_name_basket.setOnClickListener { clickListener.invoke(product) }
-//            containerView.price_and_count.setOnClickListener { clickListener.invoke(product) }
+            val isEstimatedPrice = product.isEstimatedPrice
+            if (isEstimatedPrice) containerView.isEstimatedPrise_basket.visibility = View.VISIBLE
+            else containerView.isEstimatedPrise_basket.visibility = View.GONE
             itemView.setOnClickListener { clickListener.invoke(product) }
         }
     }

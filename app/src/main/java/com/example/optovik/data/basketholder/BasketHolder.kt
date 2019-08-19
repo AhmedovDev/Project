@@ -3,11 +3,16 @@ package com.example.optovik.data.basketholder
 import com.example.optovik.data.global.models.Basket
 import com.example.optovik.data.global.models.Product
 
+interface BasketListener {
+    fun onUpdateBasketItems(items: MutableList<BasketHolder.Item>)
+}
+
 class BasketHolder {
 
     class Item(val product: Product, var quantity: Int)
 
     var items: MutableList<Item> = ArrayList()
+    var listeners = ArrayList<BasketListener>()
 
     fun addProduct(product: Product) {
 
@@ -20,6 +25,7 @@ class BasketHolder {
         } else
             items.add(Item(product, 1))
 
+        basketUpdated()
     }
 
     fun deleteProduct(product: Product) {
@@ -31,20 +37,20 @@ class BasketHolder {
         if (haveItem.quantity != 0)
             haveItem.quantity -= 1
 
-          if(haveItem.quantity == 0 || haveItem.quantity == null )
-              items.remove(haveItem)
-            items
+        if (haveItem.quantity == 0 || haveItem.quantity == null)
+            items.remove(haveItem)
 
+        basketUpdated()
     }
 
-    fun dropProduct(product: Product){
+    fun dropProduct(product: Product) {
 
         val haveItem = items.filter {
             it.product.id == product.id
         }.firstOrNull() ?: return
 
         items.remove(haveItem)
-        items
+        basketUpdated()
     }
 
     fun reduceProductInBasket(product: Product, quantity: Int) {
@@ -58,5 +64,16 @@ class BasketHolder {
     fun updateBasket(basket: List<Basket>) {
 
     }
+
+    private fun basketUpdated() {
+        listeners.forEach {
+            it.onUpdateBasketItems(items)
+        }
+    }
+
+    fun subscribe(listener: BasketListener) {
+        listeners.add(listener)
+    }
+
 
 }

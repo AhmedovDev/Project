@@ -66,7 +66,7 @@
                     android:fontFamily="@font/sfpromedium"
                     android:text=" Здесь находятся товары, доступные под заказ. Доставка от 7 до 14 дней."
                     android:textColor="#000000"
-                    android:textSize="12dp"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/imageView3"
@@ -104,7 +104,7 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="@color/colorPrimaryDark"
-        android:elevation="4dp"
+        android:elevation="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -180,6 +180,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/isEstimatedPrise_catalog"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpromedium"
@@ -188,7 +189,6 @@
                     android:text="≈"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="17sp"
-                    android:visibility="gone"
                     tools:layout_editor_absoluteX="296dp" />
 
                 <TextView
@@ -305,7 +305,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:elevation="3dp"/>
 
 
 </android.support.constraint.ConstraintLayout>

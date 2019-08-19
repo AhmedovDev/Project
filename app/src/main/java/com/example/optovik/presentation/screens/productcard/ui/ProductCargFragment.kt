@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.PagerSnapHelper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,10 +18,12 @@ import com.example.optovik.data.global.models.Product
 import com.example.optovik.data.global.models.ProductCard
 import com.example.optovik.presentation.global.BaseFragment
 import com.example.optovik.presentation.global.utils.hideKeyboard
+import com.example.optovik.presentation.global.utils.withArgs
 import com.example.optovik.presentation.screens.basket.ui.BasketActivity
 import com.example.optovik.presentation.screens.main.ui.CirclePagerIndicatorDecoration
 import com.example.optovik.presentation.screens.productcard.mvp.ProductCardPresenter
 import com.example.optovik.presentation.screens.productcard.mvp.ProductCardView
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_product_carg.*
 import kotlinx.android.synthetic.main.toolbar_product_card.*
 import javax.inject.Inject
@@ -36,10 +39,10 @@ class ProductCargFragment : BaseFragment(), ProductCardView {
     @Inject
     lateinit var basket: BasketHolder
 
-    private var productCard: ProductCard? = null
-
     @ProvidePresenter
     fun providePresenter() = presenter
+
+    lateinit var product: Product
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +50,9 @@ class ProductCargFragment : BaseFragment(), ProductCardView {
             .build()
             .inject(this)
         super.onCreate(savedInstanceState)
+        arguments?.run {
+            product = getParcelable(PRODUCT)
+        }
     }
 
     override fun onCreateView(
@@ -59,9 +65,8 @@ class ProductCargFragment : BaseFragment(), ProductCardView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        updateBasketButton()
         initViews()
-
-
         // скрыть клаву при нажатии на физическую кнопку "назад"
         input_product.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -70,11 +75,22 @@ class ProductCargFragment : BaseFragment(), ProductCardView {
             false
         }
 
-
         back_arrow_product_card.setOnClickListener { presenter.gotoback() }
         button_green.setOnClickListener {
             startActivity(Intent(activity, BasketActivity::class.java))
         }
+        plusClick(product)
+        minusClick(product)
+        Log.e("aaaViewCreated","aaaViewCreated")
+    }
+
+    companion object {
+
+        fun newInstance(product: Product) = ProductCargFragment().withArgs {
+            putParcelable(PRODUCT, product)
+        }
+
+        private const val PRODUCT = "product"
     }
 
     private fun initViews() {
@@ -88,78 +104,77 @@ class ProductCargFragment : BaseFragment(), ProductCardView {
             )
         }
         updateClick()
+    }
 
+    private fun updateBasketButton() {
+        var priceAll: Int = 0
+        basket.items.forEach { item ->
+            priceAll += (item.product.price * item.quantity)
+        }
+        val haveItem = basket.items.filter {
+            it.product.isEstimatedPrice == true
+        }.firstOrNull()
+        if (haveItem == null)
+            isEstimatedPrise_product_card.visibility = View.GONE
+        else
+            isEstimatedPrise_product_card.visibility = View.VISIBLE
+        price_on_button_product_card.setText("$priceAll")
+        count_on_button_product_card.setText("${basket.items.size}")
     }
 
     //
-    fun plusClick(productCard: ProductCard) {
+    fun plusClick(product: Product) {
 
-        basket.items.forEach { item ->
-            if (item.product.id == productCard.id) {
-                input_product.setText("${item.quantity}")
-                input_product.visibility = View.VISIBLE
-                minus.visibility = View.VISIBLE
+        if (product.quantity != null) {
+            input_product.setText("${product.quantity}")
+            input_product.visibility = View.VISIBLE
+            minus.visibility = View.VISIBLE
+        }
+
+        var sum = 0
+
+        plus.setOnClickListener {
+            if (input_product.text.toString() == "" || input_product.text.toString() == null)
+                input_product.setText("0")
+            sum = input_product.text.toString().toInt()
+            minus.visibility = View.VISIBLE
+            input_product.visibility = View.VISIBLE
+            sum++
+            input_product.setText("$sum")
+            basket.addProduct(product)
+            updateBasketButton()
+
+        }
+    }
+
+    fun minusClick(product: Product) {
 
 
-                var sum = 0
-
-                plus.setOnClickListener {
-                    if (input_product.text.toString() == "")
-                        input_product.setText("0")
-                    sum = input_product.text.toString().toInt()
-                    minus.visibility = View.VISIBLE
-                    input_product.visibility = View.VISIBLE
-                    sum++
-                    input_product.setText("$sum")
-                    basket.addProduct(item.product)
-                }
+        if (product.quantity != null|| product.quantity != 0) {
+            input_product.setText("${product.quantity}")
+            input_product.visibility = View.VISIBLE
+            minus.visibility = View.VISIBLE
+        }
+        var sum = 0
+        minus.setOnClickListener {
+            if (input_product.text.toString() == "" || input_product.text.toString() == "0") {
+                minus.visibility = View.GONE
             } else {
-                var sum = 0
 
-                plus.setOnClickListener {
-                    if (input_product.text.toString() == "")
-                        input_product.setText("0")
-                    sum = input_product.text.toString().toInt()
-                    minus.visibility = View.VISIBLE
-                    input_product.visibility = View.VISIBLE
-                    sum++
-                    input_product.setText("$sum")
-                    basket.addProduct(item.product)
+                minus.isEnabled = true
+                sum = input_product.text.toString().toInt()
+                sum--
+                if (sum == 0) {
+                    minus.visibility = View.GONE
+                    input_product.visibility = View.GONE
                 }
-            }
-
-        }
-    }
-
-    fun minusClick(productCard: ProductCard) {
-
-        basket.items.forEach { item ->
-            if (item.product.id == productCard.id) {
-                input_product.setText("${item.quantity}")
-                input_product.visibility = View.VISIBLE
-                minus.visibility = View.VISIBLE
-
-                var sum = 0
-                minus.setOnClickListener {
-                    if (input_product.text.toString() == "" || input_product.text.toString() == "0") {
-                        minus.visibility = View.GONE
-                    } else {
-                        minus.isEnabled = true
-                        sum = input_product.text.toString().toInt()
-                        sum--
-                        if (sum == 0) {
-                            minus.visibility = View.GONE
-                            input_product.visibility = View.GONE
-                        }
-                        input_product.setText("$sum")
-                    }
-                    if (sum == 0)
-                        basket.deleteProduct(item.product)
-                }
+                input_product.setText("$sum")
+                basket.deleteProduct(product)
+                updateBasketButton()
             }
         }
-    }
 
+    }
 
     fun updateClick() {
         update_productcard.setOnClickListener { presenter.getAllData() }
@@ -196,23 +211,44 @@ class ProductCargFragment : BaseFragment(), ProductCardView {
     override fun onResume() {
         super.onResume()
         presenter.getAllData()
+        updateBasketButton()
+        Log.e("aaaResume","aaaResume")
+        val haveItem = basket.items.filter {
+            it.product.id == product.id
+        }.firstOrNull()
+        if (haveItem != null) {
+            input_product.setText("${haveItem.quantity}")
+            input_product.visibility = View.VISIBLE
+            minus.visibility = View.VISIBLE
+        }
+        else input_product.setText("0")
+        input_product.visibility = View.GONE
+        minus.visibility = View.GONE
     }
 
+
+
+    override fun onStart() {
+        super.onStart()
+        updateBasketButton()
+        Log.e("aaaStart","aaaStart")
+    }
+//Предовать в метод продукт
     override fun showProductCardInformation(productCard: ProductCard) {
-        basket.items.forEach {
-            if (it.product.id == productCard.id) {
-                input_product.setText("${it.quantity}")
-                input_product.visibility = View.VISIBLE
-                minus.visibility = View.VISIBLE
-            }
-            plusClick(productCard)
-            minusClick(productCard)
+
+        val haveItem = basket.items.filter {
+            it.product.id == product.id
+        }.firstOrNull()
+        if (haveItem != null) {
+            input_product.setText("${haveItem.quantity}")
+            input_product.visibility = View.VISIBLE
+            minus.visibility = View.VISIBLE
         }
+
         title.text = productCard.title
         price.text = productCard.price.toString()
         count_product.text = productCard.count
         discription.text = productCard.description
-
 
     }
 

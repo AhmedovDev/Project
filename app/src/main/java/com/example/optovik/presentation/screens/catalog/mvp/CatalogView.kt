@@ -9,4 +9,6 @@ interface CatalogView : MvpView {
     fun showInformation(information: String)
     fun showError()
     fun visiblCatalog()
+    fun adapterUpdate()
+    fun updateBasketButton()
 }

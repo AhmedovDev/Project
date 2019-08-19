@@ -1,9 +1,6 @@
 package com.example.optovik.data.global
 
-import com.example.optovik.data.global.models.Basket
-import com.example.optovik.data.global.models.Catalog
-import com.example.optovik.data.global.models.DataModel
-import com.example.optovik.data.global.models.ProductCard
+import com.example.optovik.data.global.models.*
 import com.example.optovik.data.network.BasketApi
 import com.example.optovik.data.network.CatalogApi
 import com.example.optovik.data.network.OptovikApi
@@ -20,8 +17,8 @@ class DataManagerlmpl @Inject constructor(
     @Named("API_BASKET")val apiBasket: BasketApi
 
 ) : DataManager {
-    override fun getBasket(): Single<List<Basket>> =
-        apiBasket.getBasket()
+    override fun getBasket(): Single<DeliveryAndBasket> =
+        apiBasket.getDeliveryAndBasket()
             .subscribeOn(Schedulers.io())
 
 
