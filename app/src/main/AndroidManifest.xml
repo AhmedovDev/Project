@@ -13,9 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".presentation.screens.adresbook.ui.AdresbookActivity"></activity>
         <activity
             android:name=".presentation.screens.basket.ui.BasketActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.screens.splash.ui.SplashActivity"
             android:screenOrientation="portrait">
@@ -28,13 +29,13 @@
         <activity
             android:name=".presentation.screens.catalog.ui.CatalogActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.screens.main.ui.MainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AutorizationActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

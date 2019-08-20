@@ -3,6 +3,7 @@ package com.example.optovik.di.global
 import android.content.Context
 import com.example.optovik.data.basketholder.BasketHolder
 import com.example.optovik.di.global.modules.*
+import com.example.optovik.di.screens.adresbook.AdresbookComponent
 import com.example.optovik.di.screens.autorization.AutorizationComponent
 import com.example.optovik.di.screens.basket.BasketComponent
 import com.example.optovik.di.screens.catalog.CatalogComponent
@@ -40,6 +41,7 @@ interface AppComponent {
     fun dialogBasketComponentBuilder(): DialogBasketComponent.Builder
     fun splashComponentBuilder(): SplashComponent.Builder
     fun searchComponentBuilder(): SearchComponent.Builder
+    fun adresbookComponentBuilder(): AdresbookComponent.Builder
 
     @Component.Builder
     interface Builder {

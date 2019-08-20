@@ -23,6 +23,7 @@ import com.example.optovik.presentation.screens.catalog.ui.CatalogAdapter
 import com.example.optovik.presentation.screens.search.mvp.SearchPresenter
 import com.example.optovik.presentation.screens.search.mvp.SearchView
 import kotlinx.android.synthetic.main.activity_catalog.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_search.*
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
@@ -67,6 +68,7 @@ class SearchFragment : BaseFragment(), SearchView {
         super.onViewCreated(view, savedInstanceState)
         back_arrow_search.setOnClickListener { presenter.back() }
         initViews()
+        updateBasketButtonSearch()
         update_search.setOnClickListener { presenter.search("") }
         clear.setOnClickListener { input_search.setText("") }
 
@@ -118,6 +120,23 @@ class SearchFragment : BaseFragment(), SearchView {
         adapter.setOnCatalogClickListener {
             presenter.goToProductCard(it)
         }
+    }
+
+    override fun updateBasketButtonSearch() {
+        var priceAll: Int = 0
+        basket.items.forEach { item ->
+            priceAll += (item.product.price * item.quantity)
+        }
+        val haveItem = basket.items.filter {
+            it.product.isEstimatedPrice == true
+        }.firstOrNull()
+        if (haveItem == null)
+            isEstimatedPrise_search.visibility = View.GONE
+        else
+            isEstimatedPrise_search.visibility = View.VISIBLE
+
+        price_on_button_search.setText("$priceAll")
+        count_on_button_search.setText("${basket.items.size}")
     }
 
     override fun showError() {

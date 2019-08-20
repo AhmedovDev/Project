@@ -12,4 +12,7 @@ interface DataManager {
 
     fun getBasket(): Single<DeliveryAndBasket>
 
+    fun getLocation(): Single<List<Location>>
+
+
 }

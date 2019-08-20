@@ -25,6 +25,7 @@
     <string name="no">Нет,не хочу</string>
     <string name="yas">Да, удалить</string>
     <string name="sum">Сумма</string>
+    <string name="adresbook">Адресная книга</string>
 
     <plurals name="number_of_seconds">
         <item quantity="one">%d секунда</item>

@@ -57,4 +57,8 @@ class CatalogPresenter @Inject constructor(
     fun gotoProducCard(product: Product) {
         router.navigateTo(Screens.ProductCard(product))
     }
+
+    fun searchCatalogClick() {
+        router.navigateTo(Screens.Search)
+    }
 }

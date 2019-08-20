@@ -1,10 +1,7 @@
 package com.example.optovik.data.global
 
 import com.example.optovik.data.global.models.*
-import com.example.optovik.data.network.BasketApi
-import com.example.optovik.data.network.CatalogApi
-import com.example.optovik.data.network.OptovikApi
-import com.example.optovik.data.network.ProductCardApi
+import com.example.optovik.data.network.*
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -14,9 +11,15 @@ class DataManagerlmpl @Inject constructor(
     @Named("API_OPTOVIK") val api: OptovikApi,
     @Named("API_CATALOG") val apiCatalog: CatalogApi,
     @Named("API_PRODUCT_CARD")val apiProductCard: ProductCardApi,
-    @Named("API_BASKET")val apiBasket: BasketApi
+    @Named("API_BASKET")val apiBasket: BasketApi,
+    @Named("API_LOCATION")val apiLocation: LocationApi
 
 ) : DataManager {
+    override fun getLocation(): Single<List<Location>> =
+        apiLocation.getLocation()
+            .subscribeOn(Schedulers.io())
+
+
     override fun getBasket(): Single<DeliveryAndBasket> =
         apiBasket.getDeliveryAndBasket()
             .subscribeOn(Schedulers.io())

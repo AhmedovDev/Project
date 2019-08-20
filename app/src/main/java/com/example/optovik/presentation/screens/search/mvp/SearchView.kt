@@ -9,4 +9,5 @@ interface SearchView : MvpView {
     fun showError()
     fun visiblSearchList()
     fun adapterUpdate()
+    fun updateBasketButtonSearch()
 }

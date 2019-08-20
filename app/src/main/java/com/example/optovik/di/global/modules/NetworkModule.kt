@@ -82,6 +82,18 @@ class NetworkModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
+    @Provides
+    @Singleton
+    @Named("LOCATION_RETROFIT")
+    fun provideLocationRetrofit(client: OkHttpClient): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(BASE_API_URL_LOCATION)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+
 
 
     @Provides
@@ -103,6 +115,11 @@ class NetworkModule {
     @Singleton
     @Named("BASE_API_URL_BASKET")
     fun provideBaseUrlBasket() = BASE_API_URL_BASKET
+
+    @Provides
+    @Singleton
+    @Named("BASE_API_URL_LOCATION")
+    fun provideBaseUrlLocation() = BASE_API_URL_LOCATION
 
 
 
@@ -138,11 +155,18 @@ class NetworkModule {
     fun provideApiBasket(@Named("BASKET_RETROFIT") retrofit: Retrofit) =
         retrofit.create(BasketApi::class.java)
 
+    @Provides
+    @Singleton
+    @Named("API_LOCATION")
+    fun provideApiLocation(@Named("LOCATION_RETROFIT") retrofit: Retrofit) =
+        retrofit.create(BasketApi::class.java)
+
     companion object {
         private const val BASE_API_URL = "https://my-json-server.typicode.com"
         private const val BASE_API_URL_CATALOG = "https://raw.githubusercontent.com"
         private const val BASE_API_URL_PRODUCTCARD = "https://raw.githubusercontent.com"
         private const val BASE_API_URL_BASKET = "https://raw.githubusercontent.com"
+        private const val BASE_API_URL_LOCATION = "https://raw.githubusercontent.com"
 
 
     }

@@ -68,6 +68,7 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView, View.OnClickListene
         initViews()
         backArrowClickListener()
         basketButtonClick()
+        search_catalog.setOnClickListener { presenter.searchCatalogClick() }
         navigator = SupportAppNavigator(this, R.id.container_productcard)
 //        disposable = updateBasket.subscribe().subscribe {
 //            //Для обновления корзины
