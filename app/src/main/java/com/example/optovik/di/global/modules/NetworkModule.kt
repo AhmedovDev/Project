@@ -1,10 +1,7 @@
 package com.example.optovik.di.global.modules
 
 import com.example.optovik.BuildConfig
-import com.example.optovik.data.network.BasketApi
-import com.example.optovik.data.network.CatalogApi
-import com.example.optovik.data.network.OptovikApi
-import com.example.optovik.data.network.ProductCardApi
+import com.example.optovik.data.network.*
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -159,7 +156,7 @@ class NetworkModule {
     @Singleton
     @Named("API_LOCATION")
     fun provideApiLocation(@Named("LOCATION_RETROFIT") retrofit: Retrofit) =
-        retrofit.create(BasketApi::class.java)
+        retrofit.create(LocationApi::class.java)
 
     companion object {
         private const val BASE_API_URL = "https://my-json-server.typicode.com"

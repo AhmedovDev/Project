@@ -1,7 +1,9 @@
 package com.example.optovik.presentation.screens.adresbook.ui
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.DividerItemDecoration
+import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -12,7 +14,7 @@ import com.example.optovik.data.global.models.Location
 import com.example.optovik.presentation.global.utils.UpdateBasket
 import com.example.optovik.presentation.screens.adresbook.mvp.AdresbookPresenter
 import com.example.optovik.presentation.screens.adresbook.mvp.AdresbookView
-import com.example.optovik.presentation.screens.catalog.mvp.CatalogPresenter
+import kotlinx.android.synthetic.main.activity_adresbook.*
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import javax.inject.Inject
@@ -32,8 +34,7 @@ class AdresbookActivity : MvpAppCompatActivity(), AdresbookView {
     @ProvidePresenter
     fun providePresenter() = presenter
 
-    @field:Inject
-    lateinit var updateBasket: UpdateBasket
+
 
     private lateinit var navigator: Navigator
 
@@ -43,21 +44,33 @@ class AdresbookActivity : MvpAppCompatActivity(), AdresbookView {
             .inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_adresbook)
+        initViews()
+    }
+
+    private fun initViews() {
+        recycler_adresbook.run {
+            layoutManager = LinearLayoutManager(recycler_adresbook.context)
+            addItemDecoration(
+                DividerItemDecoration(recycler_adresbook.context, DividerItemDecoration.VERTICAL)
+            )
+        }
     }
 
     override fun showProgress(progress: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        progressBar_adresbook.visibility = if (progress) View.VISIBLE else View.GONE
     }
 
     override fun showLocations(locations: List<Location>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val adapter = AdresbookAdapter(locations)
+        recycler_adresbook.adapter = adapter
+        adapter.setOnAdresClickListener {
+
+        }
     }
 
     override fun showError() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+adresbook_container.visibility = View.VISIBLE
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-    }
+    override fun onBackPressed() = presenter.onBackPressed()
 }

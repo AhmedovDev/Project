@@ -15,6 +15,10 @@ class AdresbookPresenter @Inject constructor(
     private val basketHolder: BasketHolder
 ) : BasePresenter<AdresbookView>(router, dataManager)
 {
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        getAllLocations()
+    }
 
     fun getAllLocations() {
         dataManager.getLocation()
@@ -23,6 +27,7 @@ class AdresbookPresenter @Inject constructor(
             .doAfterTerminate { viewState.showProgress(false) }
             .subscribe(
                 { data ->
+                    data
                     viewState.showLocations(data)
                 },
                 {
