@@ -11,6 +11,7 @@ import com.example.optovik.di.screens.inputcode.InputCodeComponent
 import com.example.optovik.di.screens.inputphone.InputPhoneComponent
 import com.example.optovik.di.screens.main.MainComponent
 import com.example.optovik.di.screens.productcard.ProductCardComponent
+import com.example.optovik.di.screens.search.SearchComponent
 import com.example.optovik.di.screens.splash.SplashComponent
 import dagger.BindsInstance
 import dagger.Component
@@ -38,6 +39,7 @@ interface AppComponent {
     fun basketComponentBuilder(): BasketComponent.Builder
     fun dialogBasketComponentBuilder(): DialogBasketComponent.Builder
     fun splashComponentBuilder(): SplashComponent.Builder
+    fun searchComponentBuilder(): SearchComponent.Builder
 
     @Component.Builder
     interface Builder {

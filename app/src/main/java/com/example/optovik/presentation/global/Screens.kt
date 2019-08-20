@@ -5,6 +5,7 @@ import com.example.optovik.data.global.models.Product
 import com.example.optovik.presentation.screens.inputcode.ui.InputCodeFragment
 import com.example.optovik.presentation.screens.inputphone.ui.InputPhoneFragment
 import com.example.optovik.presentation.screens.productcard.ui.ProductCargFragment
+import com.example.optovik.presentation.screens.search.ui.SearchFragment
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 object Screens {
@@ -14,6 +15,13 @@ object Screens {
             return InputPhoneFragment()
         }
     }
+
+    object Search : SupportAppScreen() {
+        override fun getFragment(): Fragment {
+            return SearchFragment()
+        }
+    }
+
 
 
     class InputCode(private val phone: String) : SupportAppScreen() {

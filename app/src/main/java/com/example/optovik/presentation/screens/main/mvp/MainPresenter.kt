@@ -21,11 +21,17 @@ class MainPresenter @Inject constructor(
     private val router: Router,
     private val dataManager: DataManager,
     private var basketHolder: BasketHolder
-) : BasePresenter<MainView>(router,dataManager){
+) : BasePresenter<MainView>(router,dataManager), BasketListener {
+
+    override fun onUpdateBasketItems(items: MutableList<BasketHolder.Item>) {
+        viewState.updateBasketButtonMain()
+    }
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         getAllData()
+        basketHolder.subscribe(this)
+
     }
 
 
@@ -50,6 +56,10 @@ class MainPresenter @Inject constructor(
     }
     fun onEventClick(product: Product) {
         router.navigateTo(Screens.ProductCard(product))
+    }
+
+    fun onSearchClick() {
+        router.navigateTo(Screens.Search)
     }
 
 

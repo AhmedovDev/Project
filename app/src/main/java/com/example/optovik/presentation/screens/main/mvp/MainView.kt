@@ -12,5 +12,5 @@ interface MainView : MvpView {
     fun showEvents(banner: List<Event>)
     fun visiblMain()
     fun categoryesClick()
-
+   fun updateBasketButtonMain()
 }

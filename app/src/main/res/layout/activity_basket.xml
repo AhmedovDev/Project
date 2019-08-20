@@ -180,7 +180,7 @@
                         android:paddingLeft="4dp"
                         android:text="₽"
                         android:textColor="#444444"
-                        android:textSize="spdp" />
+                        android:textSize="12sp" />
 
 
                 </LinearLayout>

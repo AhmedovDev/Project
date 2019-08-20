@@ -22,6 +22,7 @@ import com.example.optovik.presentation.global.BaseFragment
 import com.example.optovik.presentation.screens.basket.ui.BasketActivity
 import com.example.optovik.presentation.screens.catalog.ui.CatalogActivity
 import kotlinx.android.synthetic.main.activity_catalog.*
+import kotlinx.android.synthetic.main.toolbar_main.*
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 
@@ -55,16 +56,17 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         setContentView(com.example.optovik.R.layout.activity_main)
 //        presenter.getBasket()
         initViews()
-        updateBasketButton()
+        updateBasketButtonMain()
         navigator = SupportAppNavigator(this, R.id.container_main_activity)
         button_basket_main.setOnClickListener {
             val intent = Intent(this, BasketActivity::class.java)
             startActivity(intent)
         }
+        search_main.setOnClickListener { presenter.onSearchClick() }
 
     }
 
-    private fun updateBasketButton() {
+    override fun updateBasketButtonMain() {
         var priceAll: Int = 0
         basketHolder.items.forEach { item ->
             priceAll += (item.product.price * item.quantity)
@@ -99,7 +101,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             )
         }
         updateClick()
-        updateBasketButton()
+        updateBasketButtonMain()
     }
 
     override fun categoryesClick() {
@@ -163,7 +165,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     override fun onResume() {
         super.onResume()
-        updateBasketButton()
+        updateBasketButtonMain()
     }
 
     override fun onBackPressed() = presenter.onBackPressed()

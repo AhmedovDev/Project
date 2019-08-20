@@ -107,8 +107,7 @@
         app:layout_constraintTop_toBottomOf="parent"
         tools:context=".AutorizationActivity">
 
-        <android.support.constraint.ConstraintLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="wrap_content"
@@ -181,13 +180,15 @@
 
     </FrameLayout>
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <FrameLayout
         android:id="@+id/container_main_activity"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:elevation="3dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_basket_main"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:context=".presentation.screens.main.ui.MainActivity"></FrameLayout>
 
     <android.support.constraint.ConstraintLayout

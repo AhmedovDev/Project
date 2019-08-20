@@ -48,7 +48,7 @@
             app:srcCompat="@drawable/ic_notification" />
 
         <ImageView
-            android:id="@+id/imageButton2"
+            android:id="@+id/search_main"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignParentTop="true"

@@ -8,8 +8,11 @@ import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 @InjectViewState
-class InputCodePresenter @Inject constructor(private val router: Router,private val dataManager: DataManager) : BasePresenter<InputCodeView>(router,dataManager) {
-
+class InputCodePresenter @Inject constructor(
+    private val router: Router,
+    private val dataManager: DataManager
+) :
+    BasePresenter<InputCodeView>(router, dataManager) {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
