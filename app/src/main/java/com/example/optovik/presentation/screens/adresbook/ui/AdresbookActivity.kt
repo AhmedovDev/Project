@@ -35,7 +35,6 @@ class AdresbookActivity : MvpAppCompatActivity(), AdresbookView {
     fun providePresenter() = presenter
 
 
-
     private lateinit var navigator: Navigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +44,8 @@ class AdresbookActivity : MvpAppCompatActivity(), AdresbookView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_adresbook)
         initViews()
+        update_adresbook.setOnClickListener { presenter.getAllLocations()
+        adresbook_container.visibility = View.GONE}
     }
 
     private fun initViews() {
@@ -64,12 +65,12 @@ class AdresbookActivity : MvpAppCompatActivity(), AdresbookView {
         val adapter = AdresbookAdapter(locations)
         recycler_adresbook.adapter = adapter
         adapter.setOnAdresClickListener {
-
+            adapter.notifyDataSetChanged()
         }
     }
 
     override fun showError() {
-adresbook_container.visibility = View.VISIBLE
+        adresbook_container.visibility = View.VISIBLE
     }
 
     override fun onBackPressed() = presenter.onBackPressed()

@@ -6,6 +6,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 class Location(
-    @SerializedName("adres") val adres: String,
+    @SerializedName("address") val address: String,
     @SerializedName("phone") val phone: String
 ) : Parcelable
