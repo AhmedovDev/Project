@@ -9,7 +9,6 @@ import com.example.optovik.data.global.models.Product
 import com.example.optovik.presentation.global.BasePresenter
 import com.example.optovik.presentation.global.Screens
 import com.example.optovik.presentation.global.utils.UpdateBasket
-import io.reactivex.android.schedulers.AndroidSchedulers
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 

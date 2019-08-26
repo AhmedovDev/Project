@@ -5,8 +5,10 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class Basket(
-    @SerializedName("product") val product: Product,
-    @SerializedName("quantity") var quantity: Int
+class MyOrder (
+    @SerializedName("title") val title: String,
+    @SerializedName("id") val id: Int,
+    @SerializedName("date") val date: String,
+    @SerializedName("sum") val sum: Int
 ) : Parcelable
 

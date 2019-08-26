@@ -1,10 +1,11 @@
-package com.example.optovik.presentation.screens.splash.mvp
+package com.example.optovik.presentation.screens.myorder.mvp
 
-import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.example.optovik.data.basketholder.BasketHolder
+import com.example.optovik.data.basketholder.BasketListener
 import com.example.optovik.data.global.DataManager
 import com.example.optovik.presentation.global.BasePresenter
+import com.example.optovik.presentation.screens.main.mvp.MainView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.schedulers.Schedulers
@@ -12,30 +13,34 @@ import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
 @InjectViewState
-class SplashPresenter @Inject constructor(
+class MyOrderPresenter @Inject constructor(
     private val router: Router,
     private val dataManager: DataManager,
     private var basketHolder: BasketHolder
-) : BasePresenter<SplashView>(router,dataManager) {
+) : BasePresenter<MyOrderView>(router,dataManager) {
+
+
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        getBasket()
+        getMyOrders()
     }
 
-    fun getBasket() {
-        subscriptions += dataManager.getBasket()
+
+
+    fun getMyOrders() {
+        subscriptions += dataManager.getMyOrder()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
+            .doOnSubscribe { viewState.showProgress(true) }
+            .doAfterTerminate { viewState.showProgress(false) }
             .subscribe(
-                { basket ->
-                    Log.e("BASKET: ","$basket")
-                    basketHolder.items = basket.basket.map { BasketHolder.Item(it.product,it.quantity) } as MutableList
-                    viewState.intent()
-
+                { data ->
+                    data
+                    viewState.showMyOrders(data)
                 },
                 {
-                   viewState.showError()
+                    viewState.showError()
                 }
             )
     }

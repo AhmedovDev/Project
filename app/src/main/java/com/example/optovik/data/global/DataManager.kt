@@ -14,5 +14,6 @@ interface DataManager {
 
     fun getLocation(): Single<List<Location>>
 
+    fun getMyOrder(): Single<List<MyOrder>>
 
 }

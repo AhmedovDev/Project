@@ -10,11 +10,17 @@ import javax.inject.Named
 class DataManagerlmpl @Inject constructor(
     @Named("API_OPTOVIK") val api: OptovikApi,
     @Named("API_CATALOG") val apiCatalog: CatalogApi,
-    @Named("API_PRODUCT_CARD")val apiProductCard: ProductCardApi,
-    @Named("API_BASKET")val apiBasket: BasketApi,
-    @Named("API_LOCATION")val apiLocation: LocationApi
+    @Named("API_PRODUCT_CARD") val apiProductCard: ProductCardApi,
+    @Named("API_BASKET") val apiBasket: BasketApi,
+    @Named("API_LOCATION") val apiLocation: LocationApi,
+    @Named("API_MY_ORDER") val apiMyOrder: MyOrderApi
 
 ) : DataManager {
+
+    override fun getMyOrder(): Single<List<MyOrder>> =
+        apiMyOrder.getMyOrder()
+            .subscribeOn(Schedulers.io())
+
     override fun getLocation(): Single<List<Location>> =
         apiLocation.getLocation()
             .subscribeOn(Schedulers.io())

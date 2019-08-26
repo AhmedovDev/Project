@@ -26,6 +26,9 @@
     <string name="yas">Да, удалить</string>
     <string name="sum">Сумма</string>
     <string name="adresbook">Адресная книга</string>
+    <string name="my_orders">Мои заказы</string>
+    <string name="last_orders">Последние заказы</string>
+    <string name="notification">Уведомления</string>
 
     <plurals name="number_of_seconds">
         <item quantity="one">%d секунда</item>

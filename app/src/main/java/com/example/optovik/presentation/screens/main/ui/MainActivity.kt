@@ -21,6 +21,8 @@ import com.example.optovik.data.global.models.Event
 import com.example.optovik.presentation.global.BaseFragment
 import com.example.optovik.presentation.screens.basket.ui.BasketActivity
 import com.example.optovik.presentation.screens.catalog.ui.CatalogActivity
+import com.example.optovik.presentation.screens.myorder.ui.MyOrderActivity
+import com.example.optovik.presentation.screens.notofication.ui.NotificationActivity
 import kotlinx.android.synthetic.main.activity_catalog.*
 import kotlinx.android.synthetic.main.toolbar_main.*
 import ru.terrakok.cicerone.Navigator
@@ -62,7 +64,16 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             val intent = Intent(this, BasketActivity::class.java)
             startActivity(intent)
         }
+        order_main.setOnClickListener {
+            val intent = Intent(this, MyOrderActivity::class.java)
+            startActivity(intent)
+        }
+        order_main_one.setOnClickListener { }
         search_main.setOnClickListener { presenter.onSearchClick() }
+        notification.setOnClickListener {
+            val intent = Intent(this, NotificationActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 

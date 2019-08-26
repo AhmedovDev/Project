@@ -45,6 +45,155 @@
                 app:layout_constraintTop_toBottomOf="@+id/toolbarmain"
                 tools:itemCount="3" />
 
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/order_main"
+                android:layout_width="match_parent"
+                android:layout_height="162dp"
+                android:background="#FCFCFC">
+
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/sfpromedium"
+                    android:text="@string/last_orders"
+                    android:textColor="#C6C6C6"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/all_orders_main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="19dp"
+                    android:layout_marginEnd="7dp"
+                    android:fontFamily="@font/sfpromedium"
+                    android:text="Все"
+                    android:textColor="#939393"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView5"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="0dp"
+                    android:layout_height="7dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_vector_my_order"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/order_main_one"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/my_order_view_border"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView">
+
+                    <TextView
+                        android:id="@+id/order_id_main"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/sfpromedium"
+                        android:text="Заказ№ 320"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/sfpromedium"
+                        android:text="12.06.19"
+                        android:textColor="#C6C6C6"
+                        android:textSize="11sp"
+                        app:layout_constraintStart_toEndOf="@+id/order_id_main"
+                        app:layout_constraintTop_toTopOf="@+id/order_id_main" />
+
+                    <TextView
+                        android:id="@+id/title_main"
+                        android:layout_width="50dp"
+                        android:layout_height="18dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@drawable/background_main_title"
+                        android:fontFamily="@font/sfpromedium"
+                        android:gravity="center"
+                        android:text="Принят"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="10sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/sum_main"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_marginBottom="12dp"
+                        android:fontFamily="@font/sfpromedium"
+                        android:text="24 000 ₽ "
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView25"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="7dp"
+                        android:layout_marginBottom="13dp"
+                        android:fontFamily="@font/sfpromedium"
+                        android:text="Подробнее"
+                        android:textColor="#3DB852"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/imageView6" />
+
+                    <ImageView
+                        android:id="@+id/imageView6"
+                        android:layout_width="5dp"
+                        android:layout_height="7dp"
+                        android:layout_marginEnd="18dp"
+                        android:layout_marginBottom="17dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:srcCompat="@drawable/ic_vector"
+                        tools:ignore="VectorDrawableCompat" />
+
+                    <View
+                        android:id="@+id/view2"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="50dp"
+                        android:background="#F6F6F6"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </android.support.constraint.ConstraintLayout>
+            </android.support.constraint.ConstraintLayout>
+
 
             <TextView
                 android:id="@+id/category"
@@ -70,7 +219,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/container"
                 tools:itemCount="14" />
 
         </LinearLayout>
