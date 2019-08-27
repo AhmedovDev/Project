@@ -18,12 +18,14 @@ import com.example.optovik.R
 import com.example.optovik.data.basketholder.BasketHolder
 import com.example.optovik.data.global.models.Category
 import com.example.optovik.data.global.models.Event
+import com.example.optovik.data.global.models.MyOrder
 import com.example.optovik.presentation.global.BaseFragment
 import com.example.optovik.presentation.screens.basket.ui.BasketActivity
 import com.example.optovik.presentation.screens.catalog.ui.CatalogActivity
 import com.example.optovik.presentation.screens.myorder.ui.MyOrderActivity
 import com.example.optovik.presentation.screens.notofication.ui.NotificationActivity
 import kotlinx.android.synthetic.main.activity_catalog.*
+import kotlinx.android.synthetic.main.item_my_order.*
 import kotlinx.android.synthetic.main.toolbar_main.*
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
@@ -148,6 +150,13 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             val intent = Intent(this, CatalogActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun showLastOrder(lastOrder: MyOrder) {
+        order_id_main.text = "Заказ №" + lastOrder.id.toString()
+        sum_main.text = lastOrder.sum.toString()
+        title_main.text = lastOrder.title
+        order_date_main.text = lastOrder.date
     }
 
     override fun showEvents(event: List<Event>) {

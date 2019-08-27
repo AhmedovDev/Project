@@ -16,6 +16,8 @@ import com.example.optovik.presentation.global.dialogscreen.DialogBasketFragment
 import com.example.optovik.presentation.screens.basket.mvp.BasketPresenter
 import com.example.optovik.presentation.screens.basket.mvp.BasketView
 import com.example.optovik.presentation.screens.catalog.ui.CatalogActivity
+import com.example.optovik.presentation.screens.checkorder.ui.CheckOrderActivity
+import com.example.optovik.presentation.screens.main.ui.MainActivity
 import kotlinx.android.synthetic.main.activity_basket.*
 import kotlinx.android.synthetic.main.activity_catalog.reletiv
 import kotlinx.android.synthetic.main.activity_catalog.update_catalog
@@ -66,6 +68,10 @@ class BasketActivity : MvpAppCompatActivity(), BasketView, DialogBasketFragment.
         delete_basket.setOnClickListener {
             showBottomSheetDialogFragment()
         }
+        check_order_basket.setOnClickListener {
+            val intent = Intent(this, CheckOrderActivity::class.java)
+            startActivity(intent)
+        }
 
         basketResultPriceCheсk()
     }
@@ -75,13 +81,13 @@ class BasketActivity : MvpAppCompatActivity(), BasketView, DialogBasketFragment.
             basletactivity_empty_container.visibility = View.VISIBLE
             delete_basket.visibility = View.GONE
             reletiv.visibility = View.GONE
-            constraintLayout4.visibility = View.GONE
+            check_order_basket.visibility = View.GONE
 
         } else {
             basletactivity_empty_container.visibility = View.GONE
             delete_basket.visibility = View.VISIBLE
             reletiv.visibility = View.VISIBLE
-            constraintLayout4.visibility = View.VISIBLE
+            check_order_basket.visibility = View.VISIBLE
 
         }
         go_to_catalog.setOnClickListener {

@@ -103,6 +103,18 @@ class NetworkModule {
 
     @Provides
     @Singleton
+    @Named("NOTIFICATION_RETROFIT")
+    fun provideNotificationRetrofit(client: OkHttpClient): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(BASE_API_URL_MY_ORDER)
+            .client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+
+    @Provides
+    @Singleton
     @Named("BASE_API_URL")
     fun provideBaseUrlCrm() = BASE_API_URL
 
@@ -174,6 +186,12 @@ class NetworkModule {
     @Named("API_MY_ORDER")
     fun provideApiMyOrder(@Named("MY_ORDER_RETROFIT") retrofit: Retrofit) =
         retrofit.create(MyOrderApi::class.java)
+
+    @Provides
+    @Singleton
+    @Named("API_NOTIFICATION")
+    fun provideApiNotification(@Named("NOTIFICATION_RETROFIT") retrofit: Retrofit) =
+        retrofit.create(NotificationApi::class.java)
 
     companion object {
         private const val BASE_API_URL = "https://my-json-server.typicode.com"

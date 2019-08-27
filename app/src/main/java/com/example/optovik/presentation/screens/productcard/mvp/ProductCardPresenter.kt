@@ -16,7 +16,7 @@ class ProductCardPresenter @Inject constructor(private val router: Router, priva
     }
 
     fun getAllData() {
-        dataManager.getProducCard()
+        dataManager.getProductCard()
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { viewState.showProgress(true) }
             .doAfterTerminate { viewState.showProgress(false) }

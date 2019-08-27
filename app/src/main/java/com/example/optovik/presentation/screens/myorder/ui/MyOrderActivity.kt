@@ -11,6 +11,7 @@ import com.example.optovik.App
 import com.example.optovik.R
 import com.example.optovik.data.basketholder.BasketHolder
 import com.example.optovik.data.global.models.MyOrder
+import com.example.optovik.data.prefs.PrefsHelper
 import com.example.optovik.presentation.screens.main.mvp.MainPresenter
 import com.example.optovik.presentation.screens.myorder.mvp.MyOrderPresenter
 import com.example.optovik.presentation.screens.myorder.mvp.MyOrderView
@@ -36,6 +37,9 @@ class MyOrderActivity : MvpAppCompatActivity(), MyOrderView {
     fun providePresenter() = presenter
 
     private lateinit var navigator: Navigator
+
+    @Inject
+    lateinit var prefsHelper: PrefsHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         App.appComponent.myOrderComponentBuilder()
@@ -65,7 +69,9 @@ class MyOrderActivity : MvpAppCompatActivity(), MyOrderView {
     override fun showMyOrders(myOrder: List<MyOrder>) {
         val adapter = MyOrderAdapter(myOrder)
         my_order_recycler.adapter = adapter
-        adapter.setOnAdresClickListener { }
+        adapter.setOnAdresClickListener {
+
+        }
     }
 
     override fun showError() {

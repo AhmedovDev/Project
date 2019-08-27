@@ -7,6 +7,7 @@ import com.example.optovik.di.screens.adresbook.AdresbookComponent
 import com.example.optovik.di.screens.autorization.AutorizationComponent
 import com.example.optovik.di.screens.basket.BasketComponent
 import com.example.optovik.di.screens.catalog.CatalogComponent
+import com.example.optovik.di.screens.checkorder.CheckOrderComponent
 import com.example.optovik.di.screens.dialogbasket.DialogBasketComponent
 import com.example.optovik.di.screens.inputcode.InputCodeComponent
 import com.example.optovik.di.screens.inputphone.InputPhoneComponent
@@ -46,6 +47,7 @@ interface AppComponent {
     fun adresbookComponentBuilder(): AdresbookComponent.Builder
     fun myOrderComponentBuilder(): MyOrderComponent.Builder
     fun notificationComponentBuilder(): NotificationComponent.Builder
+    fun checkOrderComponentBuilder(): CheckOrderComponent.Builder
 
     @Component.Builder
     interface Builder {

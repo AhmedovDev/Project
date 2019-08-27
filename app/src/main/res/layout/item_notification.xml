@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorPrimaryDark">
 
 
     <TextView
-        android:id="@+id/textView17"
+        android:id="@+id/date_notification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -28,22 +27,21 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView19"
+        android:id="@+id/information_notification"
         android:layout_width="228dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
         android:layout_marginBottom="20dp"
+        android:fontFamily="@font/sfpromedium"
         android:text=" Распродажа мясной продукции! 20кг мяса по выгодной цене"
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView7"
-        app:layout_constraintTop_toBottomOf="@+id/textView17"
-        android:fontFamily="@font/sfpromedium"/>
+        app:layout_constraintStart_toEndOf="@+id/image_notification"
+        app:layout_constraintTop_toTopOf="@+id/image_notification" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/image_notification"
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_marginStart="16dp"
@@ -53,11 +51,11 @@
         android:padding="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView17"
+        app:layout_constraintTop_toBottomOf="@+id/date_notification"
         app:srcCompat="@drawable/nitification_icon" />
 
     <TextView
-        android:id="@+id/textView21"
+        android:id="@+id/time_notification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"

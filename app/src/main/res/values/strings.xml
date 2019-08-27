@@ -29,6 +29,7 @@
     <string name="my_orders">Мои заказы</string>
     <string name="last_orders">Последние заказы</string>
     <string name="notification">Уведомления</string>
+    <string name="have_not_address">У вас не указан адресс доставки, свяжитесь с \n оператором чтобы решить данную проблему</string>
 
     <plurals name="number_of_seconds">
         <item quantity="one">%d секунда</item>

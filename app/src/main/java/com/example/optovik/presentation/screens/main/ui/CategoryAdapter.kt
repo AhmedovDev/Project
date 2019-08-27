@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.optovik.R
 import com.example.optovik.data.global.models.Category
-import com.example.optovik.data.global.models.DataModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_category.view.*

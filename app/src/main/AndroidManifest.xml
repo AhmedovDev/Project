@@ -13,7 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.screens.notofication.ui.NotificationActivity"></activity>
+        <activity android:name=".presentation.screens.orderinfo.ui.OrderInfoActivity"></activity>
+        <activity
+            android:name=".presentation.screens.checkorder.ui.CheckOrderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.screens.notofication.ui.NotificationActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.screens.myorder.ui.MyOrderActivity"
             android:screenOrientation="portrait" />
@@ -38,7 +44,7 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.screens.main.ui.MainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

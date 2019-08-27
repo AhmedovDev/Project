@@ -4,16 +4,18 @@ import com.example.optovik.data.global.models.*
 import io.reactivex.Single
 
 interface DataManager {
-    fun getData(): Single<DataModel>
+    fun getMain(): Single<MainModel>
 
     fun getDataCatalog(): Single<Catalog>
 
-    fun getProducCard(): Single<ProductCard>
+    fun getProductCard(): Single<ProductCard>
 
     fun getBasket(): Single<DeliveryAndBasket>
 
     fun getLocation(): Single<List<Location>>
 
     fun getMyOrder(): Single<List<MyOrder>>
+
+    fun getNotification(): Single<List<Notification>>
 
 }

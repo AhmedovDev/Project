@@ -5,7 +5,8 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class DataModel (
+class MainModel (
     @SerializedName("categories") val categoryes: List<Category>,
-    @SerializedName("banners") val events: List<Event>
+    @SerializedName("banners") val events: List<Event>,
+    @SerializedName("lastorder") val lastOrder: MyOrder
 ):Parcelable

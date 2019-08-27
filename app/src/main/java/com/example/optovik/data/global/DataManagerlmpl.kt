@@ -13,9 +13,15 @@ class DataManagerlmpl @Inject constructor(
     @Named("API_PRODUCT_CARD") val apiProductCard: ProductCardApi,
     @Named("API_BASKET") val apiBasket: BasketApi,
     @Named("API_LOCATION") val apiLocation: LocationApi,
-    @Named("API_MY_ORDER") val apiMyOrder: MyOrderApi
+    @Named("API_MY_ORDER") val apiMyOrder: MyOrderApi,
+    @Named("API_NOTIFICATION") val apiNotification: NotificationApi
+
 
 ) : DataManager {
+
+    override fun getNotification(): Single<List<Notification>> =
+        apiNotification.getNotification()
+            .subscribeOn(Schedulers.io())
 
     override fun getMyOrder(): Single<List<MyOrder>> =
         apiMyOrder.getMyOrder()
@@ -36,11 +42,11 @@ class DataManagerlmpl @Inject constructor(
             .subscribeOn(Schedulers.io())
 
 
-    override fun getData(): Single<DataModel> =
+    override fun getMain(): Single<MainModel> =
         api.getData()
             .subscribeOn(Schedulers.io())
 
-    override fun getProducCard(): Single<ProductCard> =
+    override fun getProductCard(): Single<ProductCard> =
         apiProductCard.getProductCard()
             .subscribeOn(Schedulers.io())
 }

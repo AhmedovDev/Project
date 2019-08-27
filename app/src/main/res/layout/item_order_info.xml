@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mask="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="112dp">
+
+
+    <ImageView
+        android:id="@+id/image_product_order_info"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/free" />
+
+    <TextView
+        android:id="@+id/product_name_order_info"
+        android:layout_width="243dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/sfpromedium"
+        android:textColor="#444444"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/image_product_order_info"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/price_and_count_order_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/image_product_order_info">
+
+        <TextView
+            android:id="@+id/isEstimatedPrise_order_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sfpromedium"
+            android:paddingRight="4dp"
+            android:text="≈"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:visibility="gone"
+            tools:layout_editor_absoluteX="107dp"
+            tools:layout_editor_absoluteY="67dp" />
+
+        <TextView
+            android:id="@+id/price_order_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sfpromedium"
+            android:paddingRight="4dp"
+            android:text="345"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            tools:layout_editor_absoluteX="107dp"
+            tools:layout_editor_absoluteY="67dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sfpromedium"
+            android:text="₽"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            tools:layout_editor_absoluteX="165dp"
+            tools:layout_editor_absoluteY="67dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sfpromedium"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="/"
+            android:textColor="#C6C6C6"
+            android:textSize="12sp"
+            tools:layout_editor_absoluteX="223dp"
+            tools:layout_editor_absoluteY="65dp" />
+
+        <TextView
+            android:id="@+id/count_product_order_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sfpromedium"
+            android:text="2,5кг"
+            android:textColor="#C6C6C6"
+            android:textSize="12sp"
+            tools:layout_editor_absoluteX="198dp"
+            tools:layout_editor_absoluteY="46dp" />
+
+        <TextView
+            android:paddingLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sfpromedium"
+            android:text="x"
+            android:textColor="#C6C6C6"
+            android:textSize="12sp"
+            tools:layout_editor_absoluteX="198dp"
+            tools:layout_editor_absoluteY="46dp" />
+        <TextView
+            android:id="@+id/quantity_order_info"
+            android:paddingLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sfpromedium"
+            android:text="4"
+            android:textColor="#C6C6C6"
+            android:textSize="12sp"
+            tools:layout_editor_absoluteX="198dp"
+            tools:layout_editor_absoluteY="46dp" />
+    </LinearLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>

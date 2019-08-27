@@ -1,11 +1,13 @@
 package com.example.optovik.presentation.screens.adresbook.ui
 
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import com.example.optovik.data.global.models.Location
+import com.example.optovik.data.prefs.PrefsHelper
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_adresbook.*
 import kotlinx.android.synthetic.main.item_adresbook.view.*
@@ -13,9 +15,9 @@ import kotlinx.android.synthetic.main.item_adresbook.view.*
 
 private typealias OnAdresClickListener = ((Location) -> Unit)
 
-private var mSelectedItem = 0
+private var mSelectedItem = -1
 
-class AdresbookAdapter(private val location: List<Location>) :
+class AdresbookAdapter(private val location: List<Location>, private var prefsHelper: PrefsHelper) :
     RecyclerView.Adapter<AdresbookAdapter.AdresbookViewHolder>() {
 
     private var clickListener: OnAdresClickListener? = null
@@ -29,14 +31,13 @@ class AdresbookAdapter(private val location: List<Location>) :
         return AdresbookViewHolder(itemView)
     }
 
-    fun getSelectedItem():Int{
-        return  mSelectedItem
+    fun getSelectedItem(): Int {
+        return mSelectedItem
     }
 
     override fun onBindViewHolder(holder: AdresbookViewHolder, position: Int) {
-        holder.bind(location[position], clickListener , mSelectedItem)
+        holder.bind(location[position], clickListener, mSelectedItem)
     }
-
 
 
     override fun getItemCount(): Int = location.size
@@ -46,18 +47,8 @@ class AdresbookAdapter(private val location: List<Location>) :
     }
 
 
-
-
-
     inner class AdresbookViewHolder(override val containerView: View) :
         RecyclerView.ViewHolder(containerView), LayoutContainer {
-
-      fun radioBattonIsChecked(position: Int) {
-          radioButton_adresbook.isChecked = true
-      }
-        fun radioBattonIsCheckedNot(position: Int) {
-            radioButton_adresbook.isChecked = false
-        }
 
         fun bind(
             location: Location,
@@ -68,7 +59,7 @@ class AdresbookAdapter(private val location: List<Location>) :
             containerView.phone_in_adresbook.text = location.phone
 
             if ((selectedPosition == -1 && adapterPosition == 0))
-                itemView.radioButton_adresbook.setChecked(true)
+                itemView.radioButton_adresbook.setChecked(false)
             else
                 if (selectedPosition == adapterPosition)
                     itemView.radioButton_adresbook.setChecked(true)
@@ -78,9 +69,15 @@ class AdresbookAdapter(private val location: List<Location>) :
 
             itemView.setOnClickListener {
 
-                mSelectedItem=getAdapterPosition()
+                mSelectedItem = getAdapterPosition()
+                // todo доработать
+                prefsHelper.saveAddress(location.address)
+                prefsHelper.savePhone(location.phone)
                 notifyDataSetChanged()
+
             }
+            if(location.address == prefsHelper.getAddress() && location.phone == prefsHelper.getPhone())
+                containerView.radioButton_adresbook.isChecked = true
         }
     }
 }

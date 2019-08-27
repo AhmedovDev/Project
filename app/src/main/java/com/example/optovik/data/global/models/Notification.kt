@@ -4,11 +4,13 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
+
 @Parcelize
-class MyOrder (
-    @SerializedName("status") val title: String,
-    @SerializedName("id") val id: Int,
+class Notification (
+    @SerializedName("image") val image: String,
+    @SerializedName("time") val time: String,
     @SerializedName("date") val date: String,
-    @SerializedName("sum") val sum: Int
+    @SerializedName("information") val information: String,
+    @SerializedName("id") val id: Int
 ) : Parcelable
 
