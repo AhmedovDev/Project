@@ -60,7 +60,11 @@ class ProductCargFragment : BaseFragment(), ProductCardView {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(com.example.optovik.R.layout.fragment_product_carg, container, false)
+        return inflater.inflate(
+            com.example.optovik.R.layout.fragment_product_carg,
+            container,
+            false
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -81,7 +85,7 @@ class ProductCargFragment : BaseFragment(), ProductCardView {
         }
         plusClick(product)
         minusClick(product)
-        Log.e("aaaViewCreated","aaaViewCreated")
+
     }
 
     companion object {
@@ -96,7 +100,8 @@ class ProductCargFragment : BaseFragment(), ProductCardView {
     private fun initViews() {
 
         recycler_images.run {
-            layoutManager = LinearLayoutManager(recycler_images.context, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(recycler_images.context, LinearLayoutManager.HORIZONTAL, false)
             val snapHelper = PagerSnapHelper()
             snapHelper.attachToRecyclerView(recycler_images)
             addItemDecoration(
@@ -150,7 +155,7 @@ class ProductCargFragment : BaseFragment(), ProductCardView {
     fun minusClick(product: Product) {
 
 
-        if (product.quantity != null|| product.quantity != 0) {
+        if (product.quantity != null || product.quantity != 0) {
             input_product.setText("${product.quantity}")
             input_product.visibility = View.VISIBLE
             minus.visibility = View.VISIBLE
@@ -212,7 +217,7 @@ class ProductCargFragment : BaseFragment(), ProductCardView {
         super.onResume()
         presenter.getAllData()
         updateBasketButton()
-        Log.e("aaaResume","aaaResume")
+        Log.e("aaaResume", "aaaResume")
         val haveItem = basket.items.filter {
             it.product.id == product.id
         }.firstOrNull()
@@ -220,20 +225,19 @@ class ProductCargFragment : BaseFragment(), ProductCardView {
             input_product.setText("${haveItem.quantity}")
             input_product.visibility = View.VISIBLE
             minus.visibility = View.VISIBLE
-        }
-        else input_product.setText("0")
+        } else input_product.setText("0")
         input_product.visibility = View.GONE
         minus.visibility = View.GONE
     }
 
 
-
     override fun onStart() {
         super.onStart()
         updateBasketButton()
-        Log.e("aaaStart","aaaStart")
+        Log.e("aaaStart", "aaaStart")
     }
-//Предовать в метод продукт
+
+    //Предовать в метод продукт
     override fun showProductCardInformation(productCard: ProductCard) {
 
         val haveItem = basket.items.filter {
@@ -245,6 +249,7 @@ class ProductCargFragment : BaseFragment(), ProductCardView {
             minus.visibility = View.VISIBLE
         }
 
+        name_product_card.text = productCard.title
         title.text = productCard.title
         price.text = productCard.price.toString()
         count_product.text = productCard.count

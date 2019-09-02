@@ -52,9 +52,7 @@ class NotificationActivity : MvpAppCompatActivity(), NotificationView {
     private fun initViews() {
         recycler_notification.run {
             layoutManager = LinearLayoutManager(recycler_notification.context)
-            addItemDecoration(
-                DividerItemDecoration(recycler_notification.context, DividerItemDecoration.VERTICAL)
-            )
+
         }
     }
 

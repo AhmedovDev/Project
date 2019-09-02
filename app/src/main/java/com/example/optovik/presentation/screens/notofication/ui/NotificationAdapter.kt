@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import com.example.optovik.R
 import com.example.optovik.data.global.models.Notification
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.item_notification.*
 import kotlinx.android.synthetic.main.item_notification.view.*
+import kotlinx.android.synthetic.main.item_notification.view.border
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -52,7 +54,8 @@ class NotificationAdapter(private val notification: List<Notification>) :
             if (notification.date == yesterday) {
                 containerView.date_notification.text = "Вчера"
                 lastDate = notification.date
-            } else {
+            }
+            if(notification.date!=yesterday && notification.date != currentDate) {
                 containerView.date_notification.text = notification.date
                 lastDate = notification.date
             }

@@ -17,7 +17,6 @@ import com.example.optovik.presentation.screens.basket.mvp.BasketPresenter
 import com.example.optovik.presentation.screens.basket.mvp.BasketView
 import com.example.optovik.presentation.screens.catalog.ui.CatalogActivity
 import com.example.optovik.presentation.screens.checkorder.ui.CheckOrderActivity
-import com.example.optovik.presentation.screens.main.ui.MainActivity
 import kotlinx.android.synthetic.main.activity_basket.*
 import kotlinx.android.synthetic.main.activity_catalog.reletiv
 import kotlinx.android.synthetic.main.activity_catalog.update_catalog
@@ -29,6 +28,9 @@ import javax.inject.Inject
 
 
 class BasketActivity : MvpAppCompatActivity(), BasketView, DialogBasketFragment.CallBack {
+
+
+    var freeDeliveryPrice = 0
 
     override fun updateBasketView() {
         presenter.getBasket()
@@ -107,7 +109,7 @@ class BasketActivity : MvpAppCompatActivity(), BasketView, DialogBasketFragment.
 
     private fun basketResultPriceCheсk() {
         product_price.setText(price().toString())
-        if (price() < 3000) {
+        if (price() < freeDeliveryPrice) {
             all_price.setText((price() + 100).toString())
             diliviry_price.setText("100")
         } else {
@@ -168,7 +170,8 @@ class BasketActivity : MvpAppCompatActivity(), BasketView, DialogBasketFragment.
     }
 
     override fun showInformation(information: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        information_basket.text = "При заказе на сумму от " + information + " доставка бесплатная."
+        freeDeliveryPrice = information.toInt()
     }
 
     override fun showError() {

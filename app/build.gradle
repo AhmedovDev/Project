@@ -103,9 +103,11 @@ dependencies {
     implementation 'info.hoang8f:android-segmented:1.0.6'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     kapt 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation 'com.github.ome450901:SimpleRatingBar:1.4.3'
     // maskedEditText
     implementation 'ru.egslava:MaskedEditText:1.0.5'
     implementation 'com.chaos.view:pinview:1.4.2'
+
 
 
     // rx - network
@@ -116,5 +118,7 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.3.0'
 
+    //firebase
+    implementation 'com.google.firebase:firebase-messaging:11.0.4'
 
 }

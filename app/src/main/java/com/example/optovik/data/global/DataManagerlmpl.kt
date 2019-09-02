@@ -14,10 +14,15 @@ class DataManagerlmpl @Inject constructor(
     @Named("API_BASKET") val apiBasket: BasketApi,
     @Named("API_LOCATION") val apiLocation: LocationApi,
     @Named("API_MY_ORDER") val apiMyOrder: MyOrderApi,
-    @Named("API_NOTIFICATION") val apiNotification: NotificationApi
+    @Named("API_NOTIFICATION") val apiNotification: NotificationApi,
+    @Named("API_ORDER_INFO") val apiOrderInfo: OrderInfoApi
 
 
 ) : DataManager {
+
+    override fun getOrderInfo(): Single<OrderInfo> =
+        apiOrderInfo.getOrderInfo()
+            .subscribeOn(Schedulers.io())
 
     override fun getNotification(): Single<List<Notification>> =
         apiNotification.getNotification()

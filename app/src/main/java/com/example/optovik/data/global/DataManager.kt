@@ -18,4 +18,6 @@ interface DataManager {
 
     fun getNotification(): Single<List<Notification>>
 
+    fun getOrderInfo(): Single<OrderInfo>
+
 }

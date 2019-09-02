@@ -15,6 +15,7 @@ import javax.inject.Singleton
 
 @Module
 class NetworkModule {
+
     @Provides
     @Singleton
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor =
@@ -192,6 +193,12 @@ class NetworkModule {
     @Named("API_NOTIFICATION")
     fun provideApiNotification(@Named("NOTIFICATION_RETROFIT") retrofit: Retrofit) =
         retrofit.create(NotificationApi::class.java)
+
+    @Provides
+    @Singleton
+    @Named("API_ORDER_INFO")
+    fun provideApiOrderInfo(@Named("NOTIFICATION_RETROFIT") retrofit: Retrofit) =
+        retrofit.create(OrderInfoApi::class.java)
 
     companion object {
         private const val BASE_API_URL = "https://my-json-server.typicode.com"

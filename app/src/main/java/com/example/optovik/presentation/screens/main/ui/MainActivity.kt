@@ -24,6 +24,7 @@ import com.example.optovik.presentation.screens.basket.ui.BasketActivity
 import com.example.optovik.presentation.screens.catalog.ui.CatalogActivity
 import com.example.optovik.presentation.screens.myorder.ui.MyOrderActivity
 import com.example.optovik.presentation.screens.notofication.ui.NotificationActivity
+import com.example.optovik.presentation.screens.orderinfo.ui.OrderInfoActivity
 import kotlinx.android.synthetic.main.activity_catalog.*
 import kotlinx.android.synthetic.main.item_my_order.*
 import kotlinx.android.synthetic.main.toolbar_main.*
@@ -76,6 +77,9 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             val intent = Intent(this, NotificationActivity::class.java)
             startActivity(intent)
         }
+
+        order_main_one.setOnClickListener {   val intent = Intent(this, OrderInfoActivity::class.java)
+            startActivity(intent) }
 
     }
 
@@ -148,6 +152,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         category_recycler.adapter = adapter
         adapter.setOnCategoryClickListener {
             val intent = Intent(this, CatalogActivity::class.java)
+            intent.putExtra("nameCategory", "${it.name}")
             startActivity(intent)
         }
     }

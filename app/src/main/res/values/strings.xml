@@ -1,9 +1,14 @@
 <resources>
-    <string name="app_name">Optovik</string>
+    <plurals name="number_of_seconds">
+        <item quantity="one">%d секунда</item>
+        <item quantity="few">%d секунды</item>
+        <item quantity="other">%d секунд</item>
+    </plurals>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">Optovik</string>
 
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="confirmation_timer">Запросить код повторно можно\nчерез %1$s</string>
     <string name="get_code_button">Получить код</string>
     <string name="code_input">Введите код из SMS сообщения</string>
@@ -29,11 +34,6 @@
     <string name="my_orders">Мои заказы</string>
     <string name="last_orders">Последние заказы</string>
     <string name="notification">Уведомления</string>
-    <string name="have_not_address">У вас не указан адресс доставки, свяжитесь с \n оператором чтобы решить данную проблему</string>
 
-    <plurals name="number_of_seconds">
-        <item quantity="one">%d секунда</item>
-        <item quantity="few">%d секунды</item>
-        <item quantity="other">%d секунд</item>
-    </plurals>
+    <string name="have_not_address">У вас не указан адресс доставки, свяжитесь с \n оператором чтобы решить данную проблему</string>
 </resources>

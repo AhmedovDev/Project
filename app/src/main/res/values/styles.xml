@@ -10,4 +10,16 @@
 
     </style>
 
+    <style name="MyRatingBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlNormal">#9B9A99</item>
+        <item name="colorControlActivated">#FFC700</item>
+        <item name="colorControlHighlight">#9B9A99</item>
+        <item name="android:colorFocusedHighlight">#9B9A99</item>
+        <item name="android:color">#9B9A99</item>
+    </style>
+
+    <style name="CustomRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/custom_ratingbar</item>
+    </style>
+
 </resources>

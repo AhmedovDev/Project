@@ -1,5 +1,6 @@
 package com.example.optovik.presentation.screens.myorder.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
@@ -15,7 +16,10 @@ import com.example.optovik.data.prefs.PrefsHelper
 import com.example.optovik.presentation.screens.main.mvp.MainPresenter
 import com.example.optovik.presentation.screens.myorder.mvp.MyOrderPresenter
 import com.example.optovik.presentation.screens.myorder.mvp.MyOrderView
+import com.example.optovik.presentation.screens.notofication.ui.NotificationActivity
+import com.example.optovik.presentation.screens.orderinfo.ui.OrderInfoActivity
 import kotlinx.android.synthetic.main.activity_my_order.*
+import kotlinx.android.synthetic.main.item_my_order.*
 import kotlinx.android.synthetic.main.toolbar_my_order.*
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
@@ -70,6 +74,8 @@ class MyOrderActivity : MvpAppCompatActivity(), MyOrderView {
         val adapter = MyOrderAdapter(myOrder)
         my_order_recycler.adapter = adapter
         adapter.setOnAdresClickListener {
+            val intent2 = Intent(this, OrderInfoActivity::class.java)
+            startActivity(intent2)
 
         }
     }

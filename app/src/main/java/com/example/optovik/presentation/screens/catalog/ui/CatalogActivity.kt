@@ -74,6 +74,7 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView, View.OnClickListene
 //            //Для обновления корзины
 //            Log.e("DSFDSF", "DSAFFAS")
 //        }
+        namecategory.text = intent.getStringExtra("nameCategory")
 
     }
 
@@ -146,7 +147,7 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView, View.OnClickListene
     }
 
     override fun showInformation(information: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        information_catalog.text = information
     }
 
     override fun showError() {

@@ -30,7 +30,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            android:paddingTop="10dp"/>
+            android:paddingTop="10dp"
+            android:maxLines="1"
+            android:ellipsize="end"/>
 
         <ImageView
             android:id="@+id/back_arrow_order_info"

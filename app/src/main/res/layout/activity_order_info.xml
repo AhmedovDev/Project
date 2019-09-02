@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.screens.orderinfo.ui.OrderInfoActivity"
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/colorPrimaryDark"
+    tools:context=".presentation.screens.orderinfo.ui.OrderInfoActivity">
 
     <include
         android:id="@+id/include6"
@@ -13,261 +13,314 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/status_order_info"
-        android:layout_width="wrap_content"
-        android:layout_height="18dp"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/background_main_title"
-        android:fontFamily="@font/sfpromedium"
-        android:gravity="center"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
-        android:text="Принят"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="10sp"
-        app:layout_constraintStart_toEndOf="@+id/order_id_order_info"
-        app:layout_constraintTop_toTopOf="@+id/order_id_order_info" />
-
-    <TextView
-        android:id="@+id/order_id_order_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/sfpromedium"
-        android:text="Заказ№ 320"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include6" />
-
-    <TextView
-        android:id="@+id/order_date_order_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/sfpromedium"
-        android:text="12.06.19"
-        android:textColor="#C6C6C6"
-        android:textSize="11sp"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#F6F6F6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include6" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include6"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_order_info"
+    <ProgressBar
+        android:id="@+id/progressBar_order_info"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/check"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_buttons"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/order_id_order_info" />
+        app:layout_constraintTop_toBottomOf="@+id/include6">
 
-    <RelativeLayout
-        android:id="@+id/check"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_buttons"
+        app:layout_constraintTop_toBottomOf="@+id/include6">
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/info_constraint"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/sfpromedium"
-            android:text="@string/sum"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView8"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:fontFamily="@font/sfprolight"
-            android:text="Товары"
-            android:textColor="#444444"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView10"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/sfprolight"
-            android:text="Доставка"
-            android:textColor="#444444"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView11"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="24dp"
-            android:fontFamily="@font/sfpromedium"
-            android:text="Итого"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView8"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
-            android:layout_toEndOf="@+id/textView10"
-            android:orientation="horizontal">
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:background="#F6F6F6" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include6">
 
             <TextView
-                android:id="@+id/product_price_order_info"
+                android:id="@+id/order_id_order_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/sfpromedium"
+                android:text="Заказ№ 320"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/status_order_info"
+                android:layout_width="wrap_content"
+                android:layout_height="18dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/background_main_title"
+                android:fontFamily="@font/sfpromedium"
+                android:gravity="center"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:text="Принят"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="10sp"
+                app:layout_constraintStart_toEndOf="@+id/order_id_order_info"
+                app:layout_constraintTop_toTopOf="@+id/order_id_order_info" />
+
+
+            <TextView
+                android:id="@+id/order_date_order_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/sfpromedium"
+                android:text="12.06.19"
+                android:textColor="#C6C6C6"
+                android:textSize="11sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_order_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/check"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/info_constraint"
+            app:layout_constraintVertical_bias="0.136" />
+
+        <RelativeLayout
+            android:id="@+id/check_order_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_buttons"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView8"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:layout_toEndOf="@+id/textView10"
+                android:orientation="horizontal">
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:background="#F6F6F6" />
+                <TextView
+                    android:id="@+id/product_price_order_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView8"
+                    android:layout_alignParentStart="true"
+                    android:fontFamily="@font/sfprolight"
+
+                    android:paddingLeft="8dp"
+                    android:text="17 870"
+                    android:textColor="#444444"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView8"
+
+                    android:fontFamily="@font/sfprolight"
+                    android:paddingLeft="4dp"
+                    android:text="₽"
+                    android:textColor="#444444"
+                    android:textSize="12sp" />
+
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView10"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_toEndOf="@+id/textView11"
+                android:orientation="horizontal">
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:background="#F6F6F6" />
+
+
+                <TextView
+                    android:id="@+id/diliviry_price_order_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView8"
+                    android:layout_alignParentStart="true"
+                    android:fontFamily="@font/sfprolight"
+                    android:paddingLeft="8dp"
+                    android:text="100"
+                    android:textColor="#444444"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/rubl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView8"
+
+                    android:fontFamily="@font/sfprolight"
+                    android:paddingLeft="4dp"
+                    android:text="₽"
+                    android:textColor="#444444"
+                    android:textSize="12sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView11"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="16dp"
+                android:layout_toEndOf="@+id/textView12"
+                android:orientation="horizontal">
+
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:background="#F6F6F6" />
+
+                <TextView
+                    android:id="@+id/all_price_order_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView8"
+                    android:layout_alignParentStart="true"
+                    android:fontFamily="@font/sfprolight"
+                    android:paddingLeft="8dp"
+                    android:text="17 970"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView8"
+
+                    android:fontFamily="@font/sfprolight"
+                    android:paddingLeft="4dp"
+                    android:text="₽"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView11"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="24dp"
+                android:fontFamily="@font/sfpromedium"
+                android:text="Итого"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/sfpromedium"
+                android:text="@string/sum"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView8"
                 android:layout_alignParentStart="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
                 android:fontFamily="@font/sfprolight"
-
-                android:paddingLeft="8dp"
-                android:text="17 870"
-                android:textColor="#444444"
-                android:textSize="12dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView8"
-
-                android:fontFamily="@font/sfprolight"
-                android:paddingLeft="4dp"
-                android:text="₽"
+                android:text="Товары"
                 android:textColor="#444444"
                 android:textSize="12sp" />
 
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView10"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_toEndOf="@+id/textView11"
-            android:orientation="horizontal">
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:background="#F6F6F6" />
-
             <TextView
-                android:id="@+id/diliviry_price_order_info"
+                android:id="@+id/textView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView8"
+                android:layout_below="@+id/textView10"
                 android:layout_alignParentStart="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/sfprolight"
-                android:paddingLeft="8dp"
-                android:text="100"
-                android:textColor="#444444"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/rubl"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView8"
-
-                android:fontFamily="@font/sfprolight"
-                android:paddingLeft="4dp"
-                android:text="₽"
+                android:text="Доставка"
                 android:textColor="#444444"
                 android:textSize="12sp" />
 
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView11"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="16dp"
-            android:layout_toEndOf="@+id/textView12"
-            android:orientation="horizontal">
-
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:background="#F6F6F6" />
-
-            <TextView
-                android:id="@+id/all_price_order_info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView8"
-                android:layout_alignParentStart="true"
-                android:fontFamily="@font/sfprolight"
-                android:paddingLeft="8dp"
-                android:text="17 970"
-                android:textColor="#000000"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView8"
-
-                android:fontFamily="@font/sfprolight"
-                android:paddingLeft="4dp"
-                android:text="₽"
-                android:textColor="#000000"
-                android:textSize="14sp" />
-
-
-        </LinearLayout>
-
-
-    </RelativeLayout>
+    </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout7"
+        android:id="@+id/bottom_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
@@ -312,6 +365,91 @@
             app:layout_constraintTop_toBottomOf="@+id/repeat_order" />
 
     </android.support.constraint.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/order_activity_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+
+        >
+
+
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF">
+
+
+            <Button
+                android:id="@+id/update_order_info"
+                android:layout_width="160dp"
+                android:layout_height="41dp"
+                android:layout_marginStart="109dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="106dp"
+                android:background="@drawable/activebutton"
+                android:clickable="true"
+                android:text="Обновить"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="175dp"
+                android:layout_marginEnd="176dp"
+                android:src="@drawable/ic_wifi"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="175dp"
+                android:layout_marginTop="26dp"
+                android:layout_marginEnd="178dp"
+                android:fontFamily="@font/sfprodisplay"
+                android:text="@string/connect_problem"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="191dp"
+                android:layout_height="57dp"
+                android:layout_marginStart="101dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="101dp"
+                android:fontFamily="@font/sfprolight"
+                android:text="@string/check_settings"
+                android:textAlignment="center"
+                android:textColor="#444444"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.666"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        </android.support.constraint.ConstraintLayout>
+
+
+    </FrameLayout>
 
 
 </android.support.constraint.ConstraintLayout>

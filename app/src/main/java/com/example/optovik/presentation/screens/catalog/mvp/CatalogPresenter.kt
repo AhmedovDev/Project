@@ -45,6 +45,7 @@ class CatalogPresenter @Inject constructor(
                     viewState.showProducts(data.products)
 //                    viewState.showEvents(data.events)
                     viewState.visiblCatalog()
+                    viewState.showInformation(data.information)
 
                 },
                 {
