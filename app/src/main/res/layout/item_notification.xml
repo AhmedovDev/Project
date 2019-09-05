@@ -6,26 +6,35 @@
     android:layout_height="wrap_content"
     android:background="@color/colorPrimaryDark">
 
-
-    <TextView
-        android:id="@+id/date_notification"
+    <RelativeLayout
+        android:background="@color/colorPrimaryDark"
+        android:id="@+id/date_notification_in"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/background_notification_date"
-        android:fontFamily="@font/sfpromedium"
-        android:paddingLeft="8dp"
-        android:paddingTop="2dp"
-        android:paddingRight="8dp"
-        android:paddingBottom="2dp"
-        android:text="Сегодня"
-        android:textColor="#A7A7A7"
-        android:textSize="10sp"
+        android:layout_height="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/date_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/background_notification_date"
+            android:fontFamily="@font/sfpromedium"
+            android:paddingLeft="8dp"
+            android:paddingTop="2dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="2dp"
+            android:text="Сегодня"
+            android:textColor="#A7A7A7"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/information_notification"
@@ -46,13 +55,13 @@
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="32dp"
         android:background="#14FFC700"
         android:padding="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date_notification"
+        app:layout_constraintTop_toBottomOf="@+id/date_notification_in"
         app:srcCompat="@drawable/nitification_icon" />
 
     <TextView

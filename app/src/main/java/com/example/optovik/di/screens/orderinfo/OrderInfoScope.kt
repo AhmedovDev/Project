@@ -1,6 +1,0 @@
-package com.example.optovik.di.screens.orderinfo
-
-import javax.inject.Scope
-
-@Scope
-annotation class OrderInfoScope

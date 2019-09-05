@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
-    tools:context=".presentation.screens.main.ui.MainActivity">
+    tools:context="ru.diitcenter.optovik.presentation.screens.main.ui.MainActivity">
 
 
     <include
@@ -94,10 +94,9 @@
                     android:layout_height="7dp"
                     android:layout_marginTop="25dp"
                     android:layout_marginEnd="16dp"
+                    android:src="@drawable/ic_vector_my_order"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_vector_my_order"
-                    tools:ignore="VectorDrawableCompat" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/order_main_one"
@@ -190,8 +189,7 @@
                         android:layout_marginBottom="17dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:srcCompat="@drawable/ic_vector"
-                        tools:ignore="VectorDrawableCompat" />
+                        android:src="@drawable/ic_vector" />
 
                     <View
                         android:id="@+id/view2"

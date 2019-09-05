@@ -58,7 +58,8 @@
                 android:textColor="#444444"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                android:stateListAnimator="@null"/>
             
             <TextView
                 android:layout_width="16dp"
@@ -77,7 +78,8 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                android:stateListAnimator="@null"/>
 
         </LinearLayout>
 

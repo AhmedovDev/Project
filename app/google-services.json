@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1075010421306",
+    "firebase_url": "https://optovik-4cb62.firebaseio.com",
+    "project_id": "optovik-4cb62",
+    "storage_bucket": "optovik-4cb62.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1075010421306:android:fcb56c9ace98e9f1",
+        "android_client_info": {
+          "package_name": "ru.diitcenter.optovik"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1075010421306-77831q8e3j9sd3uqlt7cdnsq9to3d08d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.diitcenter.optovik",
+            "certificate_hash": "b3aace107ec3ec22ff5b48316beb3f1477cdd73d"
+          }
+        },
+        {
+          "client_id": "1075010421306-0b43d6bhqhphvc24jjbelmdcpnkkiq7o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1stAJBf8UXJN2OByLBK6MtvZv0VPqhwg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1075010421306-0b43d6bhqhphvc24jjbelmdcpnkkiq7o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

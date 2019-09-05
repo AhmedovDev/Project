@@ -135,12 +135,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_toEndOf="@+id/textView10"
                 android:orientation="horizontal">
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_gravity="bottom"
-                    android:layout_weight="1"
-                    android:background="#F6F6F6" />
+
                 <TextView
                     android:id="@+id/product_price_order_info"
                     android:layout_width="wrap_content"
@@ -165,7 +160,12 @@
                     android:textColor="#444444"
                     android:textSize="12sp" />
 
-
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:background="#F6F6F6" />
 
 
             </LinearLayout>
@@ -180,13 +180,6 @@
                 android:layout_marginEnd="16dp"
                 android:layout_toEndOf="@+id/textView11"
                 android:orientation="horizontal">
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_gravity="bottom"
-                    android:layout_weight="1"
-                    android:background="#F6F6F6" />
-
 
                 <TextView
                     android:id="@+id/diliviry_price_order_info"
@@ -200,17 +193,13 @@
                     android:textColor="#444444"
                     android:textSize="12sp" />
 
-                <TextView
-                    android:id="@+id/rubl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/textView8"
 
-                    android:fontFamily="@font/sfprolight"
-                    android:paddingLeft="4dp"
-                    android:text="₽"
-                    android:textColor="#444444"
-                    android:textSize="12sp" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:background="#F6F6F6" />
 
 
             </LinearLayout>
@@ -226,13 +215,6 @@
                 android:layout_toEndOf="@+id/textView12"
                 android:orientation="horizontal">
 
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_gravity="bottom"
-                    android:layout_weight="1"
-                    android:background="#F6F6F6" />
 
                 <TextView
                     android:id="@+id/all_price_order_info"
@@ -256,6 +238,13 @@
                     android:text="₽"
                     android:textColor="#000000"
                     android:textSize="14sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:background="#F6F6F6" />
 
 
             </LinearLayout>
@@ -318,6 +307,14 @@
 
     </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#F6F6F6"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_buttons"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/bottom_buttons"

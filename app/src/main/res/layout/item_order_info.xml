@@ -121,6 +121,11 @@
             tools:layout_editor_absoluteY="46dp" />
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="#F6F6F6" />
 
 
 </android.support.constraint.ConstraintLayout>
