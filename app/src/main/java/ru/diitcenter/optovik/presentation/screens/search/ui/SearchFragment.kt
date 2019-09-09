@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import kotlinx.android.synthetic.main.fragment_search.*
+import ru.diitcenter.optovik.presentation.global.utils.hideKeyboard
 import ru.diitcenter.optovik.presentation.screens.catalog.ui.CatalogAdapter
 import ru.diitcenter.optovik.presentation.screens.search.mvp.SearchPresenter
 import ru.example.optovik.R
@@ -59,7 +60,8 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        back_arrow_search.setOnClickListener { presenter.back() }
+        back_arrow_search.setOnClickListener { presenter.back()
+        hideKeyboard()}
         initViews()
         updateBasketButtonSearch()
         update_search.setOnClickListener { presenter.search("") }
@@ -160,6 +162,7 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
     }
 
 
-    override fun onBackPressed() = presenter.back()
+    override fun onBackPressed() { presenter.back()
+        hideKeyboard()}
 
 }

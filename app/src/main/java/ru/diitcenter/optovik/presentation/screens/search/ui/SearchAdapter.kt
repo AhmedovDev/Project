@@ -97,7 +97,7 @@ class SearchAdapter(
         fun keyboardHide() {
             containerView.input_product.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    hideKeyboard(containerView.context!!, containerView)
+                    keyboardHide()
                 }
                 false
             }
@@ -125,7 +125,7 @@ class SearchAdapter(
                 .load(product.image)
                 .into(containerView.image_product)
             containerView.product_name.text = product.name
-            containerView.price.text = product.price.toString()
+            containerView.price.text = "%,d".format(product.price)
             containerView.count_product.text = product.count
             if (product.quantity != null) {
                 containerView.input_product.visibility = View.VISIBLE

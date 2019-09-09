@@ -41,7 +41,7 @@ class OrderInfoAdapter(private val products: List<ru.diitcenter.optovik.data.glo
                 .load(products.product.image)
                 .into(containerView.image_product_order_info)
             containerView.product_name_order_info.text = products.product.name
-            containerView.price_order_info.text = products.product.price.toString()
+            containerView.price_order_info.text = "%,d".format(products.product.price)
             containerView.quantity_order_info.text = products.quantity.toString()
             itemView.setOnClickListener { clickListener?.invoke(products) }
 

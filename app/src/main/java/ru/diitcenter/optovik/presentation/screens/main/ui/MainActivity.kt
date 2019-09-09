@@ -11,6 +11,7 @@ import javax.inject.Inject
 import android.support.v7.widget.*
 import android.view.View
 import kotlinx.android.synthetic.main.toolbar_main.*
+import ru.diitcenter.optovik.presentation.global.utils.hideKeyboard
 import ru.diitcenter.optovik.presentation.screens.basket.ui.BasketActivity
 import ru.diitcenter.optovik.presentation.screens.catalog.ui.CatalogActivity
 import ru.diitcenter.optovik.presentation.screens.main.mvp.MainPresenter
@@ -88,7 +89,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         else
             isEstimatedPrise_main.visibility = View.VISIBLE
 
-        price_on_button_main.setText("$priceAll")
+        price_on_button_main.setText("%,d".format(priceAll))
         count_on_button_main.setText("${basketHolder.items.size}")
     }
 
@@ -151,7 +152,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     override fun showLastOrder(lastOrder: ru.diitcenter.optovik.data.global.models.MyOrder) {
         order_id_main.text = "Заказ №" + lastOrder.id.toString()
-        sum_main.text = lastOrder.sum.toString() + " \u20BD"
+        sum_main.text = "%,d".format(lastOrder.sum) + " \u20BD"
         title_main.text = lastOrder.title
         order_date_main.text = lastOrder.date
     }
@@ -191,6 +192,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         super.onResume()
         updateBasketButtonMain()
         emptyBasketCheck()
+
     }
 
     override fun onBackPressed() = presenter.onBackPressed()

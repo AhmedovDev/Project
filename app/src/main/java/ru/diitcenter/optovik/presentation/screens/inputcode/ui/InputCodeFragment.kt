@@ -86,8 +86,8 @@ class InputCodeFragment : ru.diitcenter.optovik.presentation.global.BaseFragment
         phoneOnEditCode.text = phone
         getCode.setOnClickListener {
             exampleCodeCheck()
-            getCode.setOnTouchListener { v, _ ->
-                hideKeyboard(context!!, v)
+            getCode.setOnTouchListener { _, _ ->
+                hideKeyboard()
                 true
             }
         }

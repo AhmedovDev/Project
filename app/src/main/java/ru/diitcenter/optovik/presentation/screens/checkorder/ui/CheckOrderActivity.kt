@@ -9,6 +9,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import kotlinx.android.synthetic.main.activity_check_order.*
 import kotlinx.android.synthetic.main.activity_check_order.rubl
 import kotlinx.android.synthetic.main.toolbar_check_order.*
+import ru.diitcenter.optovik.presentation.global.utils.hideKeyboard
 import ru.diitcenter.optovik.presentation.screens.adresbook.ui.AdresbookActivity
 import ru.diitcenter.optovik.presentation.screens.checkorder.mvp.CheckOrderPresenter
 import ru.diitcenter.optovik.presentation.screens.checkorder.mvp.CheckOrderView
@@ -51,27 +52,35 @@ class CheckOrderActivity : MvpAppCompatActivity(), CheckOrderView {
         }
         back_arrow_check_order.setOnClickListener { finish() }
 
-        if(!prefsHelper.getAddress().isNullOrEmpty()) {
+        if (!prefsHelper.getAddress().isNullOrEmpty()) {
             address_check_order.text = prefsHelper.getAddress()
             connect_number.text = prefsHelper.getPhone()
             delivery_address.visibility = View.VISIBLE
             address_check_order.visibility = View.VISIBLE
         }
         basketResultPriceCheсk()
+
+        check_order_constraint.setOnClickListener {
+            hideKeyboard()
+        }
+
+
     }
 
+
+
     private fun basketResultPriceCheсk() {
-        product_price_check_order.setText(price().toString())
+        product_price_check_order.setText("%,d".format(price()))
         if (price() < 3000) {
-            all_price_check_order.setText((price() + 100).toString())
+            all_price_check_order.setText("%,d".format(price() + 100))
             diliviry_price_check_order.setText("100")
         } else {
             rubl.visibility = View.GONE
             diliviry_price_check_order.setText("бесплатная")
-            all_price_check_order.setText(price().toString())
+            all_price_check_order.setText("%,d".format(price()))
         }
         if (price() == 0)
-            all_price_check_order.setText(price().toString())
+            all_price_check_order.setText(price())
     }
 
 
@@ -87,7 +96,7 @@ class CheckOrderActivity : MvpAppCompatActivity(), CheckOrderView {
     override fun onResume() {
         super.onResume()
 
-        if(!prefsHelper.getAddress().isNullOrEmpty()) {
+        if (!prefsHelper.getAddress().isNullOrEmpty()) {
             address_check_order.text = prefsHelper.getAddress()
             connect_number.text = prefsHelper.getPhone()
             delivery_address.visibility = View.VISIBLE

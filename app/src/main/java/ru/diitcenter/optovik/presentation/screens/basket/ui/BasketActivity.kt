@@ -17,6 +17,7 @@ import ru.diitcenter.optovik.presentation.screens.basket.mvp.BasketPresenter
 import ru.diitcenter.optovik.presentation.screens.basket.mvp.BasketView
 import ru.diitcenter.optovik.presentation.screens.catalog.ui.CatalogActivity
 import ru.diitcenter.optovik.presentation.screens.checkorder.ui.CheckOrderActivity
+import ru.diitcenter.optovik.presentation.screens.main.ui.MainActivity
 import ru.example.optovik.R
 import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
@@ -91,7 +92,7 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
 
         }
         go_to_catalog.setOnClickListener {
-            startActivity(Intent(this, CatalogActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
         }
 
     }
@@ -107,17 +108,17 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
     }
 
     private fun basketResultPriceCheсk() {
-        product_price.setText(price().toString())
+        product_price.setText("%,d".format(price()))
         if (price() < freeDeliveryPrice) {
-            all_price.setText((price() + 100).toString())
+            all_price.setText("%,d".format(price()+100))
             diliviry_price.setText("100")
         } else {
             rubl.visibility = View.GONE
             diliviry_price.setText("бесплатная")
-            all_price.setText(price().toString())
+            all_price.setText("%,d".format(price()))
         }
         if (price() == 0)
-            all_price.setText(price().toString())
+            all_price.setText("%,d".format(price()))
     }
 
     private fun initViews() {

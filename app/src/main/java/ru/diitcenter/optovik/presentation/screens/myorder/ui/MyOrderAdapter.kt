@@ -46,7 +46,7 @@ class MyOrderAdapter(private val myOrder: List<ru.diitcenter.optovik.data.global
             clickListener: OnAdresClickListener?
         ) {
             containerView.date.text = myOrder.date
-            containerView.sum.text = myOrder.sum.toString() + " \u20BD"
+            containerView.sum.text = "%,d".format(myOrder.sum) + " \u20BD"
             containerView.title.text = myOrder.title
             containerView.order_id.text = "Заказ №" + myOrder.id.toString()
             itemView.setOnClickListener { clickListener?.invoke(myOrder) }

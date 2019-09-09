@@ -54,19 +54,19 @@ class InputPhoneFragment : ru.diitcenter.optovik.presentation.global.BaseFragmen
         super.onViewCreated(view, savedInstanceState)
 
         // показать клаву
-        inputphone.setOnTouchListener { v, _ ->
+        inputphone.setOnTouchListener { _, _ ->
             showKeyboard(context!!)
             true
         }
          // скрыть клаву
-        inputphone.setOnTouchListener { v, _ ->
-            hideKeyboard(context!!, v)
+        inputphone.setOnTouchListener { _, _ ->
+            hideKeyboard()
             true
         }
 
         phone.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                hideKeyboard(context!!, view)
+                hideKeyboard()
             }
             false
         }

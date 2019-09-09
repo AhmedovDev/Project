@@ -43,7 +43,7 @@ class BasketAdapter(
         holder.plusClickBasket(basketholder.items[position].product)
         holder.minusClickBasket(basketholder.items[position].product, position)
         holder.dropClick(basketholder.items[position].product)
-        holder.keyboardHide()
+        //   holder.keyboardHide()
 
     }
 
@@ -74,7 +74,10 @@ class BasketAdapter(
             }
         }
 
-        fun minusClickBasket(product: ru.diitcenter.optovik.data.global.models.Product, position: Int) {
+        fun minusClickBasket(
+            product: ru.diitcenter.optovik.data.global.models.Product,
+            position: Int
+        ) {
             var sum = 0
             minus_basket.setOnClickListener {
                 if (input_product_basket.text.toString() == "" || input_product_basket.text.toString() == "0") {
@@ -105,25 +108,29 @@ class BasketAdapter(
             }
         }
 
-        fun keyboardHide() {
-            containerView.input_product_basket.setOnEditorActionListener { _, actionId, _ ->
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    hideKeyboard(containerView.context!!, containerView)
-                }
-                false
-
-            }
-        }
+//        fun keyboardHide() {
+//            containerView.input_product_basket.setOnEditorActionListener { _, actionId, _ ->
+//                if (actionId == EditorInfo.IME_ACTION_DONE) {
+//                    hideKeyboard(containerView.context!!, containerView)
+//                }
+//                false
+//
+//            }
+//        }
 
 
         @SuppressLint("ResourceAsColor")
-        fun bind(product: ru.diitcenter.optovik.data.global.models.Product, quantity: Int, clickListener: OnCategoryClickListener) {
+        fun bind(
+            product: ru.diitcenter.optovik.data.global.models.Product,
+            quantity: Int,
+            clickListener: OnCategoryClickListener
+        ) {
             basketholder.items.forEach { item ->
                 Picasso.get()
                     .load(item.product.image)
                     .into(containerView.image_product_basket)
                 containerView.product_name_basket.text = item.product.name
-                containerView.price_basket.text = item.product.price.toString()
+                containerView.price_basket.text = "%,d".format(item.product.price)
                 containerView.count_product_basket.text = item.product.count
                 containerView.input_product_basket.setText("$quantity")
                 if (input_product_basket.text.toString() != "") {

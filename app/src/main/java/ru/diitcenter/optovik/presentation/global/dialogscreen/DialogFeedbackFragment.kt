@@ -59,8 +59,8 @@ not_button.setOnClickListener { dialog.cancel() }
         // показать клаву
 
         // скрыть клаву
-        dialog_basket.setOnTouchListener { v, _ ->
-            hideKeyboard(context!!, v)
+        dialog_basket.setOnTouchListener { _, _ ->
+            hideKeyboard()
             true
         }
 

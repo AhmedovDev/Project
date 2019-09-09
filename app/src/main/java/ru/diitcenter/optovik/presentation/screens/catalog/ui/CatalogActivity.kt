@@ -112,7 +112,7 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView, View.OnClickListene
             isEstimatedPrise_catalog.visibility = View.GONE
         else
             isEstimatedPrise_catalog.visibility = View.VISIBLE
-        price_on_button.setText("$priceAll")
+        price_on_button.setText("%,d".format(priceAll))
         count_on_button.setText("${basket.items.size}")
     }
 

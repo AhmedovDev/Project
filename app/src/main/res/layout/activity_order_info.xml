@@ -136,6 +136,12 @@
                 android:layout_toEndOf="@+id/textView10"
                 android:orientation="horizontal">
 
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:background="#F6F6F6" />
                 <TextView
                     android:id="@+id/product_price_order_info"
                     android:layout_width="wrap_content"
@@ -160,12 +166,6 @@
                     android:textColor="#444444"
                     android:textSize="12sp" />
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_gravity="bottom"
-                    android:layout_weight="1"
-                    android:background="#F6F6F6" />
 
 
             </LinearLayout>
@@ -181,6 +181,12 @@
                 android:layout_toEndOf="@+id/textView11"
                 android:orientation="horizontal">
 
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:background="#F6F6F6" />
                 <TextView
                     android:id="@+id/diliviry_price_order_info"
                     android:layout_width="wrap_content"
@@ -194,12 +200,6 @@
                     android:textSize="12sp" />
 
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_gravity="bottom"
-                    android:layout_weight="1"
-                    android:background="#F6F6F6" />
 
 
             </LinearLayout>
@@ -216,6 +216,12 @@
                 android:orientation="horizontal">
 
 
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:background="#F6F6F6" />
                 <TextView
                     android:id="@+id/all_price_order_info"
                     android:layout_width="wrap_content"
@@ -239,12 +245,6 @@
                     android:textColor="#000000"
                     android:textSize="14sp" />
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_gravity="bottom"
-                    android:layout_weight="1"
-                    android:background="#F6F6F6" />
 
 
             </LinearLayout>

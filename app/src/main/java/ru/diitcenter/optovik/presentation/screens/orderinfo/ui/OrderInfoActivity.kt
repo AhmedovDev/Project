@@ -75,11 +75,11 @@ class OrderInfoActivity : MvpAppCompatActivity(), OrderInfoView {
         order_id_order_info.text = "Заказ№ " + order.id.toString()
         status_order_info.text = order.status
         order_date_order_info.text = order.date
-        all_price_order_info.text = order.finalPrice.toString()
+        all_price_order_info.text = "%,d".format(order.finalPrice)
         if (order.deliveryPrice == 0)
             diliviry_price_order_info.text = "бесплатно"
         else diliviry_price_order_info.text = order.deliveryPrice.toString() + " \u20BD"
-        product_price_order_info.text = order.priceWithOutDelivery.toString()
+        product_price_order_info.text = "%,d".format(order.priceWithOutDelivery)
     }
 
     override fun showError() {

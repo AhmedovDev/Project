@@ -69,7 +69,7 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
         // скрыть клаву при нажатии на физическую кнопку "назад"
         input_product.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                hideKeyboard(context!!, view)
+                //             hideKeyboard(context!!, view)
             }
             false
         }
@@ -127,7 +127,7 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
             isEstimatedPrise_product_card.visibility = View.GONE
         else
             isEstimatedPrise_product_card.visibility = View.VISIBLE
-        price_on_button_product_card.setText("$priceAll")
+        price_on_button_product_card.setText("%,d".format(priceAll))
         count_on_button_product_card.setText("${basket.items.size}")
     }
 
@@ -256,7 +256,7 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
 
         name_product_card.text = productCard.title
         title.text = productCard.title
-        price.text = productCard.price.toString()
+        price.text = "%,d".format(productCard.price)
         count_product.text = productCard.count
         discription.text = productCard.description
 
