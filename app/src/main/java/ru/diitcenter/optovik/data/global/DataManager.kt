@@ -5,9 +5,9 @@ import io.reactivex.Single
 interface DataManager {
     fun getMain(): Single<ru.diitcenter.optovik.data.global.models.MainModel>
 
-    fun getDataCatalog(): Single<ru.diitcenter.optovik.data.global.models.Catalog>
+    fun getDataCatalog( id: Int): Single<ru.diitcenter.optovik.data.global.models.Catalog>
 
-    fun getProductCard(): Single<ru.diitcenter.optovik.data.global.models.ProductCard>
+    fun getProductCard(id: Int): Single<ru.diitcenter.optovik.data.global.models.ProductCard>
 
     fun getBasket(): Single<ru.diitcenter.optovik.data.global.models.DeliveryAndBasket>
 
@@ -17,6 +17,6 @@ interface DataManager {
 
     fun getNotification(): Single<List<ru.diitcenter.optovik.data.global.models.Notification>>
 
-    fun getOrderInfo(): Single<ru.diitcenter.optovik.data.global.models.OrderInfo>
+    fun getOrderInfo(id: Int): Single<ru.diitcenter.optovik.data.global.models.OrderInfo>
 
 }

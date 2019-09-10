@@ -56,6 +56,7 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView, View.OnClickListene
             .inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catalog)
+        presenter.getAllCatalog(id = intent.getIntExtra("category_id", 1))
         updateBasketButton()
         initViews()
         backArrowClickListener()
@@ -72,7 +73,7 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView, View.OnClickListene
 
     override fun onClick(view: View?) {
         when (view?.id) {
-            R.id.update_catalog -> presenter.getAllCatalog()
+            R.id.update_catalog -> presenter.getAllCatalog(intent.getIntExtra("category_id", 1))
         }
     }
 
@@ -169,7 +170,7 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView, View.OnClickListene
 
     override fun onResume() {
         super.onResume()
-        if (!isFirstStart) presenter.getAllCatalog()
+        if (!isFirstStart) presenter.getAllCatalog(intent.getIntExtra("category_id", 1))
         updateBasketButton()
         emptyBasketCheck()
     }
@@ -177,7 +178,7 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView, View.OnClickListene
     override fun onResumeFragments() {
         super.onResumeFragments()
         navigatorHolder.setNavigator(navigator)
-        presenter.getAllCatalog()
+        presenter.getAllCatalog(intent.getIntExtra("category_id", 1))
 
     }
 
@@ -188,7 +189,7 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView, View.OnClickListene
 
     override fun onStart() {
         super.onStart()
-        presenter.getAllCatalog()
+        presenter.getAllCatalog(intent.getIntExtra("category_id", 1))
     }
 
 //    override fun onDestroy() {

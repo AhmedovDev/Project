@@ -16,7 +16,7 @@ class CatalogPresenter @Inject constructor(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        getAllCatalog()
+       // getAllCatalog()
         basketHolder.subscribe(this)
     }
 
@@ -28,17 +28,19 @@ class CatalogPresenter @Inject constructor(
     }
 
 
-    fun getAllCatalog() {
-        dataManager.getDataCatalog()
+    fun getAllCatalog(id : Int) {
+        dataManager.getDataCatalog(id)
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { viewState.showProgress(true) }
             .doAfterTerminate { viewState.showProgress(false) }
             .subscribe(
                 { data ->
-                    viewState.showProducts(data.products)
+                    data.products?.let {
+                        viewState.showProducts(data.products)
 //                    viewState.showEvents(data.events)
-                    viewState.visiblCatalog()
-                    viewState.showInformation(data.information)
+                        viewState.visiblCatalog()
+                        viewState.showInformation(data.information)
+                    }
 
                 },
                 {

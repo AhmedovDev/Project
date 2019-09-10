@@ -146,6 +146,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         adapter.setOnCategoryClickListener {
             val intent = Intent(this, CatalogActivity::class.java)
             intent.putExtra("nameCategory", "${it.name}")
+            intent.putExtra("category_id", it.id )
             startActivity(intent)
         }
     }

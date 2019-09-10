@@ -68,6 +68,7 @@ class MyOrderActivity : MvpAppCompatActivity(), MyOrderView {
         my_order_recycler.adapter = adapter
         adapter.setOnAdresClickListener {
             val intent2 = Intent(this, OrderInfoActivity::class.java)
+            intent2.putExtra("order_id", it.id)
             startActivity(intent2)
 
         }

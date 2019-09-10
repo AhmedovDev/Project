@@ -3,6 +3,7 @@ package ru.diitcenter.optovik.presentation.screens.orderinfo.ui
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.View
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -35,12 +36,14 @@ class OrderInfoActivity : MvpAppCompatActivity(), OrderInfoView {
             .build()
             .inject(this)
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_order_info)
         info_constraint.visibility = View.VISIBLE
         check_order_info.visibility = View.VISIBLE
         bottom_buttons.visibility = View.VISIBLE
         initViews()
-        update_order_info.setOnClickListener { presenter.getOrderInfo() }
+        presenter.getOrderInfo(intent.getIntExtra("order_id", 2))
+        update_order_info.setOnClickListener { presenter.getOrderInfo(intent.getIntExtra("order_id", 2)) }
         back_arrow_order_info.setOnClickListener { finish() }
         write_feedback.setOnClickListener { showBottomSheetDialogFragment() }
     }

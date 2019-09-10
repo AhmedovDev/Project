@@ -6,6 +6,7 @@ class PrefsHelper(private val sharedPrefs: SharedPreferences) {
 
     private val PREF_ADDRESS = "address"
     private val PREF_PHONE = "phone"
+    private val PREF_TOKEN = "token"
 
 
     fun getAddress(): String? = sharedPrefs.getString(PREF_ADDRESS, null)
@@ -25,6 +26,13 @@ class PrefsHelper(private val sharedPrefs: SharedPreferences) {
     fun savePhone(phone: String) = sharedPrefs.edit()
         .putString(PREF_PHONE, phone)
         .apply()
+
+    fun getToken(): String? = sharedPrefs.getString(PREF_TOKEN, null)
+
+    fun saveToken(token: String) = sharedPrefs.edit()
+        .putString(PREF_TOKEN, token)
+        .apply()
+
 
     fun clearPhone() = sharedPrefs.edit()
         .remove(PREF_PHONE)

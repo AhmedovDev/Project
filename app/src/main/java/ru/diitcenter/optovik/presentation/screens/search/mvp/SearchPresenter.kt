@@ -37,7 +37,7 @@ class SearchPresenter @Inject constructor(
         var products: MutableList<ru.diitcenter.optovik.data.global.models.Product> = ArrayList()
         var firstproducts: List<ru.diitcenter.optovik.data.global.models.Product> = ArrayList()
         var emptyArray: List<ru.diitcenter.optovik.data.global.models.Product> = ArrayList()
-        dataManager.getDataCatalog()
+        dataManager.getDataCatalog(1)
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { viewState.showProgress(true) }
             .doAfterTerminate { viewState.showProgress(false) }

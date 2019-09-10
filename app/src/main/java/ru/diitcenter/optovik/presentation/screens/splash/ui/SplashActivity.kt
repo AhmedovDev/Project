@@ -6,6 +6,7 @@ import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
+import ru.diitcenter.optovik.data.prefs.PrefsHelper
 import ru.diitcenter.optovik.presentation.screens.autorization.ui.AutorizationActivity
 import ru.diitcenter.optovik.presentation.screens.main.ui.MainActivity
 import ru.diitcenter.optovik.presentation.screens.splash.mvp.SplashPresenter
@@ -20,6 +21,9 @@ class SplashActivity : MvpAppCompatActivity(), SplashView {
     @InjectPresenter
     lateinit var presenter: SplashPresenter
 
+    @Inject
+    lateinit var prefsHelper: PrefsHelper
+
     @ProvidePresenter
     fun providePresenter() = presenter
 
@@ -32,9 +36,14 @@ class SplashActivity : MvpAppCompatActivity(), SplashView {
     }
 
     override fun intent() {
+        if(prefsHelper.getToken()!!.isNotEmpty()) {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
-        finish()
+        finish()}
+        else{
+        val intent = Intent(this, AutorizationActivity::class.java)
+        startActivity(intent)
+        finish()}
     }
 
     override fun showError() {

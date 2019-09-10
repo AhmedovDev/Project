@@ -47,6 +47,7 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
         super.onCreate(savedInstanceState)
         arguments?.run {
             product = getParcelable(PRODUCT)
+            presenter.getAllData(product.id)
         }
     }
 
@@ -186,7 +187,7 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
     }
 
     fun updateClick() {
-        update_productcard.setOnClickListener { presenter.getAllData() }
+        update_productcard.setOnClickListener { presenter.getAllData(product.id) }
     }
 
     override fun showProgress(progress: Boolean) {
@@ -219,7 +220,7 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
 
     override fun onResume() {
         super.onResume()
-        presenter.getAllData()
+        presenter.getAllData(product.id)
         updateBasketButton()
         Log.e("aaaResume", "aaaResume")
         val haveItem = basket.items.filter {

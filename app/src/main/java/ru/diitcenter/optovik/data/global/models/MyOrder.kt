@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class MyOrder (
+class   MyOrder (
     @SerializedName("status") val title: String,
     @SerializedName("id") val id: Int,
     @SerializedName("date") val date: String,

@@ -16,13 +16,12 @@ viewState.emptyBasketCheck()    }
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        getAllData()
         basketHolder.subscribe(this)
 
     }
 
-    fun getAllData() {
-        dataManager.getProductCard()
+    fun getAllData(id: Int) {
+        dataManager.getProductCard(id)
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { viewState.showProgress(true) }
             .doAfterTerminate { viewState.showProgress(false) }

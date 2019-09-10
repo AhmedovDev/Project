@@ -3,24 +3,28 @@ package ru.diitcenter.optovik.data.global
 
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import ru.diitcenter.optovik.data.global.models.Catalog
+import ru.diitcenter.optovik.data.global.models.ProductCard
+import ru.diitcenter.optovik.data.prefs.PrefsHelper
 import javax.inject.Inject
 import javax.inject.Named
 
 class DataManagerlmpl @Inject constructor(
-    @Named("API_OPTOVIK") val api: ru.diitcenter.optovik.data.network.OptovikApi,
-    @Named("API_CATALOG") val apiCatalog: ru.diitcenter.optovik.data.network.CatalogApi,
-    @Named("API_PRODUCT_CARD") val apiProductCard: ru.diitcenter.optovik.data.network.ProductCardApi,
-    @Named("API_BASKET") val apiBasket: ru.diitcenter.optovik.data.network.BasketApi,
-    @Named("API_LOCATION") val apiLocation: ru.diitcenter.optovik.data.network.LocationApi,
-    @Named("API_MY_ORDER") val apiMyOrder: ru.diitcenter.optovik.data.network.MyOrderApi,
+    @Named("API_OPTOVIK") val api: ru.diitcenter.optovik.data.network.MainApi,
     @Named("API_NOTIFICATION") val apiNotification: ru.diitcenter.optovik.data.network.NotificationApi,
-    @Named("API_ORDER_INFO") val apiOrderInfo: ru.diitcenter.optovik.data.network.OrderInfoApi
+    private val prefsHelper: PrefsHelper
 
+) : DataManager {
+    override fun getProductCard(id: Int): Single<ProductCard> =
+        api.getProductCard(id)
+            .subscribeOn(Schedulers.io())
 
-) : ru.diitcenter.optovik.data.global.DataManager {
+    override fun getDataCatalog(id: Int): Single<Catalog> =
+        api.getDataCatalog( id)
+            .subscribeOn(Schedulers.io())
 
-    override fun getOrderInfo(): Single<ru.diitcenter.optovik.data.global.models.OrderInfo> =
-        apiOrderInfo.getOrderInfo()
+    override fun getOrderInfo(id: Int): Single<ru.diitcenter.optovik.data.global.models.OrderInfo> =
+        api.getOrderInfo(id)
             .subscribeOn(Schedulers.io())
 
     override fun getNotification(): Single<List<ru.diitcenter.optovik.data.global.models.Notification>> =
@@ -28,29 +32,21 @@ class DataManagerlmpl @Inject constructor(
             .subscribeOn(Schedulers.io())
 
     override fun getMyOrder(): Single<List<ru.diitcenter.optovik.data.global.models.MyOrder>> =
-        apiMyOrder.getMyOrder()
+        api.getMyOrder()
             .subscribeOn(Schedulers.io())
 
     override fun getLocation(): Single<List<ru.diitcenter.optovik.data.global.models.Location>> =
-        apiLocation.getLocation()
+        api.getLocation()
             .subscribeOn(Schedulers.io())
 
 
     override fun getBasket(): Single<ru.diitcenter.optovik.data.global.models.DeliveryAndBasket> =
-        apiBasket.getDeliveryAndBasket()
+        api.getDeliveryAndBasket()
             .subscribeOn(Schedulers.io())
-
-
-    override fun getDataCatalog(): Single<ru.diitcenter.optovik.data.global.models.Catalog> =
-        apiCatalog.getDataCatalog()
-            .subscribeOn(Schedulers.io())
-
 
     override fun getMain(): Single<ru.diitcenter.optovik.data.global.models.MainModel> =
-        api.getData()
+        api.getCategory()
             .subscribeOn(Schedulers.io())
 
-    override fun getProductCard(): Single<ru.diitcenter.optovik.data.global.models.ProductCard> =
-        apiProductCard.getProductCard()
-            .subscribeOn(Schedulers.io())
+
 }

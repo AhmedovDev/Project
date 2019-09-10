@@ -18,11 +18,10 @@ class OrderInfoPresenter @Inject constructor(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        getOrderInfo()
     }
 
-    fun getOrderInfo() {
-        subscriptions += dataManager.getOrderInfo()
+    fun getOrderInfo(id: Int) {
+        subscriptions += dataManager.getOrderInfo(id)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .doOnSubscribe { viewState.showProgress(true) }
