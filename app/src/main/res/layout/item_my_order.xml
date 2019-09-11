@@ -139,7 +139,7 @@
     </android.support.constraint.ConstraintLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/order_repeat_button"
         android:layout_width="0dp"
         android:layout_height="41dp"
         android:layout_marginStart="16dp"

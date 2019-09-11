@@ -3,6 +3,7 @@ package ru.diitcenter.optovik.di.global
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import ru.diitcenter.optovik.di.screens.dialogorderrepeat.DialodOrderRepeatComponent
 import javax.inject.Singleton
 
 @Component(
@@ -33,13 +34,14 @@ interface AppComponent {
     fun notificationComponentBuilder(): ru.diitcenter.optovik.di.screens.notification.NotificationComponent.Builder
     fun checkOrderComponentBuilder(): ru.diitcenter.optovik.di.screens.checkorder.CheckOrderComponent.Builder
     fun orderInfoComponentBuilder(): ru.diitcenter.optovik.di.screens.orderinfo.OrderInfoComponent.Builder
+    fun dialogOdrerRepeatComponentBuilder(): DialodOrderRepeatComponent.Builder
 
     @Component.Builder
     interface Builder {
 
-        fun build(): ru.diitcenter.optovik.di.global.AppComponent
+        fun build(): AppComponent
 
         @BindsInstance
-        fun bindsInstanceContext(context: Context): ru.diitcenter.optovik.di.global.AppComponent.Builder
+        fun bindsInstanceContext(context: Context): Builder
     }
 }

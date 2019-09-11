@@ -10,6 +10,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import kotlinx.android.synthetic.main.activity_order_info.*
 import kotlinx.android.synthetic.main.toolbar_order_info.*
+import ru.diitcenter.optovik.presentation.global.dialogscreen.DialogOrderRepeatFragment
 import ru.diitcenter.optovik.presentation.screens.orderinfo.mvp.OrderInfoPresenter
 import ru.diitcenter.optovik.presentation.screens.orderinfo.mvp.OrderInfoView
 import ru.example.optovik.R
@@ -42,10 +43,17 @@ class OrderInfoActivity : MvpAppCompatActivity(), OrderInfoView {
         check_order_info.visibility = View.VISIBLE
         bottom_buttons.visibility = View.VISIBLE
         initViews()
+        repeat_order.setOnClickListener { showBottomSheetDialogFragmentRepeatOrder() }
         presenter.getOrderInfo(intent.getIntExtra("order_id", 2))
         update_order_info.setOnClickListener { presenter.getOrderInfo(intent.getIntExtra("order_id", 2)) }
         back_arrow_order_info.setOnClickListener { finish() }
         write_feedback.setOnClickListener { showBottomSheetDialogFragment() }
+    }
+
+    private fun showBottomSheetDialogFragmentRepeatOrder() {
+        val dialogOrderRepeatFragment =
+            DialogOrderRepeatFragment()
+        dialogOrderRepeatFragment.show(supportFragmentManager, dialogOrderRepeatFragment.tag)
     }
 
     private fun initViews() {
