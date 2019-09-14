@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import kotlinx.android.synthetic.main.fragment_input_phone2.*
@@ -23,6 +24,14 @@ import javax.inject.Inject
 
 class InputPhoneFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
     InputPhoneView {
+
+    override fun showError() {
+       Toast.makeText(context, "Ваш номер не зарегистрирован, \n обратитесь к оператору", Toast.LENGTH_SHORT).show()
+
+    }
+
+    override fun showProgress(progress: Boolean) {
+    }
 
 
     @Inject
@@ -58,7 +67,7 @@ class InputPhoneFragment : ru.diitcenter.optovik.presentation.global.BaseFragmen
             showKeyboard(context!!)
             true
         }
-         // скрыть клаву
+        // скрыть клаву
         inputphone.setOnTouchListener { _, _ ->
             hideKeyboard()
             true
@@ -108,6 +117,10 @@ class InputPhoneFragment : ru.diitcenter.optovik.presentation.global.BaseFragmen
 
     }
 
+    override fun goToInputCode() {
+        presenter.gotoInputCode(phone.text.toString())
+    }
+
     private fun isDisabledButton() {
         (buttonNext.background as TransitionDrawable).reverseTransition(100)
         buttonNext.setTextColor(resources.getColor(R.color.colorTextHint))
@@ -116,7 +129,9 @@ class InputPhoneFragment : ru.diitcenter.optovik.presentation.global.BaseFragmen
 
 
     fun onButtonClicked() {
-        presenter.gotoInputCode(phone.text.toString())
+        var res = phone.text.toString().replace("""\D+""".toRegex(), "")
+        presenter.getCode(res)
+
     }
 
 

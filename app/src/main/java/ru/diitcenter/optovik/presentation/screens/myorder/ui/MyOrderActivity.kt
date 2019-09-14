@@ -9,9 +9,8 @@ import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import kotlinx.android.synthetic.main.activity_my_order.*
-import kotlinx.android.synthetic.main.activity_order_info.*
-import kotlinx.android.synthetic.main.item_my_order.*
 import kotlinx.android.synthetic.main.toolbar_my_order.*
+import ru.diitcenter.optovik.data.global.models.Basket
 import ru.diitcenter.optovik.presentation.global.dialogscreen.DialogOrderRepeatFragment
 import ru.diitcenter.optovik.presentation.screens.myorder.mvp.MyOrderPresenter
 import ru.diitcenter.optovik.presentation.screens.myorder.mvp.MyOrderView
@@ -21,8 +20,7 @@ import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import javax.inject.Inject
 
-class MyOrderActivity : MvpAppCompatActivity(), MyOrderView {
-
+class MyOrderActivity : MvpAppCompatActivity(), MyOrderView , DialogOrderRepeatFragment.CallBackDialogOrderRepeat{
 
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
@@ -38,6 +36,9 @@ class MyOrderActivity : MvpAppCompatActivity(), MyOrderView {
     fun providePresenter() = presenter
 
     private lateinit var navigator: Navigator
+
+    private var orderProdeucts: List<Basket> = ArrayList()
+    private var orderId: Int = 0
 
     @Inject
     lateinit var prefsHelper: ru.diitcenter.optovik.data.prefs.PrefsHelper
@@ -78,13 +79,24 @@ class MyOrderActivity : MvpAppCompatActivity(), MyOrderView {
         val adapter = MyOrderAdapter(myOrder)
         my_order_recycler.adapter = adapter
         adapter.setOnAdresClickListener(
-            listener = {val intent2 = Intent(this, OrderInfoActivity::class.java)
+            listener = {
+                val intent2 = Intent(this, OrderInfoActivity::class.java)
                 intent2.putExtra("order_id", it.id)
-                startActivity(intent2)},
+                startActivity(intent2)
+            },
             listenerRepeat = {
                 showBottomSheetDialogFragment()
+                orderId = it.id
+
             }
         )
+    }
+
+
+
+
+    override fun replaceBasket() {
+        presenter.replaseBasket(orderId)
     }
 
     override fun showError() {

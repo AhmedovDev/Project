@@ -19,6 +19,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     val TAG = "FirebaseMessagingService"
 
     @SuppressLint("LongLogTag")
+    override fun onNewToken(token: String) {
+        Log.d(TAG,token)
+    }
+
+    @SuppressLint("LongLogTag")
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         Log.d(TAG, "Dikirim dari: ${remoteMessage.from}")
 

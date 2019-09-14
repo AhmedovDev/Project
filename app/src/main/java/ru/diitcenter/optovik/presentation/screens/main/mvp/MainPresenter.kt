@@ -37,9 +37,9 @@ class MainPresenter @Inject constructor(
             .doAfterTerminate { viewState.showProgress(false) }
             .subscribe(
                 { data ->
-                    viewState.showCategories(data.categoryes)
-                    viewState.showEvents(data.events)
-                    viewState.showLastOrder(data.lastOrder)
+                data.categoryes?.let {     viewState.showCategories(data.categoryes)}
+                 data.events?.let {    viewState.showEvents(data.events)}
+                 data.lastOrder?.let {     viewState.showLastOrder(data.lastOrder)}
                     viewState.visiblMain()
 
                 },

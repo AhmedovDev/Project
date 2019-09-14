@@ -19,8 +19,8 @@ class SplashPresenter @Inject constructor(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        prefsHelper.run { saveToken("45ab75c1b64801374f4010cd10d8e87e") }
-        getBasket()
+     //   prefsHelper.run { saveToken("ab076d6dbd4dbf0990864325d41ea41e") }
+       getBasket()
     }
 
     fun getBasket() {
@@ -28,14 +28,15 @@ class SplashPresenter @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe(
-                { basket ->
-                    Log.e("BASKET: ","$basket")
-                    basketHolder.items = basket.basket.map { ru.diitcenter.optovik.data.basketholder.BasketHolder.Item(it.product,it.quantity) } as MutableList
+                { data ->
+                    data.basket?.let {
+                    viewState.getBasket(data.basket)
+                }
                     viewState.intent()
-
                 },
                 {
                    viewState.showError()
+                    viewState.intent()
                 }
             )
     }

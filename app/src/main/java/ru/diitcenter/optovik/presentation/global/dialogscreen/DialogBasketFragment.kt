@@ -41,9 +41,9 @@ class DialogBasketFragment : BottomSheetDialogFragment() {
         not_drop_button.setOnClickListener { dialog.cancel() }
 
         drop_button.setOnClickListener {
-            basketHolder.items.clear()
             dialog.cancel()
             call.updateBasketView()
+            call.clearBasket()
 
 
         }
@@ -52,6 +52,7 @@ class DialogBasketFragment : BottomSheetDialogFragment() {
 
     public interface CallBack {
         fun updateBasketView()
+        fun clearBasket()
     }
 
     override fun onAttach(context: Context?) {

@@ -14,6 +14,8 @@ import android.content.Intent
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.Toast
+import ru.diitcenter.optovik.data.prefs.PrefsHelper
 import ru.diitcenter.optovik.presentation.global.utils.hideKeyboard
 import ru.diitcenter.optovik.presentation.global.utils.withArgs
 import ru.diitcenter.optovik.presentation.screens.inputcode.mvp.InputCodePresenter
@@ -24,21 +26,8 @@ import ru.example.optovik.R
 
 class InputCodeFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(), InputCodeView {
 
-    override fun isVisibleTimer(visible: Boolean) {
-        if (visible) {
-            timer.visibility = View.VISIBLE
-            getCode.visibility = View.GONE
-        } else {
-            timer.visibility = View.INVISIBLE
-            getCode.visibility = View.VISIBLE
-        }
-    }
-
-    // таймер
-    override fun showTimeProgress() {
-        countDownTimer.start()
-    }
-
+    @Inject
+    lateinit var prefsHelper: PrefsHelper
 
     @Inject
     @InjectPresenter
@@ -49,11 +38,13 @@ class InputCodeFragment : ru.diitcenter.optovik.presentation.global.BaseFragment
 
     private val countDownTimer = object : CountDownTimer(60000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
-            var time = millisUntilFinished/1000
-            val progressSeconds = resources.getQuantityString(R.plurals.number_of_seconds, time.toInt(), time.toInt())
+            var time = millisUntilFinished / 1000
+            val progressSeconds =
+                resources.getQuantityString(R.plurals.number_of_seconds, time.toInt(), time.toInt())
             val progressText = getString(R.string.confirmation_timer, progressSeconds)
             timer.text = progressText
         }
+
         override fun onFinish() {
             isVisibleTimer(false)
             getCode.setOnClickListener { presenter.retrySendCode() }
@@ -67,7 +58,7 @@ class InputCodeFragment : ru.diitcenter.optovik.presentation.global.BaseFragment
             .inject(this)
         super.onCreate(savedInstanceState)
         arguments?.run {
-            phone = getString(PHONE, "")
+            phone = getString(PHONE, "").replace("""\D+""".toRegex(), "")
         }
     }
 
@@ -84,15 +75,15 @@ class InputCodeFragment : ru.diitcenter.optovik.presentation.global.BaseFragment
         super.onViewCreated(view, savedInstanceState)
 
         phoneOnEditCode.text = phone
-        getCode.setOnClickListener {
-            exampleCodeCheck()
+
             getCode.setOnTouchListener { _, _ ->
                 hideKeyboard()
                 true
-            }
+
         }
 
         back.setOnClickListener { presenter.back() }
+
 
         // Постоянная проверка поля для ввода кода на соответствие
 
@@ -105,10 +96,39 @@ class InputCodeFragment : ru.diitcenter.optovik.presentation.global.BaseFragment
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                exampleCodeCheck()
+                presenter.getToken(phone,PinView_inputCodeFragment_code.text.toString())
             }
 
         })
+    }
+
+    override fun goToMain() {
+        startActivity(Intent(activity, MainActivity::class.java))
+    }
+
+
+    override fun saveToken(token: String) {
+        prefsHelper.saveToken(token)
+    }
+
+    override fun showError() {
+        Toast.makeText(context, "Код неверный, \n повторите попытку", Toast.LENGTH_SHORT).show()
+    }
+
+
+    override fun isVisibleTimer(visible: Boolean) {
+        if (visible) {
+            timer.visibility = View.VISIBLE
+            getCode.visibility = View.GONE
+        } else {
+            timer.visibility = View.INVISIBLE
+            getCode.visibility = View.VISIBLE
+        }
+    }
+
+    // таймер
+    override fun showTimeProgress() {
+        countDownTimer.start()
     }
 
     override fun onStop() {
@@ -131,7 +151,7 @@ class InputCodeFragment : ru.diitcenter.optovik.presentation.global.BaseFragment
     // todo временная проверка кода
     private fun exampleCodeCheck() {
         var getCode: String = PinView_inputCodeFragment_code.text.toString()
-        if ( getCode.length == 4) {
+        if (getCode.length == 4) {
             startActivity(Intent(activity, MainActivity::class.java))
         }
     }

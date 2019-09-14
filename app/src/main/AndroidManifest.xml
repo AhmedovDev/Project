@@ -30,6 +30,9 @@
             android:name="ru.diitcenter.optovik.presentation.screens.adresbook.ui.AdresbookActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name="ru.diitcenter.optovik.presentation.screens.autorization.ui.AutorizationActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="ru.diitcenter.optovik.presentation.screens.basket.ui.BasketActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -57,7 +60,8 @@
         </service>
 
         <service
-            android:name="ru.diitcenter.optovik.pushnotification.MyFirebaseMessagingService">
+            android:name="ru.diitcenter.optovik.pushnotification.MyFirebaseMessagingService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>

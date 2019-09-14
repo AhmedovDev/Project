@@ -1,11 +1,8 @@
 package ru.diitcenter.optovik.data.network
 
 import io.reactivex.Single
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Path
-import retrofit2.http.Query
-import ru.diitcenter.optovik.data.global.models.MainModel
+import retrofit2.http.*
+import ru.diitcenter.optovik.data.global.models.*
 
 interface MainApi {
 
@@ -37,4 +34,59 @@ interface MainApi {
     @GET("/api/v1/orders/{order_id}")
     fun getOrderInfo(@Path("order_id") id: Int
     ): Single<ru.diitcenter.optovik.data.global.models.OrderInfo>
+
+    @FormUrlEncoded
+    @POST("/api/v1/login")
+    fun getCode(
+        @Field("telephone") telephone: String
+    ): Single<Autorization>
+
+    @FormUrlEncoded
+    @POST("/api/v1/login")
+    fun getToken(
+        @Field("telephone") telephone: String,
+        @Field("code") code: String
+    ): Single<Autorization>
+
+    @POST("/api/v1/cart/{product_id}/add")
+    fun addProductInBasket(
+        @Path("product_id") productId : Int,
+        @Query("count") count: Int
+    ): Single<Product>
+
+    @POST("/api/v1/cart/{product_id}/delete")
+    fun deleteProductInBasket(
+        @Path("product_id") productId : Int
+    ): Single<Product>
+
+    @POST("/api/v1/cart/{product_id}/set")
+    fun changeProductInBasket(
+        @Path("product_id") productId : Int,
+        @Query("count") count: Int
+    ): Single<Product>
+
+    @GET("/api/v1/cart/clear")
+    fun clearBasket(): Single<Basket>
+
+    @POST("/api/v1/products")
+    fun searchProducts(
+        @Query("search") searchWord: String
+    ): Single<Product>
+
+    @POST("/api/v1/reviews/add")
+    fun setFeedBack(
+        @Query("order_id") orderId: Int,
+        @Query("rating") rating: Int,
+        @Query("review") review: String
+    ): Single<FeedBack>
+
+    @POST("/api/v1/cart/checkout")
+    fun Checkout(
+        @Query("description") description: String,
+        @Query("telephone") telephone: String
+    ): Single<Checkout>
+
+
+
+
 }

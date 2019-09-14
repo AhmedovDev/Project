@@ -7,8 +7,6 @@ import android.support.design.widget.BottomSheetDialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.activity_order_info.*
-import kotlinx.android.synthetic.main.fragment_dialog_basket.*
 import kotlinx.android.synthetic.main.fragment_dialog_order_repeat.*
 import ru.diitcenter.optovik.App
 import ru.example.optovik.R
@@ -16,6 +14,7 @@ import javax.inject.Inject
 
 
 class DialogOrderRepeatFragment : BottomSheetDialogFragment() {
+
 
     lateinit var call: CallBackDialogOrderRepeat
 
@@ -44,13 +43,13 @@ class DialogOrderRepeatFragment : BottomSheetDialogFragment() {
 
         yes_order_repeat.setOnClickListener {
             dialog.cancel()
-         call.replaseBasket()
+         call.replaceBasket()
         }
 
     }
 
-    public interface CallBackDialogOrderRepeat {
-        fun replaseBasket()
+    interface CallBackDialogOrderRepeat {
+        fun replaceBasket()
     }
 
     override fun onAttach(context: Context?) {

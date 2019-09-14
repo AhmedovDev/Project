@@ -28,6 +28,10 @@ import javax.inject.Inject
 class BasketActivity : MvpAppCompatActivity(), BasketView,
     ru.diitcenter.optovik.presentation.global.dialogscreen.DialogBasketFragment.CallBack {
 
+    override fun clearBasket() {
+        presenter.clearBasket()
+    }
+
 
     var freeDeliveryPrice = 0
 

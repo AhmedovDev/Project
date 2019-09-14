@@ -3,6 +3,8 @@ package ru.diitcenter.optovik.data.global
 
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import ru.diitcenter.optovik.data.global.models.Autorization
+import ru.diitcenter.optovik.data.global.models.Basket
 import ru.diitcenter.optovik.data.global.models.Catalog
 import ru.diitcenter.optovik.data.global.models.ProductCard
 import ru.diitcenter.optovik.data.prefs.PrefsHelper
@@ -15,6 +17,19 @@ class DataManagerlmpl @Inject constructor(
     private val prefsHelper: PrefsHelper
 
 ) : DataManager {
+    override fun getCode(telephone : String): Single<Autorization> =
+        api.getCode(telephone)
+            .subscribeOn(Schedulers.io())
+
+
+    override fun getToken(telephone: String, code: String): Single<Autorization> =
+        api.getToken(telephone,code)
+            .subscribeOn(Schedulers.io())
+
+    override fun clearBasket(): Single<Basket> =
+        api.clearBasket()
+            .subscribeOn(Schedulers.io())
+
     override fun getProductCard(id: Int): Single<ProductCard> =
         api.getProductCard(id)
             .subscribeOn(Schedulers.io())

@@ -4,6 +4,7 @@ import com.arellomobile.mvp.InjectViewState
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.schedulers.Schedulers
+import ru.diitcenter.optovik.data.global.models.Basket
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
@@ -33,6 +34,23 @@ class MyOrderPresenter @Inject constructor(
                 { data ->
                     data
                     viewState.showMyOrders(data)
+                },
+                {
+                    viewState.showError()
+                }
+            )
+    }
+
+    fun replaseBasket(id: Int) {
+        subscriptions += dataManager.getOrderInfo(id)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .doOnSubscribe { viewState.showProgress(true) }
+            .doAfterTerminate { viewState.showProgress(false) }
+            .subscribe(
+                { data ->
+                    basketHolder.items.clear()
+                    basketHolder.items = data.basket.map { ru.diitcenter.optovik.data.basketholder.BasketHolder.Item(it.product,it.quantity) } as MutableList
                 },
                 {
                     viewState.showError()
