@@ -4,18 +4,16 @@ package ru.diitcenter.optovik.presentation.screens.search.ui
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.SearchView
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import kotlinx.android.synthetic.main.fragment_search.*
+import ru.diitcenter.optovik.data.global.models.Product
 import ru.diitcenter.optovik.presentation.global.utils.hideKeyboard
-import ru.diitcenter.optovik.presentation.screens.catalog.ui.CatalogAdapter
 import ru.diitcenter.optovik.presentation.screens.search.mvp.SearchPresenter
 import ru.example.optovik.R
 import ru.terrakok.cicerone.Navigator
@@ -104,7 +102,7 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
         progressBar_Search.visibility = if (progress) View.VISIBLE else View.GONE
     }
 
-    override fun showFoundProducts(products: List<ru.diitcenter.optovik.data.global.models.Product>) {
+    override fun showFoundProducts(products: List<Product>) {
         val adapter = SearchAdapter(
             products = products,
             clickListenerPlus = {
@@ -153,14 +151,9 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
     override fun onResume() {
         super.onResume()
         updateBasketButtonSearch()
-        adapterUpdate()
+       // adapterUpdate()
         emptyBasketCheck()
     }
-
-    override fun adapterUpdate() {
-        input_search.setText(presenter.getLastSearch())
-    }
-
 
     override fun onBackPressed() { presenter.back()
         hideKeyboard()}

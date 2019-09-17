@@ -48,38 +48,9 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    @Named("MY_ORDER_RETROFIT")
-    fun provideMyOrderRetrofit(client: OkHttpClient): Retrofit =
-        Retrofit.Builder()
-            .baseUrl(ru.diitcenter.optovik.di.global.modules.NetworkModule.Companion.BASE_API_URL_MY_ORDER)
-            .client(client)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-    @Provides
-    @Singleton
-    @Named("NOTIFICATION_RETROFIT")
-    fun provideNotificationRetrofit(client: OkHttpClient): Retrofit =
-        Retrofit.Builder()
-            .baseUrl(ru.diitcenter.optovik.di.global.modules.NetworkModule.Companion.BASE_API_URL_MY_ORDER)
-            .client(client)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-
-    @Provides
-    @Singleton
     @Named("BASE_API_URL_OPTOVIK")
     fun provideBaseUrlOptovik() = BASE_API_URL_OPTOVIK
 
-
-    @Provides
-    @Singleton
-    @Named("BASE_API_URL_MY_ORDER")
-    fun provideBaseUrlMyOrder() =
-        ru.diitcenter.optovik.di.global.modules.NetworkModule.Companion.BASE_API_URL_MY_ORDER
 
 
     @Provides
@@ -94,15 +65,8 @@ class NetworkModule {
     fun provideOptovikApi(@Named("MAIN_RETROFIT") retrofit: Retrofit) =
         retrofit.create(ru.diitcenter.optovik.data.network.MainApi::class.java)
 
-    @Provides
-    @Singleton
-    @Named("API_NOTIFICATION")
-    fun provideApiNotification(@Named("NOTIFICATION_RETROFIT") retrofit: Retrofit) =
-        retrofit.create(ru.diitcenter.optovik.data.network.NotificationApi::class.java)
-
-
     companion object {
-        private const val BASE_API_URL_MY_ORDER = "https://raw.githubusercontent.com"
+
         private const val BASE_API_URL_OPTOVIK = "http://muradbfr.beget.tech"
 
 

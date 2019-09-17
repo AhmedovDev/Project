@@ -3,21 +3,27 @@ package ru.diitcenter.optovik.presentation.screens.checkorder.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import kotlinx.android.synthetic.main.activity_check_order.*
 import kotlinx.android.synthetic.main.activity_check_order.rubl
 import kotlinx.android.synthetic.main.toolbar_check_order.*
+import ru.diitcenter.optovik.presentation.global.dialogscreen.DialogFeedbackFragment
 import ru.diitcenter.optovik.presentation.global.utils.hideKeyboard
 import ru.diitcenter.optovik.presentation.screens.adresbook.ui.AdresbookActivity
 import ru.diitcenter.optovik.presentation.screens.checkorder.mvp.CheckOrderPresenter
 import ru.diitcenter.optovik.presentation.screens.checkorder.mvp.CheckOrderView
+import ru.diitcenter.optovik.presentation.screens.main.ui.MainActivity
+import ru.diitcenter.optovik.presentation.screens.myorder.ui.MyOrderActivity
 import ru.example.optovik.R
 import ru.terrakok.cicerone.NavigatorHolder
 import javax.inject.Inject
 
 class CheckOrderActivity : MvpAppCompatActivity(), CheckOrderView {
+
+
 
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
@@ -64,10 +70,16 @@ class CheckOrderActivity : MvpAppCompatActivity(), CheckOrderView {
             hideKeyboard()
         }
 
-
+        check_order.setOnClickListener {
+        presenter.chackOrder(input_comment.text.toString() ,connect_number.text.toString())
+        }
     }
 
-
+    override fun goToMyOrders() {
+        val intent = Intent(this, MyOrderActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
 
     private fun basketResultPriceCheсk() {
         product_price_check_order.setText("%,d".format(price()))
@@ -83,6 +95,9 @@ class CheckOrderActivity : MvpAppCompatActivity(), CheckOrderView {
             all_price_check_order.setText(price())
     }
 
+    override fun showError() {
+        Toast.makeText(this, "Проблемы с интернетом", Toast.LENGTH_SHORT).show()
+    }
 
     fun price(): Int {
         var productPrice = 0

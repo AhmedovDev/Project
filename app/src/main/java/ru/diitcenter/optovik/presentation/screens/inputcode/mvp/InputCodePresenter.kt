@@ -38,6 +38,20 @@ class InputCodePresenter @Inject constructor(
 
     }
 
+    fun getCode(telephone: String) {
+
+        subscriptions += dataManager.getCode(telephone)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe(
+                { data ->
+                },
+                {
+                    viewState.showError()
+                }
+            )
+    }
+
     fun updateTimer() {
         viewState.isVisibleTimer(true)
         viewState.showTimeProgress()

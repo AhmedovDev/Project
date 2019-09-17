@@ -34,25 +34,15 @@ class SearchPresenter @Inject constructor(
 
     fun search(searchWord: String) {
         str = searchWord
-        var products: MutableList<ru.diitcenter.optovik.data.global.models.Product> = ArrayList()
-        var firstproducts: List<ru.diitcenter.optovik.data.global.models.Product> = ArrayList()
-        var emptyArray: List<ru.diitcenter.optovik.data.global.models.Product> = ArrayList()
-        dataManager.getDataCatalog(1)
+        dataManager.searchProduct(searchWord.toString())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { viewState.showProgress(true) }
             .doAfterTerminate { viewState.showProgress(false) }
             .subscribe(
                 { data ->
-                    viewState.visiblSearchList()
-                    firstproducts = data.products
-                    firstproducts.forEach { item ->
-                        if (item.name.contains(searchWord)) products.add(item)
+                    data.searchProducts?.let {
+                        viewState.showFoundProducts(data.searchProducts)
                     }
-                    if (products.size != 0 && searchWord != "")
-                        viewState.showFoundProducts(products)
-                    else
-                        viewState.showFoundProducts(emptyArray)
-
                 },
                 {
                     viewState.showError()

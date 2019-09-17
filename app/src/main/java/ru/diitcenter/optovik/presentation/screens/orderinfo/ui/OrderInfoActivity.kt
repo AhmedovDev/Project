@@ -8,6 +8,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import kotlinx.android.synthetic.main.activity_order_info.*
 import kotlinx.android.synthetic.main.toolbar_order_info.*
+import ru.diitcenter.optovik.presentation.global.dialogscreen.DialogFeedbackFragment
 import ru.diitcenter.optovik.presentation.global.dialogscreen.DialogOrderRepeatFragment
 import ru.diitcenter.optovik.presentation.screens.orderinfo.mvp.OrderInfoPresenter
 import ru.diitcenter.optovik.presentation.screens.orderinfo.mvp.OrderInfoView
@@ -15,7 +16,14 @@ import ru.example.optovik.R
 import ru.terrakok.cicerone.NavigatorHolder
 import javax.inject.Inject
 
-class OrderInfoActivity : MvpAppCompatActivity(), OrderInfoView {
+class OrderInfoActivity : MvpAppCompatActivity(), OrderInfoView , DialogFeedbackFragment.CallBack{
+
+
+    override fun setFeedBack(rating: Int, review: String) {
+       presenter.setFeedback(orderIdGlobal, rating , review)
+    }
+
+    var orderIdGlobal = 0
 
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
@@ -89,6 +97,9 @@ class OrderInfoActivity : MvpAppCompatActivity(), OrderInfoView {
             diliviry_price_order_info.text = "бесплатно"
         else diliviry_price_order_info.text = order.deliveryPrice.toString() + " \u20BD"
         product_price_order_info.text = "%,d".format(order.priceWithOutDelivery)
+
+        orderIdGlobal = order.id
+
     }
 
     override fun showError() {

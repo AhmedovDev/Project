@@ -1,12 +1,14 @@
 package ru.diitcenter.optovik.presentation.global.dialogscreen
 
 
+import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialogFragment
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.activity_check_order.*
 import kotlinx.android.synthetic.main.fragment_dialog_feedback.*
 import kotlinx.android.synthetic.main.fragment_search.*
 import ru.diitcenter.optovik.presentation.global.utils.hideKeyboard
@@ -19,6 +21,9 @@ import kotlin.text.clear
  */
 class DialogFeedbackFragment : BottomSheetDialogFragment() {
 
+    lateinit var call: CallBack
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,32 +34,21 @@ class DialogFeedbackFragment : BottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-
-//        simpleRatingBar.numStars = 5
-//        simpleRatingBar.setMinimumStars(1f)
-//        simpleRatingBar.rating = 3f
-//        simpleRatingBar.starPadding = 10
-//        simpleRatingBar.stepSize = 0.5f
-//        simpleRatingBar.setIsIndicator(false)
-//        simpleRatingBar.setClickable(true)
-//        simpleRatingBar.setScrollable(true)
-//        simpleRatingBar.setClearRatingEnabled(true)
-//        simpleRatingBar.setEmptyDrawableRes(com.diitcenter.optovik.R.drawable.star_active)
-//        simpleRatingBar.setFilledDrawableRes(com.diitcenter.optovik.R.drawable.star_passive)
-
-
     }
 
-    // скрыть клаву
+    interface CallBack {
+        fun setFeedBack(rating: Int, review: String)
+    }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-not_button.setOnClickListener { dialog.cancel() }
-        yes_button.setOnClickListener { dialog.cancel() }
+        not_button.setOnClickListener { dialog.cancel() }
+        yes_button.setOnClickListener {
+            call.setFeedBack(simpleRatingBar.rating.toInt(),input_feedback.text.toString())
+            dialog.cancel()
+        }
 
         // показать клаву
 
@@ -67,5 +61,9 @@ not_button.setOnClickListener { dialog.cancel() }
 
     }
 
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        call = context as CallBack
+    }
 
 }

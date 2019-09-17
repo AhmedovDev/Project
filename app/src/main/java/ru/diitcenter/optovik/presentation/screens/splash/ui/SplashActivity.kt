@@ -22,6 +22,11 @@ import javax.inject.Inject
 
 
 class SplashActivity : MvpAppCompatActivity(), SplashView {
+    override fun goToAutorization() {
+        val intent = Intent(this, AutorizationActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
 
 
     @Inject
@@ -46,18 +51,18 @@ class SplashActivity : MvpAppCompatActivity(), SplashView {
 
         val token = FirebaseInstanceId.getInstance().getToken()
         Log.d("TOKEN_PUSH", "$token")
+
+        presenter.setPushToken(prefsHelper.getToken().toString(),token.toString())
+
+        Log.e("TOKEN_USER","${prefsHelper.getToken()}")
+
     }
 
-    override fun intent() {
-        if (prefsHelper.getToken() == "") {
-            val intent = Intent(this, MainActivity::class.java)
+    override fun goToMain() {
+                   val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
-        } else {
-            val intent = Intent(this, AutorizationActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+
     }
 
     // todo добить
@@ -70,8 +75,7 @@ class SplashActivity : MvpAppCompatActivity(), SplashView {
                 )
             } as MutableList
         }
-        intent()
-    }
+   }
 
     override fun showError() {
         Toast.makeText(this, "Проблемы с интернетом", Toast.LENGTH_SHORT).show()

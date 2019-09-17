@@ -39,6 +39,20 @@ class OrderInfoPresenter @Inject constructor(
     }
 
 
+    fun setFeedback (orderId: Int, rating: Int, review: String) {
+
+        subscriptions += dataManager.setFeedback(orderId, rating, review)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe(
+                { data ->
+                },
+                {
+                    viewState.showError()
+                }
+            )
+
+    }
 
 
 }

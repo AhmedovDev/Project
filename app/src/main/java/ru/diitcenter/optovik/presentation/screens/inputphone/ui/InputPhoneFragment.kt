@@ -2,6 +2,7 @@ package ru.diitcenter.optovik.presentation.screens.inputphone.ui
 
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.TransitionDrawable
 import android.os.Bundle
@@ -19,6 +20,7 @@ import ru.diitcenter.optovik.presentation.global.utils.hideKeyboard
 import ru.diitcenter.optovik.presentation.global.utils.showKeyboard
 import ru.diitcenter.optovik.presentation.screens.inputphone.mvp.InputPhonePresenter
 import ru.diitcenter.optovik.presentation.screens.inputphone.mvp.InputPhoneView
+import ru.diitcenter.optovik.presentation.screens.splash.ui.SplashActivity
 import ru.example.optovik.R
 import javax.inject.Inject
 
@@ -26,13 +28,12 @@ class InputPhoneFragment : ru.diitcenter.optovik.presentation.global.BaseFragmen
     InputPhoneView {
 
     override fun showError() {
-       Toast.makeText(context, "Ваш номер не зарегистрирован, \n обратитесь к оператору", Toast.LENGTH_SHORT).show()
-
+inputphone_container.visibility = View.VISIBLE
+        message.visibility = View.GONE
     }
 
     override fun showProgress(progress: Boolean) {
     }
-
 
     @Inject
     @InjectPresenter
@@ -98,6 +99,9 @@ class InputPhoneFragment : ru.diitcenter.optovik.presentation.global.BaseFragmen
                 }
             }
         })
+// todo уточнить что делать при ошибке
+//        update_inputphone.setOnClickListener {   startActivity(Intent(activity, SplashActivity::class.java))
+//        }
 
     }
 
@@ -119,6 +123,8 @@ class InputPhoneFragment : ru.diitcenter.optovik.presentation.global.BaseFragmen
 
     override fun goToInputCode() {
         presenter.gotoInputCode(phone.text.toString())
+        inputphone_container.visibility = View.GONE
+        message.visibility = View.VISIBLE
     }
 
     private fun isDisabledButton() {

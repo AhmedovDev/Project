@@ -11,6 +11,7 @@ class Notification (
     @SerializedName("time") val time: String,
     @SerializedName("date") val date: String,
     @SerializedName("information") val information: String,
-    @SerializedName("id") val id: Int
+    @SerializedName("product_id") val productId: Int,
+    @SerializedName("order_id") val orderId: Int
 ) : Parcelable
 

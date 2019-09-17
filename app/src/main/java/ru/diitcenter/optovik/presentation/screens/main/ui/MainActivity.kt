@@ -45,6 +45,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     private val currentFragment
         get() = supportFragmentManager.findFragmentById(R.id.container_main_activity) as ru.diitcenter.optovik.presentation.global.BaseFragment?
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         ru.diitcenter.optovik.App.appComponent.mainComponentBuilder()
             .build()
@@ -63,15 +64,13 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             val intent = Intent(this, MyOrderActivity::class.java)
             startActivity(intent)
         }
-        order_main_one.setOnClickListener { }
+        order_main_one.setOnClickListener {  }
         search_main.setOnClickListener { presenter.onSearchClick() }
         notification.setOnClickListener {
             val intent = Intent(this, NotificationActivity::class.java)
             startActivity(intent)
         }
 
-        order_main_one.setOnClickListener {   val intent = Intent(this, OrderInfoActivity::class.java)
-            startActivity(intent) }
         emptyBasketCheck()
 
     }
@@ -156,6 +155,10 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         sum_main.text = "%,d".format(lastOrder.sum) + " \u20BD"
         title_main.text = lastOrder.title
         order_date_main.text = lastOrder.date
+
+        order_main_one.setOnClickListener {   val intent = Intent(this, OrderInfoActivity::class.java)
+            intent.putExtra("order_id", lastOrder.id)
+            startActivity(intent) }
     }
 
     override fun showEvents(event: List<ru.diitcenter.optovik.data.global.models.Event>) {

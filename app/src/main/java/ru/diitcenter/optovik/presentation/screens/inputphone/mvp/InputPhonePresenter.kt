@@ -1,6 +1,7 @@
 package ru.diitcenter.optovik.presentation.screens.inputphone.mvp
 
 import com.arellomobile.mvp.InjectViewState
+import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.schedulers.Schedulers
@@ -26,7 +27,12 @@ class InputPhonePresenter @Inject constructor(
 
                     },
                     {
-                        viewState.showError()
+                        when ((it as HttpException).code()) {
+                            404 -> {   // если пользователя нет в системе
+                             //   viewState.goToAutorization() // Токен истек или не существует
+                            }
+                            else ->viewState.showError()
+                        }
                     }
                 )
         }

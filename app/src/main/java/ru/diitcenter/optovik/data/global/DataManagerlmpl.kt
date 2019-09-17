@@ -3,20 +3,36 @@ package ru.diitcenter.optovik.data.global
 
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import ru.diitcenter.optovik.data.global.models.Autorization
-import ru.diitcenter.optovik.data.global.models.Basket
-import ru.diitcenter.optovik.data.global.models.Catalog
-import ru.diitcenter.optovik.data.global.models.ProductCard
+import ru.diitcenter.optovik.data.global.models.*
 import ru.diitcenter.optovik.data.prefs.PrefsHelper
 import javax.inject.Inject
 import javax.inject.Named
 
 class DataManagerlmpl @Inject constructor(
-    @Named("API_OPTOVIK") val api: ru.diitcenter.optovik.data.network.MainApi,
-    @Named("API_NOTIFICATION") val apiNotification: ru.diitcenter.optovik.data.network.NotificationApi,
-    private val prefsHelper: PrefsHelper
+    @Named("API_OPTOVIK") val api: ru.diitcenter.optovik.data.network.MainApi
 
 ) : DataManager {
+    override fun setFeedback(orderId: Int, rating: Int, review: String): Single<FeedBack> =
+        api.setFeedBack(orderId, rating,review)
+            .subscribeOn(Schedulers.io())
+
+
+    override fun checkOut(description: String, telephone: String): Single<Checkout> =
+        api.Checkout(description, telephone)
+            .subscribeOn(Schedulers.io())
+
+    override fun getNotification(): Single<List<Notification>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun searchProduct(searchWord: String): Single<Search> =
+        api.searchProducts(searchWord)
+            .subscribeOn(Schedulers.io())
+
+    override fun setPushToken(token: String, deviceId: String): Single<PushToken>  =
+    api.setPushToken(token,deviceId)
+    .subscribeOn(Schedulers.io())
+
     override fun getCode(telephone : String): Single<Autorization> =
         api.getCode(telephone)
             .subscribeOn(Schedulers.io())
@@ -40,10 +56,6 @@ class DataManagerlmpl @Inject constructor(
 
     override fun getOrderInfo(id: Int): Single<ru.diitcenter.optovik.data.global.models.OrderInfo> =
         api.getOrderInfo(id)
-            .subscribeOn(Schedulers.io())
-
-    override fun getNotification(): Single<List<ru.diitcenter.optovik.data.global.models.Notification>> =
-        apiNotification.getNotification()
             .subscribeOn(Schedulers.io())
 
     override fun getMyOrder(): Single<List<ru.diitcenter.optovik.data.global.models.MyOrder>> =

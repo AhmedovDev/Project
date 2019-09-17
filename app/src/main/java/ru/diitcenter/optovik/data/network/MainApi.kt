@@ -1,6 +1,7 @@
 package ru.diitcenter.optovik.data.network
 
 import io.reactivex.Single
+import io.reactivex.annotations.Nullable
 import retrofit2.http.*
 import ru.diitcenter.optovik.data.global.models.*
 
@@ -32,7 +33,8 @@ interface MainApi {
     fun getMyOrder(): Single<List<ru.diitcenter.optovik.data.global.models.MyOrder>>
 
     @GET("/api/v1/orders/{order_id}")
-    fun getOrderInfo(@Path("order_id") id: Int
+    fun getOrderInfo(
+        @Path("order_id") id: Int
     ): Single<ru.diitcenter.optovik.data.global.models.OrderInfo>
 
     @FormUrlEncoded
@@ -48,45 +50,54 @@ interface MainApi {
         @Field("code") code: String
     ): Single<Autorization>
 
+    @FormUrlEncoded
+    @POST("/api/v1/user/token")
+    fun setPushToken(
+        @Field("token") token: String,
+        @Field("device_id") device_id: String
+    ): Single<PushToken>
+
     @POST("/api/v1/cart/{product_id}/add")
     fun addProductInBasket(
-        @Path("product_id") productId : Int,
+        @Path("product_id") productId: Int,
         @Query("count") count: Int
     ): Single<Product>
 
     @POST("/api/v1/cart/{product_id}/delete")
     fun deleteProductInBasket(
-        @Path("product_id") productId : Int
+        @Path("product_id") productId: Int
     ): Single<Product>
 
     @POST("/api/v1/cart/{product_id}/set")
     fun changeProductInBasket(
-        @Path("product_id") productId : Int,
+        @Path("product_id") productId: Int,
         @Query("count") count: Int
     ): Single<Product>
 
     @GET("/api/v1/cart/clear")
     fun clearBasket(): Single<Basket>
 
+    @FormUrlEncoded
     @POST("/api/v1/products")
     fun searchProducts(
-        @Query("search") searchWord: String
-    ): Single<Product>
+        @Field("search") searchWord: String
+    ): Single<Search>
 
+    @FormUrlEncoded
     @POST("/api/v1/reviews/add")
     fun setFeedBack(
-        @Query("order_id") orderId: Int,
-        @Query("rating") rating: Int,
-        @Query("review") review: String
+        @Field("order_id") orderId: Int,
+        @Field("rating") rating: Int,
+        @Field("review") review: String
     ): Single<FeedBack>
 
+    @FormUrlEncoded
     @POST("/api/v1/cart/checkout")
     fun Checkout(
-        @Query("description") description: String,
-        @Query("telephone") telephone: String
+        @Nullable
+        @Field("description") description: String,
+        @Field("telephone") telephone: String
     ): Single<Checkout>
-
-
 
 
 }

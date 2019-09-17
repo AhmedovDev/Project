@@ -21,11 +21,9 @@ class TokenInterceptor @Inject constructor(
         if (request.headers()["Authorization"] == null) {
             prefsHelper.getToken()?.let {
                 request = chain.request().newBuilder()
-                    .addHeader("Authorization", "Bearer ${it}")
+                    .addHeader("Authorization", "Bearer $it")
                     .build()
             }
         }
         return chain.proceed(request)    }
-
-
 }

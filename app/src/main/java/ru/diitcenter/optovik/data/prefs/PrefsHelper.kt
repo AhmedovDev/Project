@@ -33,6 +33,10 @@ class PrefsHelper(private val sharedPrefs: SharedPreferences) {
         .putString(PREF_TOKEN, token)
         .apply()
 
+    fun clearToken() = sharedPrefs.edit()
+    .remove(PREF_TOKEN)
+    .apply()
+
 
     fun clearPhone() = sharedPrefs.edit()
         .remove(PREF_PHONE)

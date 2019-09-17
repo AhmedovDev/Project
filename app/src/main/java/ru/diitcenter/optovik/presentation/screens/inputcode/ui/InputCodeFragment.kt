@@ -76,11 +76,12 @@ class InputCodeFragment : ru.diitcenter.optovik.presentation.global.BaseFragment
 
         phoneOnEditCode.text = phone
 
-            getCode.setOnTouchListener { _, _ ->
-                hideKeyboard()
-                true
-
+        getCode.setOnTouchListener { _, _ ->
+            hideKeyboard()
+            true
         }
+
+        getCode.setOnClickListener { presenter.getCode(phone) }
 
         back.setOnClickListener { presenter.back() }
 
@@ -93,10 +94,13 @@ class InputCodeFragment : ru.diitcenter.optovik.presentation.global.BaseFragment
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                presenter.getToken(phone,PinView_inputCodeFragment_code.text.toString())
+                if (PinView_inputCodeFragment_code.text.toString().length == 4)
+                    presenter.getToken(phone, PinView_inputCodeFragment_code.text.toString())
             }
 
         })
@@ -146,13 +150,5 @@ class InputCodeFragment : ru.diitcenter.optovik.presentation.global.BaseFragment
         }
 
         private const val PHONE = "phone"
-    }
-
-    // todo временная проверка кода
-    private fun exampleCodeCheck() {
-        var getCode: String = PinView_inputCodeFragment_code.text.toString()
-        if (getCode.length == 4) {
-            startActivity(Intent(activity, MainActivity::class.java))
-        }
     }
 }
