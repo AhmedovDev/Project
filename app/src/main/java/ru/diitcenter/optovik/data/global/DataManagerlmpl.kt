@@ -12,6 +12,18 @@ class DataManagerlmpl @Inject constructor(
     @Named("API_OPTOVIK") val api: ru.diitcenter.optovik.data.network.MainApi
 
 ) : DataManager {
+    override fun addProductInBasket(productId: Int, count: Int): Single<Product> =
+        api.addProductInBasket(productId, count)
+            .subscribeOn(Schedulers.io())
+
+    override fun deleteProductInBasket(productId: Int): Single<Product>  =
+        api.deleteProductInBasket(productId)
+            .subscribeOn(Schedulers.io())
+
+    override fun changeProductInBasket(productId: Int, count: Int): Single<Product> =
+        api.changeProductInBasket(productId, count)
+            .subscribeOn(Schedulers.io())
+
     override fun setFeedback(orderId: Int, rating: Int, review: String): Single<FeedBack> =
         api.setFeedBack(orderId, rating,review)
             .subscribeOn(Schedulers.io())
@@ -21,9 +33,9 @@ class DataManagerlmpl @Inject constructor(
         api.Checkout(description, telephone)
             .subscribeOn(Schedulers.io())
 
-    override fun getNotification(): Single<List<Notification>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun getNotification(): Single<List<Notification>> =
+        api.getNotification()
+            .subscribeOn(Schedulers.io())
 
     override fun searchProduct(searchWord: String): Single<Search> =
         api.searchProducts(searchWord)

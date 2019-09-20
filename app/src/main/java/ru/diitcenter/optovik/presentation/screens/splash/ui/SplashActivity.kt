@@ -15,6 +15,8 @@ import ru.diitcenter.optovik.data.global.models.Basket
 import ru.diitcenter.optovik.data.prefs.PrefsHelper
 import ru.diitcenter.optovik.presentation.screens.autorization.ui.AutorizationActivity
 import ru.diitcenter.optovik.presentation.screens.main.ui.MainActivity
+import ru.diitcenter.optovik.presentation.screens.notofication.ui.NotificationActivity
+import ru.diitcenter.optovik.presentation.screens.orderinfo.ui.OrderInfoActivity
 import ru.diitcenter.optovik.presentation.screens.splash.mvp.SplashPresenter
 import ru.diitcenter.optovik.presentation.screens.splash.mvp.SplashView
 import ru.example.optovik.R
@@ -49,12 +51,35 @@ class SplashActivity : MvpAppCompatActivity(), SplashView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        intent.extras?.let {
+            val pushType = it.getString("type", "")
+            val targetId = it.getString("targetId", "")
+
+            if(pushType == "mailing"){
+                val intent = Intent(this, NotificationActivity::class.java)
+                startActivity(intent)}
+            if(pushType == "stock"){
+                val intent = Intent(this, NotificationActivity::class.java)
+                startActivity(intent)
+            }
+            if(pushType == "status"){
+                val intent = Intent(this, OrderInfoActivity::class.java)
+                intent.putExtra("order_id", targetId)
+                startActivity(intent)
+            }
+
+            Log.e("PUSH_TYPE - ", pushType)
+            Log.e("PUSH_TARGET"," - $targetId")
+        }
+
         val token = FirebaseInstanceId.getInstance().getToken()
         Log.d("TOKEN_PUSH", "$token")
 
         presenter.setPushToken(prefsHelper.getToken().toString(),token.toString())
 
         Log.e("TOKEN_USER","${prefsHelper.getToken()}")
+
+        basketHelper.synchronizeBasketWithServer()
 
     }
 

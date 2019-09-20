@@ -4,7 +4,9 @@ import com.arellomobile.mvp.InjectViewState
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.schedulers.Schedulers
+import ru.diitcenter.optovik.presentation.global.Screens
 import ru.terrakok.cicerone.Router
+import ru.terrakok.cicerone.Screen
 import javax.inject.Inject
 
 
@@ -36,5 +38,9 @@ class NotificationPresenter @Inject constructor(
                     viewState.showError()
                 }
             )
+    }
+
+    fun goToProductCard(productId: Int) {
+        router.navigateTo(Screens.ProductCard(productId))
     }
 }

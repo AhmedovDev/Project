@@ -37,6 +37,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
+            android:hint="Введите поисковой запрос"
             android:id="@+id/input_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -189,6 +190,49 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView4" />
         </android.support.constraint.ConstraintLayout>
 
+    </FrameLayout>
+
+    <FrameLayout
+        android:background="@color/colorPrimaryDark"
+        android:id="@+id/not_found_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_basket_search"
+        app:layout_constraintTop_toTopOf="@+id/search_recycler"
+       >
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/sfprolight"
+                android:text="По данному запросу \n ничего не найдено"
+                android:textAlignment="center"
+                android:textColor="#444444"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewr" />
+
+
+            <TextView
+                android:id="@+id/textViewr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sfprodisplay"
+                android:text="Ничего не найдено"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
     </FrameLayout>
 
     <android.support.constraint.ConstraintLayout

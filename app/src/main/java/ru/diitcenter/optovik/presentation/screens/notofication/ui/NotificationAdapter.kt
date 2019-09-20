@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.item_my_order.*
 import kotlinx.android.synthetic.main.item_notification.view.*
 import ru.example.optovik.R
 import java.text.SimpleDateFormat
@@ -13,8 +14,14 @@ import java.util.*
 
 var lastDate = ""
 
+private typealias OnNotificationClickListener = ((ru.diitcenter.optovik.data.global.models.Notification) -> Unit)
+
+
 class NotificationAdapter(private val notification: List<ru.diitcenter.optovik.data.global.models.Notification>) :
     RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder>() {
+
+    private var clickListenerNotifi: OnNotificationClickListener? = null
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationViewHolder {
         val itemView = LayoutInflater
@@ -24,9 +31,14 @@ class NotificationAdapter(private val notification: List<ru.diitcenter.optovik.d
     }
 
     override fun onBindViewHolder(holder: NotificationViewHolder, position: Int) =
-        holder.bind(notification[position])
+        holder.bind(notification[position],clickListenerNotifi)
 
     override fun getItemCount(): Int = notification.size
+
+    fun setOnAdresClickListener(listener: OnNotificationClickListener?) {
+        clickListenerNotifi = listener
+
+    }
 
     class NotificationViewHolder(override val containerView: View) :
         RecyclerView.ViewHolder(containerView), LayoutContainer {
@@ -39,11 +51,15 @@ class NotificationAdapter(private val notification: List<ru.diitcenter.optovik.d
 
 
         @SuppressLint("SimpleDateFormat")
-        fun bind(notification: ru.diitcenter.optovik.data.global.models.Notification) {
+        fun bind(
+            notification: ru.diitcenter.optovik.data.global.models.Notification,
+            clickListener: OnNotificationClickListener?
+            ) {
             var date = SimpleDateFormat("dd.MM.yyyy")
             var currentDate = date.format(Date())
             var yesterday = date.format(yesterday())
-            if (notification.date == lastDate) containerView.date_notification_in.visibility = View.GONE
+            if (notification.date == lastDate) containerView.date_notification_in.visibility =
+                View.GONE
             if (notification.date == currentDate) {
                 containerView.date_notification.text = "Сегодня"
                 lastDate = notification.date
@@ -52,12 +68,14 @@ class NotificationAdapter(private val notification: List<ru.diitcenter.optovik.d
                 containerView.date_notification.text = "Вчера"
                 lastDate = notification.date
             }
-            if(notification.date!=yesterday && notification.date != currentDate) {
+            if (notification.date != yesterday && notification.date != currentDate) {
                 containerView.date_notification.text = notification.date
                 lastDate = notification.date
             }
             containerView.time_notification.text = notification.time
-            containerView.information_notification.text = notification.information
+            containerView.information_notification.text = notification.title
+
+            itemView.setOnClickListener { clickListener?.invoke(notification) }
 
 
         }

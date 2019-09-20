@@ -71,6 +71,6 @@ class BasketPresenter @Inject constructor(
     }
 
     fun gotoProductCard(product: ru.diitcenter.optovik.data.global.models.Product) {
-        router.navigateTo(ru.diitcenter.optovik.presentation.global.Screens.ProductCard(product))
+        router.navigateTo(ru.diitcenter.optovik.presentation.global.Screens.ProductCard(product.id))
     }
 }

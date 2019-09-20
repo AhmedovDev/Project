@@ -49,9 +49,12 @@ class MainPresenter @Inject constructor(
             )
     }
     fun onEventClick(product: ru.diitcenter.optovik.data.global.models.Product) {
-        router.navigateTo(ru.diitcenter.optovik.presentation.global.Screens.ProductCard(product))
+        router.navigateTo(ru.diitcenter.optovik.presentation.global.Screens.ProductCard(product.id))
     }
 
+    fun goToProductCard(productId: Int) {
+        router.navigateTo(ru.diitcenter.optovik.presentation.global.Screens.ProductCard(productId))
+    }
     fun onSearchClick() {
         router.navigateTo(ru.diitcenter.optovik.presentation.global.Screens.Search)
     }

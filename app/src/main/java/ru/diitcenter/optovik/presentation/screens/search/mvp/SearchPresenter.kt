@@ -22,7 +22,7 @@ class SearchPresenter @Inject constructor(
     }
 
     fun goToProductCard(product: ru.diitcenter.optovik.data.global.models.Product) {
-        router.navigateTo(ru.diitcenter.optovik.presentation.global.Screens.ProductCard(product))
+        router.navigateTo(ru.diitcenter.optovik.presentation.global.Screens.ProductCard(product.id))
     }
 
     override fun onUpdateBasketItems(items: MutableList<ru.diitcenter.optovik.data.basketholder.BasketHolder.Item>) {

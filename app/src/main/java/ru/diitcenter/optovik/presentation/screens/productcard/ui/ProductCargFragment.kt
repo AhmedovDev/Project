@@ -37,7 +37,7 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
     @ProvidePresenter
     fun providePresenter() = presenter
 
-    lateinit var product: ru.diitcenter.optovik.data.global.models.Product
+    var productId: Int =  0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,9 +46,10 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
             .inject(this)
         super.onCreate(savedInstanceState)
         arguments?.run {
-            product = getParcelable(PRODUCT)
-            presenter.getAllData(product.id)
+            productId = getInt(PRODUCT)
         }
+        presenter.getAllData(productId)
+
     }
 
     override fun onCreateView(
@@ -79,19 +80,22 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
         button_green.setOnClickListener {
             startActivity(Intent(activity, BasketActivity::class.java))
         }
-        plusClick(product)
-        minusClick(product)
+//        plusClick(product)
+//        minusClick(product)
         emptyBasketCheck()
     }
 
+
+
     companion object {
 
-        fun newInstance(product: ru.diitcenter.optovik.data.global.models.Product) =
+        fun newInstance(productId: Int) =
             ProductCargFragment().withArgs {
-                putParcelable(PRODUCT, product)
+                putInt(PRODUCT,productId)
             }
 
         private const val PRODUCT = "product"
+
     }
 
     override fun emptyBasketCheck() {
@@ -220,7 +224,7 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
 
     override fun onResume() {
         super.onResume()
-        presenter.getAllData(product.id)
+        presenter.getAllData(productId)
         updateBasketButton()
         Log.e("aaaResume", "aaaResume")
         val haveItem = basket.items.filter {
@@ -245,15 +249,6 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
 
     //Предовать в метод продукт
     override fun showProductCardInformation(productCard: ru.diitcenter.optovik.data.global.models.ProductCard) {
-
-        val haveItem = basket.items.filter {
-            it.product.id == product.id
-        }.firstOrNull()
-        if (haveItem != null) {
-            input_product.setText("${haveItem.quantity}")
-            input_product.visibility = View.VISIBLE
-            minus.visibility = View.VISIBLE
-        }
 
         name_product_card.text = productCard.title
         title.text = productCard.title

@@ -27,8 +27,8 @@ object Screens {
         override fun getFragment() = InputCodeFragment.newInstance(phone)
     }
 
-    class ProductCard (private val product: ru.diitcenter.optovik.data.global.models.Product) : SupportAppScreen() {
-        override fun getFragment()= ProductCargFragment.newInstance(product)
+    class ProductCard (private val productId: Int) : SupportAppScreen() {
+        override fun getFragment()= ProductCargFragment.newInstance(productId)
         }
     }
 

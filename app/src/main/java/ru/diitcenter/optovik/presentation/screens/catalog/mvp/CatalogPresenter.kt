@@ -35,12 +35,10 @@ class CatalogPresenter @Inject constructor(
             .doAfterTerminate { viewState.showProgress(false) }
             .subscribe(
                 { data ->
-                    data.products?.let {
-                        viewState.showProducts(data.products)
-//                    viewState.showEvents(data.events)
                         viewState.visiblCatalog()
+                        viewState.showProducts(data.products)
                         viewState.showInformation(data.information)
-                    }
+
 
                 },
                 {
@@ -50,8 +48,8 @@ class CatalogPresenter @Inject constructor(
             .connect()
     }
 
-    fun gotoProducCard(product: ru.diitcenter.optovik.data.global.models.Product) {
-        router.navigateTo(ru.diitcenter.optovik.presentation.global.Screens.ProductCard(product))
+    fun gotoProducCard(productId : Int) {
+        router.navigateTo(ru.diitcenter.optovik.presentation.global.Screens.ProductCard(productId))
     }
 
     fun searchCatalogClick() {

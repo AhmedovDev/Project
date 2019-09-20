@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.View
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -56,7 +57,9 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView, View.OnClickListene
             .inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catalog)
-        presenter.getAllCatalog(id = intent.getIntExtra("category_id", 1))
+        var categoryId = intent.getIntExtra("category_id", 1)
+        Log.e("CATEGORY_ID","$categoryId")
+        presenter.getAllCatalog(categoryId)
         updateBasketButton()
         initViews()
         backArrowClickListener()
@@ -138,7 +141,7 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView, View.OnClickListene
         )
         product_recycler.adapter = adapter
         adapter.setOnCatalogClickListener {
-            presenter.gotoProducCard(it)
+            presenter.gotoProducCard(it.id)
         }
     }
 

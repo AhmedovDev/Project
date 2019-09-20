@@ -11,6 +11,7 @@ import javax.inject.Inject
 import android.support.v7.widget.*
 import android.view.View
 import kotlinx.android.synthetic.main.toolbar_main.*
+import ru.diitcenter.optovik.presentation.global.Screens
 import ru.diitcenter.optovik.presentation.global.utils.hideKeyboard
 import ru.diitcenter.optovik.presentation.screens.basket.ui.BasketActivity
 import ru.diitcenter.optovik.presentation.screens.catalog.ui.CatalogActivity
@@ -21,6 +22,8 @@ import ru.diitcenter.optovik.presentation.screens.notofication.ui.NotificationAc
 import ru.diitcenter.optovik.presentation.screens.orderinfo.ui.OrderInfoActivity
 import ru.example.optovik.R
 import ru.terrakok.cicerone.Navigator
+import ru.terrakok.cicerone.Router
+import ru.terrakok.cicerone.Screen
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 
 
@@ -42,6 +45,18 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     private lateinit var navigator: Navigator
 
+    var isPushNavigate = false
+    var pushTargetId = 0
+    var pushType = "not"
+
+    companion object {
+        const val IS_PUSH_NAVIGATE_KEY = "push"
+        const val IS_PUSH_NAVIGATE_TYPE = "type"
+        const val IS_PUSH_NAVIGATE_TARGET_ID = "target_id"
+    }
+
+
+
     private val currentFragment
         get() = supportFragmentManager.findFragmentById(R.id.container_main_activity) as ru.diitcenter.optovik.presentation.global.BaseFragment?
 
@@ -50,6 +65,11 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         ru.diitcenter.optovik.App.appComponent.mainComponentBuilder()
             .build()
             .inject(this)
+
+        intent.action
+        isPushNavigate = intent.getBooleanExtra(IS_PUSH_NAVIGATE_KEY, false)
+        pushTargetId = intent.getIntExtra(IS_PUSH_NAVIGATE_TARGET_ID,4)
+        pushType = intent.getStringExtra(IS_PUSH_NAVIGATE_TYPE) ?: "not"
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 //        presenter.getBasket()
@@ -156,9 +176,13 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         title_main.text = lastOrder.title
         order_date_main.text = lastOrder.date
 
-        order_main_one.setOnClickListener {   val intent = Intent(this, OrderInfoActivity::class.java)
-            intent.putExtra("order_id", lastOrder.id)
-            startActivity(intent) }
+        order_main_one.setOnClickListener { oneOrderClick(lastOrder.id) }
+    }
+
+    fun oneOrderClick (lastOrderId : Int) {
+        val intent = Intent(this, OrderInfoActivity::class.java)
+        intent.putExtra("order_id", lastOrderId)
+        startActivity(intent)
     }
 
     override fun showEvents(event: List<ru.diitcenter.optovik.data.global.models.Event>) {
@@ -197,6 +221,17 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         updateBasketButtonMain()
         emptyBasketCheck()
 
+        if (isPushNavigate){
+            if(pushType == "mailing"){
+            val intent = Intent(this, NotificationActivity::class.java)
+            startActivity(intent)}
+            if(pushType == "stock"){
+                presenter.goToProductCard(pushTargetId)
+            }
+            if(pushType == "status"){
+                oneOrderClick(pushTargetId)
+            }
+        }
     }
 
     override fun onBackPressed() = presenter.onBackPressed()

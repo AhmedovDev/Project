@@ -57,21 +57,27 @@ interface MainApi {
         @Field("device_id") device_id: String
     ): Single<PushToken>
 
+    @GET("/api/v1/alerts")
+    fun getNotification() : Single<List<Notification>>
+
+    @FormUrlEncoded
     @POST("/api/v1/cart/{product_id}/add")
     fun addProductInBasket(
-        @Path("product_id") productId: Int,
-        @Query("count") count: Int
+        @Field("product_id") productId: Int,
+        @Field("count") count: Int
     ): Single<Product>
 
+    @FormUrlEncoded
     @POST("/api/v1/cart/{product_id}/delete")
     fun deleteProductInBasket(
-        @Path("product_id") productId: Int
+        @Field("product_id") productId: Int
     ): Single<Product>
 
+    @FormUrlEncoded
     @POST("/api/v1/cart/{product_id}/set")
     fun changeProductInBasket(
-        @Path("product_id") productId: Int,
-        @Query("count") count: Int
+        @Field("product_id") productId: Int,
+        @Field("count") count: Int
     ): Single<Product>
 
     @GET("/api/v1/cart/clear")

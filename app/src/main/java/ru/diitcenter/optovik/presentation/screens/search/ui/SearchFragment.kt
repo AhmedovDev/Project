@@ -121,6 +121,7 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
         adapter.setOnCatalogClickListener {
             presenter.goToProductCard(it)
         }
+        not_found_container.visibility = View.GONE
     }
 
     override fun updateBasketButtonSearch() {
@@ -141,7 +142,7 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
     }
 
     override fun showError() {
-        search_container.visibility = View.VISIBLE
+        not_found_container.visibility = View.VISIBLE
     }
 
     override fun visiblSearchList() {

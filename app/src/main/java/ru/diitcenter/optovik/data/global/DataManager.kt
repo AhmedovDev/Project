@@ -27,11 +27,18 @@ interface DataManager {
 
     fun getToken(telephone: String, code: String): Single<Autorization>
 
-    fun setPushToken (token: String, deviceId: String): Single<PushToken>
+    fun setPushToken(token: String, deviceId: String): Single<PushToken>
 
-    fun searchProduct  (searchWord: String): Single<Search>
+    fun searchProduct(searchWord: String): Single<Search>
 
-    fun checkOut  (description: String, telephone : String): Single<Checkout>
+    fun checkOut(description: String, telephone: String): Single<Checkout>
 
-    fun setFeedback (orderId: Int, rating: Int, review: String) : Single<FeedBack>
+    fun setFeedback(orderId: Int, rating: Int, review: String): Single<FeedBack>
+
+    fun addProductInBasket(productId: Int, count: Int): Single<Product>
+
+    fun deleteProductInBasket(productId: Int): Single<Product>
+
+    fun changeProductInBasket(productId: Int, count: Int): Single<Product>
+
 }

@@ -34,6 +34,8 @@
     <string name="my_orders">Мои заказы</string>
     <string name="last_orders">Последние заказы</string>
     <string name="notification">Уведомления</string>
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="default_notification_title">Новое уведомление</string>
 
     <string name="have_not_address">У вас не указан адресс доставки, свяжитесь с \n оператором чтобы решить данную проблему</string>
 </resources>

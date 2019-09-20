@@ -1,6 +1,7 @@
 package ru.diitcenter.optovik.pushnotification
 
 import android.annotation.SuppressLint
+import android.app.NotificationChannel
 import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -9,6 +10,7 @@ import android.media.RingtoneManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.support.v4.app.NotificationCompat
 import ru.diitcenter.optovik.presentation.screens.main.ui.MainActivity
 import ru.diitcenter.optovik.presentation.screens.notofication.ui.NotificationActivity
@@ -20,7 +22,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     @SuppressLint("LongLogTag")
     override fun onNewToken(token: String) {
-        Log.d(TAG,token)
+        Log.d(TAG, token)
     }
 
     @SuppressLint("LongLogTag")
@@ -28,26 +30,57 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         Log.d(TAG, "Dikirim dari: ${remoteMessage.from}")
 
         if (remoteMessage.notification != null) {
-            showNotification(remoteMessage.notification?.title, remoteMessage.notification?.body)
+
+            var targetId: String? = "wqdwd"
+                targetId =  remoteMessage.data.get("targetId")
+            val type: String? = remoteMessage.data.get("type")
+            showNotification(
+                remoteMessage.notification?.title,
+                remoteMessage.notification?.body,
+                targetId!!.toInt(),
+                type.toString()
+                )
+            Log.e("TARGET", "$targetId")
+            Log.e("TYPE", "$type")
         }
     }
 
-    private fun showNotification(title: String?, body: String?) {
-        val intent = Intent(this, NotificationActivity::class.java)
+    private fun showNotification(title: String?, body: String?, targetId: Int, type: String) {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra(MainActivity.IS_PUSH_NAVIGATE_KEY, true)
+        intent.putExtra(MainActivity.IS_PUSH_NAVIGATE_TYPE, type)
+        intent.putExtra(MainActivity.IS_PUSH_NAVIGATE_TARGET_ID, targetId)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        val pendingIntent = PendingIntent.getActivity(this, 0, intent,
-            PendingIntent.FLAG_ONE_SHOT)
-
-        val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        val notificationBuilder = NotificationCompat.Builder(this)
+        val pendingIntent = PendingIntent.getActivity(
+            this, 0, intent,
+            PendingIntent.FLAG_ONE_SHOT
+        )
+        val channelId = getString(R.string.default_notification_channel_id)
+        val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle(title)
             .setContentText(body)
             .setAutoCancel(true)
-            .setSound(soundUri)
+            .setSound(defaultSoundUri)
             .setContentIntent(pendingIntent)
 
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.notify(0, notificationBuilder.build())
+
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        if (notificationManager != null) {
+            // Since android Oreo notification channel is needed.
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val channel = NotificationChannel(
+                    channelId,
+                    getString(R.string.default_notification_title),
+                    NotificationManager.IMPORTANCE_DEFAULT
+                )
+                notificationManager.createNotificationChannel(channel)
+            }
+
+            notificationManager.notify(0, notificationBuilder.build())
+        }
     }
 }
