@@ -17,80 +17,100 @@ interface BasketListener {
 
 class BasketHolder @Inject constructor(private val dataManager: DataManager) {
 
-
     class Item(val product: ru.diitcenter.optovik.data.global.models.Product, var quantity: Int)
 
     var items: MutableList<Item> = ArrayList()
     var listeners = ArrayList<BasketListener>()
 
+    fun addProduct(
+        product: ru.diitcenter.optovik.data.global.models.Product,
+        completion: (Boolean) -> Unit
+    ) {
 
-    fun addProduct(product: ru.diitcenter.optovik.data.global.models.Product) {
+        val haveItem = items.filter {
+            it.product.id == product.id
+        }.firstOrNull()
 
+        if (haveItem != null) {
+            subscriptions += dataManager.changeProductInBasket(product.id, haveItem.quantity + 1)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe({
+                    haveItem.quantity += 1
+                    basketUpdated()
+                    completion(false)
+                }, {
+                    completion(true)
+                })
+        } else {
+            subscriptions += dataManager.addProductInBasket(product.id, 1)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe({
+                    items.add(Item(product, 1))
+                    basketUpdated()
+                    completion(false)
+                }, {
+                    completion(true)
+                })
+        }
+    }
 
+    fun deleteProduct(
+        product: ru.diitcenter.optovik.data.global.models.Product,
+        completion: (Boolean) -> Unit
+    ) {
 
         val haveItem = items.filter {
             it.product.id == product.id
         }.firstOrNull()
 
 
-
         if (haveItem != null) {
-            subscriptions += dataManager.addProductInBasket(product.id,haveItem.quantity + 1)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe()
+            if (haveItem.quantity != 1) {
+                subscriptions += dataManager.changeProductInBasket(
+                    product.id,
+                    haveItem.quantity - 1
+                )
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+                    .subscribe({
+                        haveItem.quantity -= 1
+                        basketUpdated()
+                        completion(false)
+                    }, {
+                        completion(true)
+                    })
 
-          haveItem.quantity += 1
-        } else{
-            subscriptions += dataManager.changeProductInBasket(product.id, 1 )
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe()
+            } else {
+                subscriptions += dataManager.deleteProductInBasket(product.id)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+                    .subscribe({
+                        basketUpdated()
+                        completion(false)
+                    }, {
+                        completion(true)
+                    })
+            }
         }
-            //items.add(Item(product, 1))
-
-        basketUpdated()
-    }
-
-    fun deleteProduct(product: ru.diitcenter.optovik.data.global.models.Product) {
-
-        val haveItem = items.filter {
-            it.product.id == product.id
-        }.firstOrNull() ?: return
-
-        if (haveItem.quantity != 0)
-            haveItem.quantity -= 1
-
-        if (haveItem.quantity == 0 || haveItem.quantity == null)
-            items.remove(haveItem)
-
+        synchronizeBasketWithServer()
         basketUpdated()
     }
 
     fun dropProduct(product: ru.diitcenter.optovik.data.global.models.Product) {
+        subscriptions += dataManager.deleteProductInBasket(product.id)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                var d = 0
+            }, {
+                var f = 0
+            })
 
-        val haveItem = items.filter {
-            it.product.id == product.id
-        }.firstOrNull() ?: return
-
-        items.remove(haveItem)
-        basketUpdated()
-    }
-
-    fun reduceProductInBasket(
-        product: ru.diitcenter.optovik.data.global.models.Product,
-        quantity: Int
-    ) {
-
-        for (item in items) {
-            if (item.product.id == product.id)
-                item.quantity = quantity
-        }
-    }
-
-    fun updateBasket(basket: List<ru.diitcenter.optovik.data.global.models.Basket>) {
 
     }
+
 
     private fun basketUpdated() {
         listeners.forEach {
@@ -139,7 +159,6 @@ class BasketHolder @Inject constructor(private val dataManager: DataManager) {
                             var a = 1
                         }
                     }
-
                 }
             )
     }

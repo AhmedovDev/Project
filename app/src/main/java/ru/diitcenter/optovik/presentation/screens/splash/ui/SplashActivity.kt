@@ -24,12 +24,12 @@ import javax.inject.Inject
 
 
 class SplashActivity : MvpAppCompatActivity(), SplashView {
+
     override fun goToAutorization() {
         val intent = Intent(this, AutorizationActivity::class.java)
         startActivity(intent)
         finish()
     }
-
 
     @Inject
     @InjectPresenter
@@ -75,7 +75,10 @@ class SplashActivity : MvpAppCompatActivity(), SplashView {
         val token = FirebaseInstanceId.getInstance().getToken()
         Log.d("TOKEN_PUSH", "$token")
 
-        presenter.setPushToken(prefsHelper.getToken().toString(),token.toString())
+
+            presenter.setPushToken(prefsHelper.getToken().toString(),token.toString())
+
+
 
         Log.e("TOKEN_USER","${prefsHelper.getToken()}")
 

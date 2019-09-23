@@ -30,6 +30,11 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
 
     override fun clearBasket() {
         presenter.clearBasket()
+        basketHolder.synchronizeBasketWithServer()
+        basketHolder.items.clear()
+        basketResultPriceCheсk()
+        basketEmptyCheck()
+
     }
 
 
@@ -39,6 +44,7 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
         presenter.getBasket()
         basketResultPriceCheсk()
         basketEmptyCheck()
+        basketHolder.synchronizeBasketWithServer()
     }
 
     @Inject
@@ -82,7 +88,7 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
     }
 
     private fun basketEmptyCheck() {
-        if (basketHolder.items.size == 0) {
+        if (basketHolder.items.isEmpty()) {
             basletactivity_empty_container.visibility = View.VISIBLE
             delete_basket.visibility = View.GONE
             reletiv.visibility = View.GONE
@@ -147,16 +153,20 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
         val adapter = BasketAdapter(
             basketholder = basketHolder,
             clickListenerPlus = {
-                basketHolder.addProduct(it)
+      //          basketHolder.addProduct(it)
+                basketHolder.synchronizeBasketWithServer()
                 basketResultPriceCheсk()
+                basketEmptyCheck()
             },
             clickListenerMinus = {
-                basketHolder.deleteProduct(it)
+       //         basketHolder.deleteProduct(it)
+                basketHolder.synchronizeBasketWithServer()
                 basketResultPriceCheсk()
                 basketEmptyCheck()
             },
             clickListenerdrop = {
                 basketHolder.dropProduct(it)
+                basketHolder.synchronizeBasketWithServer()
                 basketResultPriceCheсk()
                 basketEmptyCheck()
 
@@ -169,7 +179,7 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
 
     }
 
-  
+
 
 
     fun deleteBasket() {

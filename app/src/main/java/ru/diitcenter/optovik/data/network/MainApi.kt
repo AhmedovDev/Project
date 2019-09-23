@@ -63,20 +63,20 @@ interface MainApi {
     @FormUrlEncoded
     @POST("/api/v1/cart/{product_id}/add")
     fun addProductInBasket(
-        @Field("product_id") productId: Int,
+        @Path("product_id") productId: Int,
         @Field("count") count: Int
     ): Single<Product>
 
-    @FormUrlEncoded
-    @POST("/api/v1/cart/{product_id}/delete")
+   // @FormUrlEncoded
+    @GET("/api/v1/cart/{product_id}/delete")
     fun deleteProductInBasket(
-        @Field("product_id") productId: Int
+        @Path("product_id") productId: Int
     ): Single<Product>
 
     @FormUrlEncoded
     @POST("/api/v1/cart/{product_id}/set")
     fun changeProductInBasket(
-        @Field("product_id") productId: Int,
+        @Path("product_id") productId: Int,
         @Field("count") count: Int
     ): Single<Product>
 

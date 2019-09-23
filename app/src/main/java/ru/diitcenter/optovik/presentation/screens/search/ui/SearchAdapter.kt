@@ -64,7 +64,9 @@ class SearchAdapter(
                     sum = input_product.text.toString().toInt()
                     minus.visibility = View.VISIBLE
                     input_product.visibility = View.VISIBLE
-                    sum++
+                    sum += 1
+                    basket.addProduct(product) {
+                        sum -= 1}
                     input_product.setText("$sum")
                     clickListenerPlus(product)
                 }
@@ -80,7 +82,9 @@ class SearchAdapter(
                 } else {
                     minus.isEnabled = true
                     sum = input_product.text.toString().toInt()
-                    sum--
+                    sum -= 1
+                    basket.deleteProduct(product) {
+                        sum += 1}
                     if (sum == 0) {
                         minus.visibility = View.GONE
                         input_product.visibility = View.GONE

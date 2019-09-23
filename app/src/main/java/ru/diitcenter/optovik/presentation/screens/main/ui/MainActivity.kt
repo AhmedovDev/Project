@@ -190,14 +190,10 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         val adapter = EventAdapter(event)
         event_recycler.adapter = adapter
         adapter.setOnEventClickListener {
-            val haveItem = basketHolder.items.filter { item ->
-                item.product.id == it.idProduct
-            }.firstOrNull()
-            if (haveItem != null) {
-                presenter.onEventClick(haveItem.product)
+                presenter.onEventClick(it.idProduct)
             }
         }
-    }
+
 
     override fun emptyBasketCheck() {
         if(basketHolder.items.isEmpty())
@@ -218,8 +214,10 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     override fun onResume() {
         super.onResume()
+        basketHolder.synchronizeBasketWithServer()
         updateBasketButtonMain()
         emptyBasketCheck()
+
 
         if (isPushNavigate){
             if(pushType == "mailing"){

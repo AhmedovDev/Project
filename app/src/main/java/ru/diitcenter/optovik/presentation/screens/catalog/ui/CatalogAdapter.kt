@@ -51,18 +51,27 @@ class CatalogAdapter(
     inner class CatalogViewHolder(override val containerView: View) :
         RecyclerView.ViewHolder(containerView), LayoutContainer {
 
+       // private var loaderCounter: Int = 0
+
+        var sum = 0
+
         lateinit var product: ru.diitcenter.optovik.data.global.models.Product
 
         fun plusClick(product: ru.diitcenter.optovik.data.global.models.Product) {
-            var sum = 0
             with(containerView) {
+
+
+
                 plus.setOnClickListener {
                     if (input_product.text.toString() == "")
                         input_product.setText("0")
                     sum = input_product.text.toString().toInt()
                     minus.visibility = View.VISIBLE
                     input_product.visibility = View.VISIBLE
-                    sum++
+                    sum += 1
+                    basket.addProduct(product) {
+                        sum -= 1
+                    }
                     input_product.setText("$sum")
                     clickListenerPlus(product)
                 }
@@ -71,14 +80,16 @@ class CatalogAdapter(
         }
 
         fun minusClick(product: ru.diitcenter.optovik.data.global.models.Product) {
-            var sum = 0
             minus.setOnClickListener {
                 if (input_product.text.toString() == "" || input_product.text.toString() == "0") {
                     minus.visibility = View.GONE
                 } else {
                     minus.isEnabled = true
                     sum = input_product.text.toString().toInt()
-                    sum--
+                    sum -= 1
+                    basket.deleteProduct(product) {
+                        sum += 1
+                    }
                     if (sum == 0) {
                         minus.visibility = View.GONE
                         input_product.visibility = View.GONE
@@ -113,9 +124,6 @@ class CatalogAdapter(
                 containerView.input_product.setText("${item.quantity}")
                 containerView.input_product.visibility = View.VISIBLE
                 containerView.minus.visibility = View.VISIBLE
-            } else {
-                containerView.input_product.visibility = View.GONE
-                containerView.minus.visibility = View.GONE
             }
 
             Picasso.get()

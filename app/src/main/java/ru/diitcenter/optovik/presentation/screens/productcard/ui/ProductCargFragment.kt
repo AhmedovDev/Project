@@ -14,6 +14,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import kotlinx.android.synthetic.main.fragment_product_carg.*
 import kotlinx.android.synthetic.main.toolbar_product_card.*
+import ru.diitcenter.optovik.data.global.models.Product
 import ru.diitcenter.optovik.presentation.global.utils.hideKeyboard
 import ru.diitcenter.optovik.presentation.global.utils.withArgs
 import ru.diitcenter.optovik.presentation.screens.basket.ui.BasketActivity
@@ -37,8 +38,9 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
     @ProvidePresenter
     fun providePresenter() = presenter
 
-    var productId: Int =  0
+    var productId: Int = 0
 
+    var sum = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         ru.diitcenter.optovik.App.appComponent.productCardComponentBuilder()
@@ -80,18 +82,16 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
         button_green.setOnClickListener {
             startActivity(Intent(activity, BasketActivity::class.java))
         }
-//        plusClick(product)
-//        minusClick(product)
+
         emptyBasketCheck()
     }
-
 
 
     companion object {
 
         fun newInstance(productId: Int) =
             ProductCargFragment().withArgs {
-                putInt(PRODUCT,productId)
+                putInt(PRODUCT, productId)
             }
 
         private const val PRODUCT = "product"
@@ -145,17 +145,16 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
             minus.visibility = View.VISIBLE
         }
 
-        var sum = 0
-
         plus.setOnClickListener {
             if (input_product.text.toString() == "" || input_product.text.toString() == null)
                 input_product.setText("0")
             sum = input_product.text.toString().toInt()
             minus.visibility = View.VISIBLE
             input_product.visibility = View.VISIBLE
-            sum++
+            sum += 1
+            basket.addProduct(product) {
+                sum -= 1}
             input_product.setText("$sum")
-            basket.addProduct(product)
             updateBasketButton()
 
         }
@@ -163,13 +162,11 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
 
     fun minusClick(product: ru.diitcenter.optovik.data.global.models.Product) {
 
-
         if (product.quantity != null || product.quantity != 0) {
             input_product.setText("${product.quantity}")
             input_product.visibility = View.VISIBLE
             minus.visibility = View.VISIBLE
         }
-        var sum = 0
         minus.setOnClickListener {
             if (input_product.text.toString() == "" || input_product.text.toString() == "0") {
                 minus.visibility = View.GONE
@@ -177,18 +174,18 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
 
                 minus.isEnabled = true
                 sum = input_product.text.toString().toInt()
-                sum--
+                sum -= 1
+                basket.deleteProduct(product) {
+                    sum += 1
                 if (sum == 0) {
                     minus.visibility = View.GONE
                     input_product.visibility = View.GONE
                 }
                 input_product.setText("$sum")
-                basket.deleteProduct(product)
                 updateBasketButton()
             }
         }
-
-    }
+    }}
 
     fun updateClick() {
         update_productcard.setOnClickListener { presenter.getAllData(product.id) }
@@ -250,12 +247,50 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
     //Предовать в метод продукт
     override fun showProductCardInformation(productCard: ru.diitcenter.optovik.data.global.models.ProductCard) {
 
+        var sumProducts = 0
+
+        val haveItem = basket.items.filter {
+            it.product.id == productCard.id
+        }.firstOrNull()
+
+        if(haveItem != null)
+            sumProducts = haveItem.quantity
+
         name_product_card.text = productCard.title
         title.text = productCard.title
         price.text = "%,d".format(productCard.price)
         count_product.text = productCard.count
         discription.text = productCard.description
+        input_product.setText("$sumProducts")
 
+        plusClick(
+            Product(
+                id = productCard.id,
+                image = productCard.images[0],
+                name = productCard.title,
+                price = productCard.price,
+                count = productCard.count,
+                isEstimatedPrice = productCard.isEstimatedPrice,
+                presence = productCard.presence,
+                quantity = sum
+                )
+        )
+
+        minusClick( Product(
+            id = productCard.id,
+            image = productCard.images[0],
+            name = productCard.title,
+            price = productCard.price,
+            count = productCard.count,
+            isEstimatedPrice = productCard.isEstimatedPrice,
+            presence = productCard.presence,
+            quantity = sum
+        ))
+
+        if(sum == 0){
+            input_product.visibility = View.GONE
+            minus.visibility = View.GONE
+        }
     }
 
     override fun onBackPressed() = presenter.gotoback()

@@ -66,7 +66,9 @@ class BasketAdapter(
                         sum = input_product_basket.text.toString().toInt()
                         minus_basket.visibility = View.VISIBLE
                         input_product_basket.visibility = View.VISIBLE
-                        sum++
+                        sum += 1
+                        basketholder.addProduct(product) {
+                            sum -= 1}
                         input_product_basket.setText("$sum")
                     }
                     clickListenerPlus(product)
@@ -85,7 +87,10 @@ class BasketAdapter(
                 } else {
                     minus_basket.isEnabled = true
                     sum = input_product_basket.text.toString().toInt()
-                    sum--
+                    sum -= 1
+                    basketholder.deleteProduct(product) {
+                        sum += 1
+                    }
                     if (sum == 0) {
                         minus_basket.visibility = View.GONE
                         input_product_basket.visibility = View.GONE
@@ -125,18 +130,18 @@ class BasketAdapter(
             quantity: Int,
             clickListener: OnCategoryClickListener
         ) {
-            basketholder.items.forEach { item ->
+
                 Picasso.get()
-                    .load(item.product.image)
+                    .load(product.image)
                     .into(containerView.image_product_basket)
-                containerView.product_name_basket.text = item.product.name
-                containerView.price_basket.text = "%,d".format(item.product.price)
-                containerView.count_product_basket.text = item.product.count
+                containerView.product_name_basket.text = product.name
+                containerView.price_basket.text = "%,d".format(product.price)
+                containerView.count_product_basket.text = product.count
                 containerView.input_product_basket.setText("$quantity")
                 if (input_product_basket.text.toString() != "") {
                     input_product_basket.visibility = View.VISIBLE
                     minus_basket.visibility = View.VISIBLE
-                }
+
 
 
                 if (input_product_basket.text.toString() == "") minus.visibility = View.GONE

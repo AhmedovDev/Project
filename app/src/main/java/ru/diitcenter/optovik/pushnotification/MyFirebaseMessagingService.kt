@@ -34,6 +34,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             var targetId: String? = "wqdwd"
                 targetId =  remoteMessage.data.get("targetId")
             val type: String? = remoteMessage.data.get("type")
+            val status: String? = remoteMessage.data.get("status")
+            val orderStatus = remoteMessage.data.get("order_status")
             showNotification(
                 remoteMessage.notification?.title,
                 remoteMessage.notification?.body,
@@ -42,6 +44,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 )
             Log.e("TARGET", "$targetId")
             Log.e("TYPE", "$type")
+            Log.e("STATUS", "$status")
+            Log.e("ORDER_STATUS", "$orderStatus")
         }
     }
 

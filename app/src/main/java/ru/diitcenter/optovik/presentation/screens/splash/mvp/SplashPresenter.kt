@@ -20,7 +20,6 @@ class SplashPresenter @Inject constructor(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        //   prefsHelper.run { saveToken("ab076d6dbd4dbf0990864325d41ea41e") }
         getBasket()
     }
 

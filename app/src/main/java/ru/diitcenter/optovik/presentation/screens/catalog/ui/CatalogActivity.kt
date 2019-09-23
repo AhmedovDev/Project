@@ -50,6 +50,17 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView, View.OnClickListene
         get() = supportFragmentManager.findFragmentById(R.id.container_productcard) as ru.diitcenter.optovik.presentation.global.BaseFragment?
 
     private var isFirstStart = true
+    private var loaderCounter: Int = 0
+        set(value) {
+            field = value
+
+            if (value > 0) {
+                //Блокировать кнопку
+            } else {
+                //Разблокировать кнопку
+            }
+        }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         ru.diitcenter.optovik.App.appComponent.catalogComponentBuilder()
@@ -114,8 +125,8 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView, View.OnClickListene
         }.firstOrNull()
         if (haveItem == null)
             isEstimatedPrise_catalog.visibility = View.GONE
-        else
-            isEstimatedPrise_catalog.visibility = View.VISIBLE
+
+          //  isEstimatedPrise_catalog.visibility = View.VISIBLE
         price_on_button.setText("%,d".format(priceAll))
         count_on_button.setText("${basket.items.size}")
     }
@@ -129,12 +140,20 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView, View.OnClickListene
         val adapter = CatalogAdapter(
             products = products,
             clickListenerPlus = {
-                basket.addProduct(it)
+
+//                loaderCounter += 1
+//               basket.addProduct(it) {
+//                   loaderCounter -= 1
+//               }
+               // basket.synchronizeBasketWithServer()
                 updateBasketButton()
+                emptyBasketCheck()
             },
             clickListenerMinus = {
-                basket.deleteProduct(it)
+     //           basket.deleteProduct(it)
+               // basket.synchronizeBasketWithServer()
                 updateBasketButton()
+                emptyBasketCheck()
             },
             basket = basket
 

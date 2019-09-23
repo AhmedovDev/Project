@@ -53,12 +53,14 @@ class BasketPresenter @Inject constructor(
             .subscribeOn(Schedulers.io())
             .subscribe(
                 { basket ->
+                    basketHolder.items.clear()
 
                 },
                 {
                     viewState.showError()
                 }
             )
+        basketHolder.synchronizeBasketWithServer()
     }
 
     fun getBasket() {
