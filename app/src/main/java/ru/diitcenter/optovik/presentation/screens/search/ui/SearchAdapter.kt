@@ -20,12 +20,11 @@ class SearchAdapter(
     private val clickListenerPlus: (ru.diitcenter.optovik.data.global.models.Product) -> Unit,
     private val clickListenerMinus: (ru.diitcenter.optovik.data.global.models.Product) -> Unit,
     private val basket: ru.diitcenter.optovik.data.basketholder.BasketHolder,
-    private val searchWord : String
+    private val searchWord: String
 ) :
     RecyclerView.Adapter<SearchAdapter.CatalogViewHolder>() {
 
     private var clickListener: OnCategoryClickListener? = null
-
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatalogViewHolder {
@@ -52,11 +51,12 @@ class SearchAdapter(
 
     inner class CatalogViewHolder(override val containerView: View) :
         RecyclerView.ViewHolder(containerView), LayoutContainer {
+        var sum = 0
+
 
         lateinit var product: ru.diitcenter.optovik.data.global.models.Product
 
         fun plusClick(product: ru.diitcenter.optovik.data.global.models.Product) {
-            var sum = 0
             with(containerView) {
                 plus.setOnClickListener {
                     if (input_product.text.toString() == "")
@@ -66,7 +66,10 @@ class SearchAdapter(
                     input_product.visibility = View.VISIBLE
                     sum += 1
                     basket.addProduct(product) {
-                        sum -= 1}
+                        if (it)
+                            sum -= 1
+                    }
+                    basket.synchronizeBasketWithServer()
                     input_product.setText("$sum")
                     clickListenerPlus(product)
                 }
@@ -75,7 +78,6 @@ class SearchAdapter(
         }
 
         fun minusClick(product: ru.diitcenter.optovik.data.global.models.Product) {
-            var sum = 0
             minus.setOnClickListener {
                 if (input_product.text.toString() == "" || input_product.text.toString() == "0") {
                     minus.visibility = View.GONE
@@ -84,7 +86,10 @@ class SearchAdapter(
                     sum = input_product.text.toString().toInt()
                     sum -= 1
                     basket.deleteProduct(product) {
-                        sum += 1}
+                        if (it)
+                            sum += 1
+                    }
+                    basket.synchronizeBasketWithServer()
                     if (sum == 0) {
                         minus.visibility = View.GONE
                         input_product.visibility = View.GONE
@@ -109,12 +114,15 @@ class SearchAdapter(
 
 
         @SuppressLint("ResourceAsColor")
-        fun bind(product: ru.diitcenter.optovik.data.global.models.Product, clickListener: OnCategoryClickListener) {
+        fun bind(
+            product: ru.diitcenter.optovik.data.global.models.Product,
+            clickListener: OnCategoryClickListener
+        ) {
 
 
             this.product = product
 
-            val item  = basket.items.filter { it.product.id == product.id }.firstOrNull()
+            val item = basket.items.filter { it.product.id == product.id }.firstOrNull()
 
             if (item != null) {
                 containerView.input_product.setText("${item.quantity}")

@@ -15,6 +15,6 @@ class Notification (
     @SerializedName("information") val information: String,
     @SerializedName("targetId") val targetId: Int,
     @Nullable
-    @SerializedName("order_status") val order_status: Int
+    @SerializedName("order_status") val order_status: String
 ) : Parcelable
 

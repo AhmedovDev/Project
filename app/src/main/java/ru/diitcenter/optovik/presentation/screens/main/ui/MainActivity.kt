@@ -196,6 +196,8 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
 
     override fun emptyBasketCheck() {
+        basketHolder.synchronizeBasketWithServer()
+        updateBasketButtonMain()
         if(basketHolder.items.isEmpty())
             button_basket_main.visibility = View.GONE
         else

@@ -48,7 +48,7 @@ class NotificationActivity : MvpAppCompatActivity(), NotificationView {
         update_notification.setOnClickListener { presenter.getNotifications() }
         initViews()
         back_arrow_notification.setOnClickListener { finish() }
-        navigator = SupportAppNavigator(this, R.id.container_productcard)
+        navigator = SupportAppNavigator(this, R.id.container_notification)
 
     }
 

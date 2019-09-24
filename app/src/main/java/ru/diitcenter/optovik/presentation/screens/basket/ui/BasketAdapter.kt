@@ -56,8 +56,10 @@ class BasketAdapter(
     inner class BasketViewHolder(override val containerView: View) :
         RecyclerView.ViewHolder(containerView), LayoutContainer {
 
+        var sum = 0
+
+
         fun plusClickBasket(product: ru.diitcenter.optovik.data.global.models.Product) {
-            var sum = 0
             with(containerView) {
                 plus_basket.setOnClickListener {
                     if (input_product_basket.text.toString() == "")
@@ -80,7 +82,6 @@ class BasketAdapter(
             product: ru.diitcenter.optovik.data.global.models.Product,
             position: Int
         ) {
-            var sum = 0
             minus_basket.setOnClickListener {
                 if (input_product_basket.text.toString() == "" || input_product_basket.text.toString() == "0") {
                     minus_basket.visibility = View.GONE

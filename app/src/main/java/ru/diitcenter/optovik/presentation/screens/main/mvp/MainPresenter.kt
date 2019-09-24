@@ -16,6 +16,7 @@ class MainPresenter @Inject constructor(
     ru.diitcenter.optovik.data.basketholder.BasketListener {
 
     override fun onUpdateBasketItems(items: MutableList<ru.diitcenter.optovik.data.basketholder.BasketHolder.Item>) {
+        basketHolder.synchronizeBasketWithServer()
         viewState.updateBasketButtonMain()
         viewState.emptyBasketCheck()
     }
@@ -53,7 +54,7 @@ class MainPresenter @Inject constructor(
     }
 
     fun goToProductCard(productId: Int) {
-        router.navigateTo(ru.diitcenter.optovik.presentation.global.Screens.ProductCard(productId))
+        router.newChain(ru.diitcenter.optovik.presentation.global.Screens.ProductCard(productId))
     }
     fun onSearchClick() {
         router.navigateTo(ru.diitcenter.optovik.presentation.global.Screens.Search)

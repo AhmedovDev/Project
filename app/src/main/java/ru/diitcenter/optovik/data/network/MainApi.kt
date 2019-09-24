@@ -60,6 +60,7 @@ interface MainApi {
     @GET("/api/v1/alerts")
     fun getNotification() : Single<List<Notification>>
 
+
     @FormUrlEncoded
     @POST("/api/v1/cart/{product_id}/add")
     fun addProductInBasket(
@@ -67,7 +68,6 @@ interface MainApi {
         @Field("count") count: Int
     ): Single<Product>
 
-   // @FormUrlEncoded
     @GET("/api/v1/cart/{product_id}/delete")
     fun deleteProductInBasket(
         @Path("product_id") productId: Int

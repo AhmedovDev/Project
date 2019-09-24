@@ -159,7 +159,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/colorPrimaryDark"
-                        android:visibility="gone"
                         app:srcCompat="@drawable/ic_button_minus_big"
                         tools:ignore="VectorDrawableCompat"
 
@@ -182,7 +181,6 @@
                         android:text="0"
                         android:textColor="#000000"
                         android:textSize="14sp"
-                        android:visibility="gone"
                         mask:mask="####"
                         android:editable="false"
                         android:clickable="false"
@@ -338,6 +336,7 @@
         android:layout_height="56dp"
         android:background="@color/colorPrimaryDark"
         android:elevation="3dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">

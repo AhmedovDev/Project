@@ -31,6 +31,7 @@ class BasketPresenter @Inject constructor(
                 it.quantity
             )
         })
+        basketHolder.synchronizeBasketWithServer()
     }
 
     fun getBasketDiliveryPrice() {

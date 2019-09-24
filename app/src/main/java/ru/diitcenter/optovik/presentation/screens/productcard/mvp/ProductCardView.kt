@@ -8,5 +8,5 @@ interface ProductCardView : MvpView{
     fun visiblProductCard()
     fun showProductCardImages(productCard: ru.diitcenter.optovik.data.global.models.ProductCard)
     fun showProductCardInformation(productCard: ru.diitcenter.optovik.data.global.models.ProductCard)
-    fun emptyBasketCheck()
+    fun updateBasketButton()
 }

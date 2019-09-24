@@ -107,12 +107,11 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
             products = products,
             clickListenerPlus = {
         //        basket.addProduct(it)
-//                updateBasketButton()
+                updateBasketButtonSearch()
             },
             clickListenerMinus = {
       //          basket.deleteProduct(it)
-//                updateBasketButton()
-            },
+                updateBasketButtonSearch()            },
             basket = basket,
             searchWord = input_search.text.toString()
 
@@ -125,6 +124,7 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
     }
 
     override fun updateBasketButtonSearch() {
+        basket.synchronizeBasketWithServer()
         var priceAll: Int = 0
         basket.items.forEach { item ->
             priceAll += (item.product.price * item.quantity)

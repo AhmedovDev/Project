@@ -87,25 +87,26 @@ class BasketHolder @Inject constructor(private val dataManager: DataManager) {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
                     .subscribe({
-                        basketUpdated()
+                        items.removeAll { it.product.id == product.id }
                         completion(false)
+                        basketUpdated()
                     }, {
                         completion(true)
                     })
             }
         }
-        synchronizeBasketWithServer()
-        basketUpdated()
     }
 
-    fun dropProduct(product: ru.diitcenter.optovik.data.global.models.Product) {
+    fun dropProduct(product: ru.diitcenter.optovik.data.global.models.Product,
+                    completion: (Boolean) -> Unit
+    ) {
         subscriptions += dataManager.deleteProductInBasket(product.id)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
-                var d = 0
+                completion(false)
             }, {
-                var f = 0
+                completion(true)
             })
 
 

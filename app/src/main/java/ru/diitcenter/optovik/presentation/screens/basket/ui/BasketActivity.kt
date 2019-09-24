@@ -165,7 +165,7 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
                 basketEmptyCheck()
             },
             clickListenerdrop = {
-                basketHolder.dropProduct(it)
+                basketHolder.dropProduct(it){}
                 basketHolder.synchronizeBasketWithServer()
                 basketResultPriceCheсk()
                 basketEmptyCheck()

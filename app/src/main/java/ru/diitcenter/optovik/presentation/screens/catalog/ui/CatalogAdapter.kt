@@ -51,7 +51,7 @@ class CatalogAdapter(
     inner class CatalogViewHolder(override val containerView: View) :
         RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-       // private var loaderCounter: Int = 0
+        // private var loaderCounter: Int = 0
 
         var sum = 0
 
@@ -59,7 +59,6 @@ class CatalogAdapter(
 
         fun plusClick(product: ru.diitcenter.optovik.data.global.models.Product) {
             with(containerView) {
-
 
 
                 plus.setOnClickListener {
@@ -70,7 +69,8 @@ class CatalogAdapter(
                     input_product.visibility = View.VISIBLE
                     sum += 1
                     basket.addProduct(product) {
-                        sum -= 1
+                        if (it)
+                            sum -= 1
                     }
                     input_product.setText("$sum")
                     clickListenerPlus(product)
@@ -88,7 +88,8 @@ class CatalogAdapter(
                     sum = input_product.text.toString().toInt()
                     sum -= 1
                     basket.deleteProduct(product) {
-                        sum += 1
+                        if (it)
+                            sum += 1
                     }
                     if (sum == 0) {
                         minus.visibility = View.GONE
@@ -114,11 +115,14 @@ class CatalogAdapter(
 
 
         @SuppressLint("ResourceAsColor")
-        fun bind(product: ru.diitcenter.optovik.data.global.models.Product, clickListener: OnCategoryClickListener) {
+        fun bind(
+            product: ru.diitcenter.optovik.data.global.models.Product,
+            clickListener: OnCategoryClickListener
+        ) {
 
             this.product = product
 
-            val item  = basket.items.filter { it.product.id == product.id }.firstOrNull()
+            val item = basket.items.filter { it.product.id == product.id }.firstOrNull()
 
             if (item != null) {
                 containerView.input_product.setText("${item.quantity}")
