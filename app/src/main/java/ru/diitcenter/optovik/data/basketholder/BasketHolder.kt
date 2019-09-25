@@ -9,6 +9,7 @@ import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.schedulers.Schedulers
 import ru.diitcenter.optovik.data.global.DataManager
 import ru.diitcenter.optovik.data.global.DataManagerlmpl
+import ru.diitcenter.optovik.data.global.models.Product
 import javax.inject.Inject
 
 interface BasketListener {
@@ -56,6 +57,22 @@ class BasketHolder @Inject constructor(private val dataManager: DataManager) {
         }
     }
 
+
+    fun addProductForReplaseOrder(
+        product: Product, quantity: Int, completion: (Boolean) -> Unit
+    ) {
+        subscriptions += dataManager.addProductInBasket(product.id, quantity)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                items.add(Item(product, quantity))
+                basketUpdated()
+                completion(false)
+            }, {
+                completion(true)
+            })
+    }
+
     fun deleteProduct(
         product: ru.diitcenter.optovik.data.global.models.Product,
         completion: (Boolean) -> Unit
@@ -97,13 +114,15 @@ class BasketHolder @Inject constructor(private val dataManager: DataManager) {
         }
     }
 
-    fun dropProduct(product: ru.diitcenter.optovik.data.global.models.Product,
-                    completion: (Boolean) -> Unit
+    fun dropProduct(
+        product: ru.diitcenter.optovik.data.global.models.Product,
+        completion: (Boolean) -> Unit
     ) {
         subscriptions += dataManager.deleteProductInBasket(product.id)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe({
+                items.removeAll { it.product.id == product.id }
                 completion(false)
             }, {
                 completion(true)
@@ -164,6 +183,21 @@ class BasketHolder @Inject constructor(private val dataManager: DataManager) {
             )
     }
 
+
+    fun clearBasketInServer() {
+        subscriptions += dataManager.clearBasket()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe(
+                { basket ->
+                    items.clear()
+
+                },
+                {
+
+                }
+            )
+    }
 
 }
 

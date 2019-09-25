@@ -24,7 +24,6 @@ import javax.inject.Inject
 class CheckOrderActivity : MvpAppCompatActivity(), CheckOrderView {
 
 
-
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
 
@@ -71,11 +70,14 @@ class CheckOrderActivity : MvpAppCompatActivity(), CheckOrderView {
         }
 
         check_order.setOnClickListener {
-        presenter.chackOrder(input_comment.text.toString() ,connect_number.text.toString())
+            presenter.chackOrder(input_comment.text.toString(), connect_number.text.toString())
+            basket.synchronizeBasketWithServer()
+
         }
     }
 
     override fun goToMyOrders() {
+        finish()
         val intent = Intent(this, MyOrderActivity::class.java)
         startActivity(intent)
         finish()

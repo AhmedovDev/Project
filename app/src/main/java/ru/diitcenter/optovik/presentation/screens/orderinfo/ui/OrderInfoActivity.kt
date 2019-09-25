@@ -1,5 +1,6 @@
 package ru.diitcenter.optovik.presentation.screens.orderinfo.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
@@ -8,19 +9,39 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import kotlinx.android.synthetic.main.activity_order_info.*
 import kotlinx.android.synthetic.main.toolbar_order_info.*
+import ru.diitcenter.optovik.data.global.models.Basket
+import ru.diitcenter.optovik.data.global.models.Product
 import ru.diitcenter.optovik.presentation.global.dialogscreen.DialogFeedbackFragment
 import ru.diitcenter.optovik.presentation.global.dialogscreen.DialogOrderRepeatFragment
+import ru.diitcenter.optovik.presentation.screens.basket.ui.BasketActivity
 import ru.diitcenter.optovik.presentation.screens.orderinfo.mvp.OrderInfoPresenter
 import ru.diitcenter.optovik.presentation.screens.orderinfo.mvp.OrderInfoView
 import ru.example.optovik.R
 import ru.terrakok.cicerone.NavigatorHolder
 import javax.inject.Inject
 
-class OrderInfoActivity : MvpAppCompatActivity(), OrderInfoView , DialogFeedbackFragment.CallBack{
+class OrderInfoActivity : MvpAppCompatActivity(), OrderInfoView, DialogFeedbackFragment.CallBack,
+    DialogOrderRepeatFragment.CallBackDialogOrderRepeat {
+
+  var  productsForOrder : List<Basket> = ArrayList()
+
+    override fun replaceBasket () {
+      basketHolder.clearBasketInServer()
+        productsForOrder.forEach { basketHolder.addProductForReplaseOrder(it.product,it.quantity) {
+            if(it){}
+            else{
+                basketHolder.synchronizeBasketWithServer()
+                val intent = Intent(this, BasketActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        }
+
+    }
 
 
     override fun setFeedBack(rating: Int, review: String) {
-       presenter.setFeedback(orderIdGlobal, rating , review)
+        presenter.setFeedback(orderIdGlobal, rating, review)
     }
 
     var orderIdGlobal = 0
@@ -51,7 +72,14 @@ class OrderInfoActivity : MvpAppCompatActivity(), OrderInfoView , DialogFeedback
         initViews()
         repeat_order.setOnClickListener { showBottomSheetDialogFragmentRepeatOrder() }
         presenter.getOrderInfo(intent.getIntExtra("order_id", 2))
-        update_order_info.setOnClickListener { presenter.getOrderInfo(intent.getIntExtra("order_id", 2)) }
+        update_order_info.setOnClickListener {
+            presenter.getOrderInfo(
+                intent.getIntExtra(
+                    "order_id",
+                    2
+                )
+            )
+        }
         back_arrow_order_info.setOnClickListener { finish() }
         write_feedback.setOnClickListener { showBottomSheetDialogFragment() }
     }
@@ -88,7 +116,8 @@ class OrderInfoActivity : MvpAppCompatActivity(), OrderInfoView , DialogFeedback
         }
     }
 
-    override fun showOrderInfo(order: ru.diitcenter.optovik.data.global.models.Order) {
+    override fun showOrderInfo(order: ru.diitcenter.optovik.data.global.models.Order, productForOrder : List<Basket>) {
+        productsForOrder = productForOrder
         order_id_order_info.text = "Заказ№ " + order.id.toString()
         status_order_info.text = order.status
         order_date_order_info.text = order.date

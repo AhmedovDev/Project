@@ -10,7 +10,7 @@ import kotlinx.android.parcel.Parcelize
 class Notification (
     @SerializedName("type") val type: String,
     @SerializedName("time") val time: String,
-    @SerializedName("date") val date: String,
+    @SerializedName("date") var date: String,
     @SerializedName("title") val title: String,
     @SerializedName("information") val information: String,
     @SerializedName("targetId") val targetId: Int,

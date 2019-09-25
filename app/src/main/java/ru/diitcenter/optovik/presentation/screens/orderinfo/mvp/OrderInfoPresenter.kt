@@ -28,7 +28,8 @@ class OrderInfoPresenter @Inject constructor(
             .doAfterTerminate { viewState.showProgress(false) }
             .subscribe(
                 { data ->
-                    viewState.showOrderInfo(data.orderInfo)
+
+                    viewState.showOrderInfo(data.orderInfo, data.basket)
                     viewState.showProducts(data.basket)
 
                 },

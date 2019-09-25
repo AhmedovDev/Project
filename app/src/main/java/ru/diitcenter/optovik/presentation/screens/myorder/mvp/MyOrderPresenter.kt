@@ -13,15 +13,13 @@ class MyOrderPresenter @Inject constructor(
     private val router: Router,
     private val dataManager: ru.diitcenter.optovik.data.global.DataManager,
     private var basketHolder: ru.diitcenter.optovik.data.basketholder.BasketHolder
-) : ru.diitcenter.optovik.presentation.global.BasePresenter<MyOrderView>(router,dataManager) {
-
+) : ru.diitcenter.optovik.presentation.global.BasePresenter<MyOrderView>(router, dataManager) {
 
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         getMyOrders()
     }
-
 
 
     fun getMyOrders() {
@@ -41,6 +39,22 @@ class MyOrderPresenter @Inject constructor(
             )
     }
 
+    fun getOrderProducts(id: Int) {
+        subscriptions += dataManager.getOrderInfo(id)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .doOnSubscribe { viewState.showProgress(true) }
+            .doAfterTerminate { viewState.showProgress(false) }
+            .subscribe(
+                { data ->
+                    viewState.getProductsForOrder(data.basket)
+                },
+                {
+                    viewState.showError()
+                }
+            )
+    }
+
     fun replaseBasket(id: Int) {
         subscriptions += dataManager.getOrderInfo(id)
             .observeOn(AndroidSchedulers.mainThread())
@@ -50,7 +64,12 @@ class MyOrderPresenter @Inject constructor(
             .subscribe(
                 { data ->
                     basketHolder.items.clear()
-                    basketHolder.items = data.basket.map { ru.diitcenter.optovik.data.basketholder.BasketHolder.Item(it.product,it.quantity) } as MutableList
+                    basketHolder.items = data.basket.map {
+                        ru.diitcenter.optovik.data.basketholder.BasketHolder.Item(
+                            it.product,
+                            it.quantity
+                        )
+                    } as MutableList
                 },
                 {
                     viewState.showError()

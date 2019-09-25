@@ -59,7 +59,10 @@ class SplashActivity : MvpAppCompatActivity(), SplashView {
                 val intent = Intent(this, NotificationActivity::class.java)
                 startActivity(intent)}
             if(pushType == "stock"){
-                val intent = Intent(this, NotificationActivity::class.java)
+                // todo реализовать получение имени категории
+                intent.putExtra("nameCategory", "${pushType}")
+                intent.putExtra("category_id", targetId )
+                startActivity(intent)
                 startActivity(intent)
             }
             if(pushType == "status"){

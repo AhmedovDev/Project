@@ -8,4 +8,5 @@ interface MyOrderView : MvpView
     fun showProgress(progress: Boolean)
     fun showMyOrders(myOrder: List<ru.diitcenter.optovik.data.global.models.MyOrder>)
     fun showError()
+    fun getProductsForOrder(productForOrder: List<Basket>)
 }

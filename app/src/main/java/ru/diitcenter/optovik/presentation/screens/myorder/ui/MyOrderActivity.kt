@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_my_order.*
 import kotlinx.android.synthetic.main.toolbar_my_order.*
 import ru.diitcenter.optovik.data.global.models.Basket
 import ru.diitcenter.optovik.presentation.global.dialogscreen.DialogOrderRepeatFragment
+import ru.diitcenter.optovik.presentation.screens.basket.ui.BasketActivity
 import ru.diitcenter.optovik.presentation.screens.myorder.mvp.MyOrderPresenter
 import ru.diitcenter.optovik.presentation.screens.myorder.mvp.MyOrderView
 import ru.diitcenter.optovik.presentation.screens.orderinfo.ui.OrderInfoActivity
@@ -37,8 +38,11 @@ class MyOrderActivity : MvpAppCompatActivity(), MyOrderView , DialogOrderRepeatF
 
     private lateinit var navigator: Navigator
 
-    private var orderProdeucts: List<Basket> = ArrayList()
+    private var productsForOrder: List<Basket> = ArrayList()
+
     private var orderId: Int = 0
+
+
 
     @Inject
     lateinit var prefsHelper: ru.diitcenter.optovik.data.prefs.PrefsHelper
@@ -85,6 +89,7 @@ class MyOrderActivity : MvpAppCompatActivity(), MyOrderView , DialogOrderRepeatF
                 startActivity(intent2)
             },
             listenerRepeat = {
+                presenter.getOrderProducts(it.id)
                 showBottomSheetDialogFragment()
                 orderId = it.id
 
@@ -92,12 +97,22 @@ class MyOrderActivity : MvpAppCompatActivity(), MyOrderView , DialogOrderRepeatF
         )
     }
 
-
+    override fun getProductsForOrder(productForOrder: List<Basket>) {
+        productsForOrder = productForOrder
+    }
 
 
     override fun replaceBasket() {
-        presenter.replaseBasket(orderId)
-    }
+        basketHolder.clearBasketInServer()
+        productsForOrder.forEach { basketHolder.addProductForReplaseOrder(it.product,it.quantity) {
+            if(it){}
+            else{
+                basketHolder.synchronizeBasketWithServer()
+                val intent = Intent(this, BasketActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        }    }
 
     override fun showError() {
         my_order_container.visibility = View.VISIBLE

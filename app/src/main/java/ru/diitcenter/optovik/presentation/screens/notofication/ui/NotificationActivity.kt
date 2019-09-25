@@ -1,7 +1,9 @@
 package ru.diitcenter.optovik.presentation.screens.notofication.ui
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.arellomobile.mvp.MvpAppCompatActivity
@@ -9,6 +11,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import kotlinx.android.synthetic.main.activity_notification.*
 import kotlinx.android.synthetic.main.toolbar_notification.*
+import ru.diitcenter.optovik.presentation.screens.catalog.ui.CatalogActivity
 import ru.diitcenter.optovik.presentation.screens.notofication.mvp.NotificationPresenter
 import ru.diitcenter.optovik.presentation.screens.notofication.mvp.NotificationView
 import ru.diitcenter.optovik.presentation.screens.orderinfo.ui.OrderInfoActivity
@@ -39,6 +42,7 @@ class NotificationActivity : MvpAppCompatActivity(), NotificationView {
         get() = supportFragmentManager.findFragmentById(R.id.container_notification) as ru.diitcenter.optovik.presentation.global.BaseFragment?
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         ru.diitcenter.optovik.App.appComponent.notificationComponentBuilder()
             .build()
@@ -69,8 +73,12 @@ class NotificationActivity : MvpAppCompatActivity(), NotificationView {
         recycler_notification.adapter = adapter
         adapter.setOnAdresClickListener { notification ->
             if(notification.type == "stock") {
-                presenter.goToProductCard(notification.targetId)
-            }
+                val intent = Intent(this, CatalogActivity::class.java)
+                // todo реализовать получение имени категории
+                intent.putExtra("nameCategory", "${notification.title}")
+                intent.putExtra("category_id", notification.targetId )
+                startActivity(intent)
+                startActivity(intent)            }
             if(notification.type == "status"){
                 val intent = Intent(this, OrderInfoActivity::class.java)
                 intent.putExtra("order_id", notification.targetId)

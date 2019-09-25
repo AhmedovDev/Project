@@ -20,8 +20,6 @@
         app:layout_constraintVertical_bias="1.0">
 
 
-
-
         <TextView
             android:id="@+id/textView14"
             android:layout_width="wrap_content"
@@ -29,7 +27,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/sfpromedium"
-            android:text="Вы точно хотите повторить заказ, \n данные в корзине будут заменены?"
+            android:text="Вы точно хотите повторить заказ, \n товары в корзине будут заменены?"
             android:textColor="#444444"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
