@@ -25,7 +25,7 @@ class BasketHolder @Inject constructor(private val dataManager: DataManager) {
 
     fun addProduct(
         product: ru.diitcenter.optovik.data.global.models.Product,
-        completion: (Boolean) -> Unit
+        completion : (Boolean) -> Unit
     ) {
 
         val haveItem = items.filter {
@@ -39,9 +39,9 @@ class BasketHolder @Inject constructor(private val dataManager: DataManager) {
                 .subscribe({
                     haveItem.quantity += 1
                     basketUpdated()
-                    completion(false)
-                }, {
                     completion(true)
+                }, {
+                    completion(false)
                 })
         } else {
             subscriptions += dataManager.addProductInBasket(product.id, 1)
@@ -50,9 +50,9 @@ class BasketHolder @Inject constructor(private val dataManager: DataManager) {
                 .subscribe({
                     items.add(Item(product, 1))
                     basketUpdated()
-                    completion(false)
-                }, {
                     completion(true)
+                }, {
+                    completion(false)
                 })
         }
     }
@@ -67,9 +67,9 @@ class BasketHolder @Inject constructor(private val dataManager: DataManager) {
             .subscribe({
                 items.add(Item(product, quantity))
                 basketUpdated()
-                completion(false)
-            }, {
                 completion(true)
+            }, {
+                completion(false)
             })
     }
 
@@ -94,9 +94,9 @@ class BasketHolder @Inject constructor(private val dataManager: DataManager) {
                     .subscribe({
                         haveItem.quantity -= 1
                         basketUpdated()
-                        completion(false)
-                    }, {
                         completion(true)
+                    }, {
+                        completion(false)
                     })
 
             } else {
@@ -105,10 +105,10 @@ class BasketHolder @Inject constructor(private val dataManager: DataManager) {
                     .subscribeOn(Schedulers.io())
                     .subscribe({
                         items.removeAll { it.product.id == product.id }
-                        completion(false)
+                        completion(true)
                         basketUpdated()
                     }, {
-                        completion(true)
+                        completion(false)
                     })
             }
         }
@@ -123,9 +123,9 @@ class BasketHolder @Inject constructor(private val dataManager: DataManager) {
             .subscribeOn(Schedulers.io())
             .subscribe({
                 items.removeAll { it.product.id == product.id }
-                completion(false)
-            }, {
                 completion(true)
+            }, {
+                completion(false)
             })
 
 

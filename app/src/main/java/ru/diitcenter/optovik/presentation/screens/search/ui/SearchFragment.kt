@@ -106,11 +106,14 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
         val adapter = SearchAdapter(
             products = products,
             clickListenerPlus = {
-        //        basket.addProduct(it)
+                basket.synchronizeBasketWithServer()
+
+                //        basket.addProduct(it)
                 updateBasketButtonSearch()
             },
             clickListenerMinus = {
-      //          basket.deleteProduct(it)
+                basket.synchronizeBasketWithServer()
+                //          basket.deleteProduct(it)
                 updateBasketButtonSearch()            },
             basket = basket,
             searchWord = input_search.text.toString()

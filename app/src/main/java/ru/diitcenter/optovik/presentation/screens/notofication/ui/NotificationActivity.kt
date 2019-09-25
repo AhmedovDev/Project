@@ -77,8 +77,7 @@ class NotificationActivity : MvpAppCompatActivity(), NotificationView {
                 // todo реализовать получение имени категории
                 intent.putExtra("nameCategory", "${notification.title}")
                 intent.putExtra("category_id", notification.targetId )
-                startActivity(intent)
-                startActivity(intent)            }
+                startActivity(intent)}
             if(notification.type == "status"){
                 val intent = Intent(this, OrderInfoActivity::class.java)
                 intent.putExtra("order_id", notification.targetId)

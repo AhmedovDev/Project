@@ -30,13 +30,12 @@ class SplashPresenter @Inject constructor(
             .subscribe(
                 { data ->
                     data.basket?.let {
-                        //viewState.getBasket(data.basket)
+                        basketHolder.synchronizeBasketWithServer()
                         viewState.goToMain()
                     }
                     viewState.goToMain()
                 },
                 { error ->
-
                     when ((error as HttpException).code()) {
                         401 -> {
                             viewState.goToAutorization() // Токен истек или не существует
@@ -54,6 +53,7 @@ class SplashPresenter @Inject constructor(
             .subscribeOn(Schedulers.io())
             .subscribe(
                 { data ->
+                    viewState.showError()
                 }
                 ,
                 { error ->

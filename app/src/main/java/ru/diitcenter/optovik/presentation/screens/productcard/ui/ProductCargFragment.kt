@@ -145,17 +145,19 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
         plus.setOnClickListener {
             if (input_product.text.toString() == "" || input_product.text.toString() == null)
                 input_product.setText("0")
-            sum = input_product.text.toString().toInt()
+         //   sum = input_product.text.toString().toInt()
             minus.visibility = View.VISIBLE
             input_product.visibility = View.VISIBLE
             sum += 1
+            input_product.setText("$sum")
             basket.addProduct(product) {
-                if (it)
+                if (!it) {
                     sum -= 1
+                    input_product.setText("$sum")
+                }
             }
             basket.synchronizeBasketWithServer()
 
-            input_product.setText("$sum")
         }
     }
 
@@ -173,11 +175,14 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
                 button_green.visibility = View.VISIBLE
             } else {
                 minus.isEnabled = true
-                sum = input_product.text.toString().toInt()
+              //  sum = input_product.text.toString().toInt()
                 sum -= 1
+                input_product.setText("$sum")
                 basket.deleteProduct(product) {
-                    if (it)
+                    if (!it){
                         sum += 1
+                        input_product.setText("$sum")
+                    }
                 }
                 basket.synchronizeBasketWithServer()
                 updateBasketButton()
@@ -186,7 +191,6 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
                     input_product.visibility = View.GONE
 
                 }
-                input_product.setText("$sum")
             }
         }
 
@@ -242,8 +246,8 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
         }.firstOrNull()
 
         if (haveItem != null) {
-            sum = haveItem.quantity
             input_product.setText("${haveItem.quantity}")
+            sum = haveItem.quantity
         } else {
             input_product.setText("0")
             input_product.visibility = View.GONE
@@ -257,36 +261,41 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
         discription.text = productCard.description
 
 
-        plusClick(
-            Product(
-                id = productCard.id,
-                image = productCard.images[0],
-                name = productCard.title,
-                price = productCard.price,
-                count = productCard.count,
-                isEstimatedPrice = productCard.isEstimatedPrice,
-                presence = productCard.presence,
-                quantity = sum
+        if (haveItem != null) {
+            plusClick(
+                Product(
+                    id = productCard.id,
+                    image = productCard.images[0],
+                    name = productCard.title,
+                    price = productCard.price,
+                    count = productCard.count,
+                    isEstimatedPrice = productCard.isEstimatedPrice,
+                    presence = productCard.presence,
+                    quantity = haveItem.quantity
+                )
             )
-        )
+        }
 
-        minusClick(
-            Product(
-                id = productCard.id,
-                image = productCard.images[0],
-                name = productCard.title,
-                price = productCard.price,
-                count = productCard.count,
-                isEstimatedPrice = productCard.isEstimatedPrice,
-                presence = productCard.presence,
-                quantity = sum
+        if (haveItem != null) {
+            minusClick(
+                Product(
+                    id = productCard.id,
+                    image = productCard.images[0],
+                    name = productCard.title,
+                    price = productCard.price,
+                    count = productCard.count,
+                    isEstimatedPrice = productCard.isEstimatedPrice,
+                    presence = productCard.presence,
+                    quantity = haveItem.quantity
+                )
             )
-        )
+        }
 
         if (sum == 0) {
             input_product.visibility = View.GONE
             minus.visibility = View.GONE
         }
+        basket.synchronizeBasketWithServer()
     }
 
     override fun onBackPressed() = presenter.gotoback()

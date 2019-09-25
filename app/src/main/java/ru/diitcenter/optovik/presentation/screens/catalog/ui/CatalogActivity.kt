@@ -51,16 +51,6 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView, View.OnClickListene
 
     private var isFirstStart = true
     private var loaderCounter: Int = 0
-        set(value) {
-            field = value
-
-            if (value > 0) {
-                //Блокировать кнопку
-            } else {
-                //Разблокировать кнопку
-            }
-        }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         ru.diitcenter.optovik.App.appComponent.catalogComponentBuilder()

@@ -68,6 +68,7 @@ class SearchAdapter(
                     basket.addProduct(product) {
                         if (it)
                             sum -= 1
+
                     }
                     basket.synchronizeBasketWithServer()
                     input_product.setText("$sum")

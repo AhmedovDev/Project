@@ -74,6 +74,7 @@ class CatalogAdapter(
                     }
                     input_product.setText("$sum")
                     clickListenerPlus(product)
+//                    notifyDataSetChanged()
                 }
             }
 
@@ -99,7 +100,7 @@ class CatalogAdapter(
                     input_product.setText("$sum")
                     clickListenerMinus(product)
                 }
-
+//                notifyDataSetChanged()
             }
         }
 
@@ -125,6 +126,7 @@ class CatalogAdapter(
             val item = basket.items.filter { it.product.id == product.id }.firstOrNull()
 
             if (item != null) {
+                sum = item.quantity
                 containerView.input_product.setText("${item.quantity}")
                 containerView.input_product.visibility = View.VISIBLE
                 containerView.minus.visibility = View.VISIBLE
@@ -141,7 +143,6 @@ class CatalogAdapter(
                 containerView.minus.visibility = View.VISIBLE
                 containerView.input_product.setText("${product.quantity}")
             }
-            product.quantity
             if (product.presence == false) {
                 containerView.plus.visibility = View.GONE
                 containerView.minus.visibility = View.GONE
@@ -157,9 +158,12 @@ class CatalogAdapter(
 
             if (input_product.text.toString() == "") minus.visibility = View.GONE
 
-            containerView.image_product.setOnClickListener { clickListener.invoke(product) }
-            containerView.product_name.setOnClickListener { clickListener.invoke(product) }
-            containerView.price_and_count.setOnClickListener { clickListener.invoke(product) }
+            containerView.image_product.setOnClickListener { clickListener.invoke(product)
+            basket.synchronizeBasketWithServer()}
+            containerView.product_name.setOnClickListener { clickListener.invoke(product)
+            basket.synchronizeBasketWithServer()}
+            containerView.price_and_count.setOnClickListener { clickListener.invoke(product)
+            basket.synchronizeBasketWithServer()}
         }
     }
 }

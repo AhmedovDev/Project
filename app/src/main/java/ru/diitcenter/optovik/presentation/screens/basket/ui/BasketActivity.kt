@@ -154,19 +154,16 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
             basketholder = basketHolder,
             clickListenerPlus = {
       //          basketHolder.addProduct(it)
-                basketHolder.synchronizeBasketWithServer()
                 basketResultPriceCheсk()
                 basketEmptyCheck()
             },
             clickListenerMinus = {
        //         basketHolder.deleteProduct(it)
-                basketHolder.synchronizeBasketWithServer()
                 basketResultPriceCheсk()
                 basketEmptyCheck()
             },
             clickListenerdrop = {
                 basketHolder.dropProduct(it){}
-                basketHolder.synchronizeBasketWithServer()
                 basketResultPriceCheсk()
                 basketEmptyCheck()
 

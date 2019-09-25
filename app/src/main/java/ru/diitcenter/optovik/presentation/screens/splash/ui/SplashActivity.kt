@@ -84,9 +84,6 @@ class SplashActivity : MvpAppCompatActivity(), SplashView {
 
 
         Log.e("TOKEN_USER","${prefsHelper.getToken()}")
-
-        basketHelper.synchronizeBasketWithServer()
-
     }
 
     override fun goToMain() {
