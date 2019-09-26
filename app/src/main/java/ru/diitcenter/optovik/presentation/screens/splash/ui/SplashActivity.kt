@@ -79,7 +79,7 @@ class SplashActivity : MvpAppCompatActivity(), SplashView {
         Log.d("TOKEN_PUSH", "$token")
 
 
-            presenter.setPushToken(prefsHelper.getToken().toString(),token.toString())
+            presenter.setPushToken(token.toString(),prefsHelper.getToken().toString())
 
 
 

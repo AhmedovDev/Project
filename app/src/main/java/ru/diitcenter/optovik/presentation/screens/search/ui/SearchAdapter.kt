@@ -37,8 +37,8 @@ class SearchAdapter(
     override fun onBindViewHolder(holder: CatalogViewHolder, position: Int) {
         holder.bind(products[position], clickListener!!)
         // todo сделать нормально
-        holder.plusClick(products[position])
-        holder.minusClick(products[position])
+       // holder.plusClick(products[position])
+       // holder.minusClick(products[position])
         holder.keyboardHide()
     }
 
@@ -48,13 +48,9 @@ class SearchAdapter(
         clickListener = listener
     }
 
-
     inner class CatalogViewHolder(override val containerView: View) :
         RecyclerView.ViewHolder(containerView), LayoutContainer {
         var sum = 0
-
-
-        lateinit var product: ru.diitcenter.optovik.data.global.models.Product
 
         fun plusClick(product: ru.diitcenter.optovik.data.global.models.Product) {
             with(containerView) {
@@ -66,11 +62,10 @@ class SearchAdapter(
                     input_product.visibility = View.VISIBLE
                     sum += 1
                     basket.addProduct(product) {
-                        if (it)
+                        if (!it)
                             sum -= 1
 
                     }
-                    basket.synchronizeBasketWithServer()
                     input_product.setText("$sum")
                     clickListenerPlus(product)
                 }
@@ -87,10 +82,9 @@ class SearchAdapter(
                     sum = input_product.text.toString().toInt()
                     sum -= 1
                     basket.deleteProduct(product) {
-                        if (it)
+                        if (!it)
                             sum += 1
                     }
-                    basket.synchronizeBasketWithServer()
                     if (sum == 0) {
                         minus.visibility = View.GONE
                         input_product.visibility = View.GONE
@@ -120,12 +114,10 @@ class SearchAdapter(
             clickListener: OnCategoryClickListener
         ) {
 
-
-            this.product = product
-
             val item = basket.items.filter { it.product.id == product.id }.firstOrNull()
 
             if (item != null) {
+                sum = item.quantity
                 containerView.input_product.setText("${item.quantity}")
                 containerView.input_product.visibility = View.VISIBLE
                 containerView.minus.visibility = View.VISIBLE
@@ -161,9 +153,12 @@ class SearchAdapter(
 
             if (input_product.text.toString() == "") minus.visibility = View.GONE
 
-            containerView.image_product.setOnClickListener { clickListener.invoke(product) }
-            containerView.product_name.setOnClickListener { clickListener.invoke(product) }
-            containerView.price_and_count.setOnClickListener { clickListener.invoke(product) }
+            containerView.image_product.setOnClickListener { clickListener.invoke(product)
+                basket.synchronizeBasketWithServer()}
+            containerView.product_name.setOnClickListener { clickListener.invoke(product)
+                basket.synchronizeBasketWithServer()}
+            containerView.price_and_count.setOnClickListener { clickListener.invoke(product)
+                basket.synchronizeBasketWithServer()}
         }
     }
 }

@@ -47,13 +47,12 @@ class SplashPresenter @Inject constructor(
             )
     }
 
-    fun setPushToken(token: String, deviseId: String) {
-        subscriptions += dataManager.setPushToken(token, deviseId)
+    fun setPushToken(token: String, deviceId: String) {
+        subscriptions += dataManager.setPushToken(token, deviceId)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe(
                 { data ->
-                    viewState.showError()
                 }
                 ,
                 { error ->
