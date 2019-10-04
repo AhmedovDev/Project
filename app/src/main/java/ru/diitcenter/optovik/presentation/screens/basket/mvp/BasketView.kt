@@ -8,4 +8,6 @@ interface BasketView : MvpView {
     fun showInformation(information: String)
     fun showError()
     fun visiblBasket()
+    fun basketResultPriceCheсk()
+    fun basketEmptyCheck()
 }

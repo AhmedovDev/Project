@@ -12,7 +12,6 @@ class ProductCardPresenter @Inject constructor(private val router: Router, priva
     ru.diitcenter.optovik.presentation.global.BasePresenter<ProductCardView>(router,dataManager) , BasketListener{
 
     override fun onUpdateBasketItems(items: MutableList<BasketHolder.Item>) {
-        basketHolder.synchronizeBasketWithServer()
         viewState.updateBasketButton()
     }
 

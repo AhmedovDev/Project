@@ -23,18 +23,19 @@ import javax.inject.Inject
 class OrderInfoActivity : MvpAppCompatActivity(), OrderInfoView, DialogFeedbackFragment.CallBack,
     DialogOrderRepeatFragment.CallBackDialogOrderRepeat {
 
-  var  productsForOrder : List<Basket> = ArrayList()
+    var productsForOrder: List<Basket> = ArrayList()
 
-    override fun replaceBasket () {
-      basketHolder.clearBasketInServer()
-        productsForOrder.forEach { basketHolder.addProductForReplaseOrder(it.product,it.quantity) {
-            if(it){}
-            else{
-                basketHolder.synchronizeBasketWithServer()
-                val intent = Intent(this, BasketActivity::class.java)
-                startActivity(intent)
+    override fun replaceBasket() {
+        basketHolder.clearBasketInServer()
+        productsForOrder.forEach {
+            basketHolder.addProductForReplaseOrder(it.product, it.quantity) {
+                if (!it) {
+                } else {
+                    basketHolder.synchronizeBasketWithServer()
+                    val intent = Intent(this, BasketActivity::class.java)
+                    startActivity(intent)
+                }
             }
-        }
         }
 
     }
@@ -116,7 +117,10 @@ class OrderInfoActivity : MvpAppCompatActivity(), OrderInfoView, DialogFeedbackF
         }
     }
 
-    override fun showOrderInfo(order: ru.diitcenter.optovik.data.global.models.Order, productForOrder : List<Basket>) {
+    override fun showOrderInfo(
+        order: ru.diitcenter.optovik.data.global.models.Order,
+        productForOrder: List<Basket>
+    ) {
         productsForOrder = productForOrder
         order_id_order_info.text = "Заказ№ " + order.id.toString()
         status_order_info.text = order.status

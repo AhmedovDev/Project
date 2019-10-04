@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
-    tools:context=".presentation.screens.search.ui.SearchFragment">
+    tools:context=".presentation.screens.search.ui.SearchFragment"
+    android:id="@+id/search_view"
+    >
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout5"
@@ -37,6 +39,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
+            android:focusable="true"
             android:hint="Введите поисковой запрос"
             android:id="@+id/input_search"
             android:layout_width="0dp"
@@ -58,6 +61,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:visibility="gone"
             android:id="@+id/clear"
             android:layout_width="16dp"
             android:layout_height="16dp"
@@ -105,9 +109,6 @@
 
 
     <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/search_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -118,9 +119,6 @@
         app:layout_constraintTop_toBottomOf="parent">
 
         <android.support.constraint.ConstraintLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -202,10 +200,11 @@
        >
 
         <android.support.constraint.ConstraintLayout
+            android:id="@+id/not_found_product"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="gone">
+          >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -321,7 +320,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpromedium"
-                    android:paddingLeft="4dp"
                     android:paddingRight="4dp"
                     android:text="≈"
                     android:textColor="@color/colorPrimaryDark"
@@ -333,6 +331,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpromedium"
+                    android:paddingRight="4dp"
                     android:text="2970"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="17sp" />

@@ -14,6 +14,7 @@ import android.os.Build
 import android.support.v4.app.NotificationCompat
 import ru.diitcenter.optovik.presentation.screens.main.ui.MainActivity
 import ru.diitcenter.optovik.presentation.screens.notofication.ui.NotificationActivity
+import ru.diitcenter.optovik.presentation.screens.splash.ui.SplashActivity
 import ru.example.optovik.R
 
 
@@ -31,15 +32,15 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         if (remoteMessage.notification != null) {
 
-            var targetId: String? = "wqdwd"
-                targetId =  remoteMessage.data.get("targetId")
-            val type: String? = remoteMessage.data.get("type")
-            val status: String? = remoteMessage.data.get("status")
-            val orderStatus = remoteMessage.data.get("order_status")
+            val targetId: String? = remoteMessage.data["targetId"]
+
+            val type: String? = remoteMessage.data["type"]
+            val status: String? = remoteMessage.data["status"]
+            val orderStatus : String? = remoteMessage.data["order_status"]
             showNotification(
                 remoteMessage.notification?.title,
                 remoteMessage.notification?.body,
-                targetId!!.toInt(),
+                targetId?.toInt(),
                 type.toString()
                 )
             Log.e("TARGET", "$targetId")
@@ -49,8 +50,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         }
     }
 
-    private fun showNotification(title: String?, body: String?, targetId: Int, type: String) {
-        val intent = Intent(this, MainActivity::class.java)
+    private fun showNotification(title: String?, body: String?, targetId: Int?, type: String) {
+        val intent = Intent(this, SplashActivity::class.java)
         intent.putExtra(MainActivity.IS_PUSH_NAVIGATE_KEY, true)
         intent.putExtra(MainActivity.IS_PUSH_NAVIGATE_TYPE, type)
         intent.putExtra(MainActivity.IS_PUSH_NAVIGATE_TARGET_ID, targetId)

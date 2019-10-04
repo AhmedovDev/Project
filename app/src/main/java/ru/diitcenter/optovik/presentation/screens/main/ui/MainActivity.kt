@@ -1,6 +1,10 @@
 package ru.diitcenter.optovik.presentation.screens.main.ui
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -11,6 +15,7 @@ import javax.inject.Inject
 import android.support.v7.widget.*
 import android.view.View
 import kotlinx.android.synthetic.main.toolbar_main.*
+import ru.diitcenter.optovik.data.network.isNetworkAvailable
 import ru.diitcenter.optovik.presentation.global.Screens
 import ru.diitcenter.optovik.presentation.global.utils.hideKeyboard
 import ru.diitcenter.optovik.presentation.screens.basket.ui.BasketActivity
@@ -65,7 +70,6 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         ru.diitcenter.optovik.App.appComponent.mainComponentBuilder()
             .build()
             .inject(this)
-
         intent.action
         isPushNavigate = intent.getBooleanExtra(IS_PUSH_NAVIGATE_KEY, false)
         pushTargetId = intent.getIntExtra(IS_PUSH_NAVIGATE_TARGET_ID,4)
@@ -74,7 +78,6 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         setContentView(R.layout.activity_main)
 //        presenter.getBasket()
         initViews()
-        updateBasketButtonMain()
         navigator = SupportAppNavigator(this, R.id.container_main_activity)
         button_basket_main.setOnClickListener {
             val intent = Intent(this, BasketActivity::class.java)
@@ -90,9 +93,12 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             val intent = Intent(this, NotificationActivity::class.java)
             startActivity(intent)
         }
-
         emptyBasketCheck()
-
+        updateBasketButtonMain()
+        if (isNetworkAvailable(applicationContext)) {
+            presenter.getAllData()
+        } else
+            showError()
     }
 
     override fun updateBasketButtonMain() {
@@ -130,7 +136,6 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             )
         }
         updateClick()
-        updateBasketButtonMain()
     }
 
     override fun categoryesClick() {
@@ -196,8 +201,6 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
 
     override fun emptyBasketCheck() {
-        basketHolder.synchronizeBasketWithServer()
-        updateBasketButtonMain()
         if(basketHolder.items.isEmpty())
             button_basket_main.visibility = View.GONE
         else
@@ -216,7 +219,6 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     override fun onResume() {
         super.onResume()
-        basketHolder.synchronizeBasketWithServer()
         updateBasketButtonMain()
         emptyBasketCheck()
 

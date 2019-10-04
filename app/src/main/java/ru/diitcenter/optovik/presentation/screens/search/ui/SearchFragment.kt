@@ -9,11 +9,13 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import kotlinx.android.synthetic.main.fragment_search.*
 import ru.diitcenter.optovik.data.global.models.Product
 import ru.diitcenter.optovik.presentation.global.utils.hideKeyboard
+import ru.diitcenter.optovik.presentation.global.utils.showKeyboard
 import ru.diitcenter.optovik.presentation.screens.search.mvp.SearchPresenter
 import ru.example.optovik.R
 import ru.terrakok.cicerone.Navigator
@@ -58,12 +60,43 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        back_arrow_search.setOnClickListener { presenter.back()
-        hideKeyboard()}
+
+        back_arrow_search.setOnClickListener {
+            presenter.back()
+            hideKeyboard()
+        }
+
+        input_search.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                hideKeyboard()
+            }
+            false
+        }
+
+        // todo реализовать скрыие клавиатуры
+//        search_recycler.setOnTouchListener { _, _ ->
+//            hideKeyboard()
+//            input_search.clearFocus()
+//            search_view.clearFocus()
+//            search_recycler.requestFocus()
+//           // search_view.requestFocus()
+//            true
+//        }
+
+        input_search.requestFocus()
+
+        context?.let { showKeyboard(it) }
+
         initViews()
+
         updateBasketButtonSearch()
-        update_search.setOnClickListener { presenter.search("") }
-        clear.setOnClickListener { input_search.setText("") }
+
+        update_search.setOnClickListener {
+            presenter.search("")
+        }
+        clear.setOnClickListener {
+            input_search.setText("")
+        }
 
         input_search.addTextChangedListener(object : TextWatcher {
 
@@ -74,7 +107,11 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                presenter.search(input_search.text.toString())
+                if (!input_search.text.toString().isNullOrEmpty()) {
+                    presenter.search(input_search.text.toString())
+                    clear.visibility = View.VISIBLE
+                } else {
+                }
             }
 
         })
@@ -82,7 +119,7 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
     }
 
     override fun emptyBasketCheck() {
-        if(basket.items.isEmpty())
+        if (basket.items.isEmpty())
             button_basket_search.visibility = View.GONE
         else
             button_basket_search.visibility = View.VISIBLE
@@ -106,30 +143,39 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
         val adapter = SearchAdapter(
             products = products,
             clickListenerPlus = {
-              //  basket.synchronizeBasketWithServer()
+                //  search_recycler.adapter?.notifyDataSetChanged()
+                //  basket.synchronizeBasketWithServer()
 //                basket.addProduct(it){ bool ->
 //                    if(!bool)
 //
 //                }
-                updateBasketButtonSearch()
             },
             clickListenerMinus = {
+                //  search_recycler.adapter?.notifyDataSetChanged()
+
                 //basket.synchronizeBasketWithServer()
                 //          basket.deleteProduct(it)
-                updateBasketButtonSearch()            },
+            },
             basket = basket,
             searchWord = input_search.text.toString()
 
         )
         search_recycler.adapter = adapter
+
         adapter.setOnCatalogClickListener {
             presenter.goToProductCard(it)
+            hideKeyboard()
         }
+
+
         not_found_container.visibility = View.GONE
+        if (products.isEmpty())
+            not_found_container.visibility = View.VISIBLE
+        else
+            not_found_container.visibility = View.GONE
     }
 
     override fun updateBasketButtonSearch() {
-        basket.synchronizeBasketWithServer()
         var priceAll: Int = 0
         basket.items.forEach { item ->
             priceAll += (item.product.price * item.quantity)
@@ -157,11 +203,14 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
     override fun onResume() {
         super.onResume()
         updateBasketButtonSearch()
-       // adapterUpdate()
+        // adapterUpdate()
+        search_recycler.adapter?.notifyDataSetChanged()
         emptyBasketCheck()
     }
 
-    override fun onBackPressed() { presenter.back()
-        hideKeyboard()}
+    override fun onBackPressed() {
+        presenter.back()
+        hideKeyboard()
+    }
 
 }

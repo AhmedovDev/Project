@@ -76,9 +76,9 @@ class CheckOrderActivity : MvpAppCompatActivity(), CheckOrderView {
         }
     }
 
-    override fun goToMyOrders() {
+    override fun goToMain() {
         finish()
-        val intent = Intent(this, MyOrderActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
     }

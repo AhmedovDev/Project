@@ -21,7 +21,8 @@ import ru.terrakok.cicerone.Navigator
 import ru.terrakok.cicerone.NavigatorHolder
 import javax.inject.Inject
 
-class MyOrderActivity : MvpAppCompatActivity(), MyOrderView , DialogOrderRepeatFragment.CallBackDialogOrderRepeat{
+class MyOrderActivity : MvpAppCompatActivity(), MyOrderView,
+    DialogOrderRepeatFragment.CallBackDialogOrderRepeat {
 
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
@@ -41,7 +42,6 @@ class MyOrderActivity : MvpAppCompatActivity(), MyOrderView , DialogOrderRepeatF
     private var productsForOrder: List<Basket> = ArrayList()
 
     private var orderId: Int = 0
-
 
 
     @Inject
@@ -104,15 +104,18 @@ class MyOrderActivity : MvpAppCompatActivity(), MyOrderView , DialogOrderRepeatF
 
     override fun replaceBasket() {
         basketHolder.clearBasketInServer()
-        productsForOrder.forEach { basketHolder.addProductForReplaseOrder(it.product,it.quantity) {
-            if(it){}
-            else{
-                basketHolder.synchronizeBasketWithServer()
-                val intent = Intent(this, BasketActivity::class.java)
-                startActivity(intent)
+        productsForOrder.forEach {
+            basketHolder.addProductForReplaseOrder(it.product, it.quantity) {
+                if (!it) {
+
+                } else {
+                    basketHolder.synchronizeBasketWithServer()
+                    val intent = Intent(this, BasketActivity::class.java)
+                    startActivity(intent)
+                }
             }
         }
-        }    }
+    }
 
     override fun showError() {
         my_order_container.visibility = View.VISIBLE

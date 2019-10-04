@@ -160,7 +160,10 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView, View.OnClickListene
     }
 
     override fun showInformation(information: String) {
+        if(information.isNotEmpty())
         information_catalog.text = information
+        else
+            reletiv.visibility = View.GONE
     }
 
     override fun showError() {

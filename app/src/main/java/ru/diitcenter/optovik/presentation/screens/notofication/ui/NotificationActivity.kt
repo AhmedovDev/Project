@@ -49,9 +49,18 @@ class NotificationActivity : MvpAppCompatActivity(), NotificationView {
             .inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notification)
-        update_notification.setOnClickListener { presenter.getNotifications() }
+
+        update_notification.setOnClickListener {
+            presenter.getNotifications()
+            notification_container.visibility = View.GONE
+        }
+
         initViews()
-        back_arrow_notification.setOnClickListener { finish() }
+
+        back_arrow_notification.setOnClickListener {
+            finish()
+        }
+
         navigator = SupportAppNavigator(this, R.id.container_notification)
 
     }
@@ -72,13 +81,14 @@ class NotificationActivity : MvpAppCompatActivity(), NotificationView {
         val adapter = NotificationAdapter(notification)
         recycler_notification.adapter = adapter
         adapter.setOnAdresClickListener { notification ->
-            if(notification.type == "stock") {
+            if (notification.type == "stock") {
                 val intent = Intent(this, CatalogActivity::class.java)
                 // todo реализовать получение имени категории
                 intent.putExtra("nameCategory", "${notification.title}")
-                intent.putExtra("category_id", notification.targetId )
-                startActivity(intent)}
-            if(notification.type == "status"){
+                intent.putExtra("category_id", notification.targetId)
+                startActivity(intent)
+            }
+            if (notification.type == "status") {
                 val intent = Intent(this, OrderInfoActivity::class.java)
                 intent.putExtra("order_id", notification.targetId)
                 startActivity(intent)

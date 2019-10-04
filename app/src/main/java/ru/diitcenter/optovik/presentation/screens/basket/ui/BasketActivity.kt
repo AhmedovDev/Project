@@ -32,8 +32,6 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
         presenter.clearBasket()
         basketHolder.synchronizeBasketWithServer()
         basketHolder.items.clear()
-        basketResultPriceCheсk()
-        basketEmptyCheck()
 
     }
 
@@ -42,9 +40,6 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
 
     override fun updateBasketView() {
         presenter.getBasket()
-        basketResultPriceCheсk()
-        basketEmptyCheck()
-        basketHolder.synchronizeBasketWithServer()
     }
 
     @Inject
@@ -83,11 +78,12 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
             val intent = Intent(this, CheckOrderActivity::class.java)
             startActivity(intent)
         }
-
         basketResultPriceCheсk()
+        basketEmptyCheck()
+
     }
 
-    private fun basketEmptyCheck() {
+    override fun basketEmptyCheck() {
         if (basketHolder.items.isEmpty()) {
             basletactivity_empty_container.visibility = View.VISIBLE
             delete_basket.visibility = View.GONE
@@ -111,16 +107,15 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
         val dialogBasketFragment =
             ru.diitcenter.optovik.presentation.global.dialogscreen.DialogBasketFragment()
         dialogBasketFragment.show(supportFragmentManager, dialogBasketFragment.tag)
-        basketEmptyCheck()
     }
 
     fun closeCheck() {
     }
 
-    private fun basketResultPriceCheсk() {
+    override fun basketResultPriceCheсk() {
         product_price.setText("%,d".format(price()))
         if (price() < freeDeliveryPrice) {
-            all_price.setText("%,d".format(price()+100))
+            all_price.setText("%,d".format(price() + 100))
             diliviry_price.setText("100")
         } else {
             rubl.visibility = View.GONE
@@ -153,20 +148,15 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
         val adapter = BasketAdapter(
             basketholder = basketHolder,
             clickListenerPlus = {
-      //          basketHolder.addProduct(it)
-                basketResultPriceCheсk()
-                basketEmptyCheck()
+                //          basketHolder.addProduct(it)
             },
             clickListenerMinus = {
-       //         basketHolder.deleteProduct(it)
-                basketResultPriceCheсk()
-                basketEmptyCheck()
+                //         basketHolder.deleteProduct(it)
             },
             clickListenerdrop = {
-                basketHolder.dropProduct(it){}
+                basketHolder.dropProduct(it) {}
                 basketResultPriceCheсk()
                 basketEmptyCheck()
-
             })
         basket_recycler.adapter = adapter
         adapter.setOnBasketClickListener {
@@ -174,13 +164,6 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
             presenter.gotoProductCard(it)
         }
 
-    }
-
-
-
-
-    fun deleteBasket() {
-        basketHolder.items.removeAll(basketHolder.items)
     }
 
     override fun showInformation(information: String) {
@@ -208,8 +191,6 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
     override fun onResumeFragments() {
         super.onResumeFragments()
         navigatorHolder.setNavigator(navigator)
-        basketResultPriceCheсk()
-        basketEmptyCheck()
     }
 
     override fun onPause() {
@@ -221,8 +202,6 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
     override fun onResume() {
         super.onResume()
         presenter.getBasket()
-        basketResultPriceCheсk()
-        basketEmptyCheck()
     }
 
     fun price(): Int {

@@ -47,11 +47,11 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
             .build()
             .inject(this)
         super.onCreate(savedInstanceState)
+
         arguments?.run {
             productId = getInt(PRODUCT)
         }
         presenter.getAllData(productId)
-
     }
 
     override fun onCreateView(
@@ -69,6 +69,7 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
+
         // скрыть клаву при нажатии на физическую кнопку "назад"
         input_product.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -81,6 +82,7 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
         button_green.setOnClickListener {
             startActivity(Intent(activity, BasketActivity::class.java))
         }
+
         updateBasketButton()
     }
 
@@ -112,21 +114,28 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
     }
 
     override fun updateBasketButton() {
-        basket.synchronizeBasketWithServer()
+
         if (basket.items.isEmpty()) {
+
             button_green.visibility = View.GONE
+
         } else {
+
             button_green.visibility = View.VISIBLE
             var priceAll: Int = 0
+
             basket.items.forEach { item ->
                 priceAll += (item.product.price * item.quantity)
             }
+
             val haveItem = basket.items.filter {
                 it.product.isEstimatedPrice == true
             }.firstOrNull()
+
             if (haveItem == null) {
                 isEstimatedPrise_product_card.visibility = View.GONE
             } else
+
                 isEstimatedPrise_product_card.visibility = View.VISIBLE
             price_on_button_product_card.setText("%,d".format(priceAll))
             count_on_button_product_card.setText("${basket.items.size}")
@@ -136,16 +145,16 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
     //
     fun plusClick(product: ru.diitcenter.optovik.data.global.models.Product) {
 
-        if (product.quantity != null) {
-            input_product.setText("${product.quantity}")
-            input_product.visibility = View.VISIBLE
-            minus.visibility = View.VISIBLE
-        }
+//        if (product.quantity != null) {
+//            input_product.setText("${product.quantity}")
+//            input_product.visibility = View.VISIBLE
+//            minus.visibility = View.VISIBLE
+//        }
 
         plus.setOnClickListener {
             if (input_product.text.toString() == "" || input_product.text.toString() == null)
                 input_product.setText("0")
-         //   sum = input_product.text.toString().toInt()
+            //   sum = input_product.text.toString().toInt()
             minus.visibility = View.VISIBLE
             input_product.visibility = View.VISIBLE
             sum += 1
@@ -153,21 +162,20 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
             basket.addProduct(product) {
                 if (!it) {
                     sum -= 1
-                    input_product.setText("$sum")
                 }
+                input_product.setText("$sum")
             }
-            basket.synchronizeBasketWithServer()
 
         }
     }
 
     fun minusClick(product: ru.diitcenter.optovik.data.global.models.Product) {
 
-        if (product.quantity != null || product.quantity != 0) {
-            input_product.setText("${product.quantity}")
-            input_product.visibility = View.VISIBLE
-            minus.visibility = View.VISIBLE
-        }
+//        if (product.quantity != null || product.quantity != 0) {
+//            input_product.setText("${product.quantity}")
+//            input_product.visibility = View.VISIBLE
+//            minus.visibility = View.VISIBLE
+//        }
 
         minus.setOnClickListener {
             if (input_product.text.toString() == "" || input_product.text.toString() == "0") {
@@ -175,16 +183,15 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
                 button_green.visibility = View.VISIBLE
             } else {
                 minus.isEnabled = true
-              //  sum = input_product.text.toString().toInt()
+                //  sum = input_product.text.toString().toInt()
                 sum -= 1
                 input_product.setText("$sum")
                 basket.deleteProduct(product) {
-                    if (!it){
+                    if (!it) {
                         sum += 1
-                        input_product.setText("$sum")
                     }
+                    input_product.setText("$sum")
                 }
-                basket.synchronizeBasketWithServer()
                 updateBasketButton()
                 if (sum == 0) {
                     minus.visibility = View.GONE
@@ -228,17 +235,19 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
         recycler_images.adapter = adapter
     }
 
+    override fun onResume() {
+        super.onResume()
+        presenter.getAllData(productId)
+    }
 
     override fun onStart() {
         super.onStart()
-        basket.synchronizeBasketWithServer()
         presenter.getAllData(productId)
     }
 
 
     //Предовать в метод продукт
     override fun showProductCardInformation(productCard: ru.diitcenter.optovik.data.global.models.ProductCard) {
-        basket.synchronizeBasketWithServer()
         var sumProducts = 0
 
         val haveItem = basket.items.filter {
@@ -274,6 +283,19 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
                     quantity = haveItem.quantity
                 )
             )
+        } else {
+            plusClick(
+                Product(
+                    id = productCard.id,
+                    image = productCard.images[0],
+                    name = productCard.title,
+                    price = productCard.price,
+                    count = productCard.count,
+                    isEstimatedPrice = productCard.isEstimatedPrice,
+                    presence = productCard.presence,
+                    quantity = 1
+                )
+            )
         }
 
         if (haveItem != null) {
@@ -289,13 +311,26 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
                     quantity = haveItem.quantity
                 )
             )
+        } else {
+            minusClick(
+                Product(
+                    id = productCard.id,
+                    image = productCard.images[0],
+                    name = productCard.title,
+                    price = productCard.price,
+                    count = productCard.count,
+                    isEstimatedPrice = productCard.isEstimatedPrice,
+                    presence = productCard.presence,
+                    quantity = 1
+                )
+            )
         }
+
 
         if (sum == 0) {
             input_product.visibility = View.GONE
             minus.visibility = View.GONE
         }
-        basket.synchronizeBasketWithServer()
     }
 
     override fun onBackPressed() = presenter.gotoback()

@@ -86,11 +86,9 @@ class BasketAdapter(
                                 sum -= 1
                             }
                             input_product_basket.setText("$sum")
-
                         }
                     }
                     clickListenerPlus(product)
-                    notifyDataSetChanged()
                 }
             }
 
@@ -122,7 +120,6 @@ class BasketAdapter(
                     }
                 }
                 clickListenerMinus(product)
-                notifyDataSetChanged()
             }
         }
 
@@ -152,7 +149,7 @@ class BasketAdapter(
             quantity: Int,
             clickListener: OnCategoryClickListener
         ) {
-            basketholder.synchronizeBasketWithServer()
+
             sum = quantity
             Picasso.get()
                 .load(product.image)
@@ -161,19 +158,20 @@ class BasketAdapter(
             containerView.price_basket.text = "%,d".format(product.price)
             containerView.count_product_basket.text = product.count
             containerView.input_product_basket.setText("$sum")
+
             if (input_product_basket.text.toString() != "") {
                 input_product_basket.visibility = View.VISIBLE
                 minus_basket.visibility = View.VISIBLE
 
-
-
                 if (input_product_basket.text.toString() == "") minus.visibility = View.GONE
+
             }
             val isEstimatedPrice = product.isEstimatedPrice
             if (isEstimatedPrice) containerView.isEstimatedPrise_basket.visibility = View.VISIBLE
             else containerView.isEstimatedPrise_basket.visibility = View.GONE
-            itemView.setOnClickListener { clickListener.invoke(product)
-            basketholder.synchronizeBasketWithServer()}
+            itemView.setOnClickListener {
+                clickListener.invoke(product)
+            }
         }
 
 

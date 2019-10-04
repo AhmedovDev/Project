@@ -1,7 +1,10 @@
 package ru.diitcenter.optovik.presentation.screens.splash.ui
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.util.Base64
 import android.util.Log
 import android.view.ViewDebug
@@ -12,6 +15,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.google.firebase.iid.FirebaseInstanceId
 import ru.diitcenter.optovik.data.basketholder.BasketHolder
 import ru.diitcenter.optovik.data.global.models.Basket
+import ru.diitcenter.optovik.data.network.isNetworkAvailable
 import ru.diitcenter.optovik.data.prefs.PrefsHelper
 import ru.diitcenter.optovik.presentation.screens.autorization.ui.AutorizationActivity
 import ru.diitcenter.optovik.presentation.screens.main.ui.MainActivity
@@ -55,41 +59,47 @@ class SplashActivity : MvpAppCompatActivity(), SplashView {
             val pushType = it.getString("type", "")
             val targetId = it.getString("targetId", "")
 
-            if(pushType == "mailing"){
+            if (pushType == "mailing") {
                 val intent = Intent(this, NotificationActivity::class.java)
-                startActivity(intent)}
-            if(pushType == "stock"){
+                startActivity(intent)
+            }
+            if (pushType == "stock") {
                 // todo реализовать получение имени категории
                 intent.putExtra("nameCategory", "${pushType}")
-                intent.putExtra("category_id", targetId )
+                intent.putExtra("category_id", targetId)
                 startActivity(intent)
                 startActivity(intent)
             }
-            if(pushType == "status"){
+            if (pushType == "status") {
                 val intent = Intent(this, OrderInfoActivity::class.java)
                 intent.putExtra("order_id", targetId)
                 startActivity(intent)
             }
 
             Log.e("PUSH_TYPE - ", pushType)
-            Log.e("PUSH_TARGET"," - $targetId")
+            Log.e("PUSH_TARGET", " - $targetId")
+
         }
 
         val token = FirebaseInstanceId.getInstance().getToken()
         Log.d("TOKEN_PUSH", "$token")
 
+        Log.e("TOKEN_USER", "${prefsHelper.getToken()}")
+        basketHelper.synchronizeBasketWithServer()
 
+        if(isNetworkAvailable(applicationContext)){
+            presenter.getBasket()
             presenter.setPushToken(token.toString(),prefsHelper.getToken().toString())
-
-
-
-        Log.e("TOKEN_USER","${prefsHelper.getToken()}")
+        }
+        else{
+            goToMain()
+        }
     }
 
     override fun goToMain() {
-                   val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
 
     }
 
@@ -103,9 +113,9 @@ class SplashActivity : MvpAppCompatActivity(), SplashView {
                 )
             } as MutableList
         }
-   }
+    }
 
-    override fun showError() {
+      override fun showError() {
         Toast.makeText(this, "Проблемы с интернетом", Toast.LENGTH_SHORT).show()
     }
 

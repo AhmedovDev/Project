@@ -22,7 +22,7 @@ class CheckOrderPresenter @Inject constructor(
             .subscribeOn(Schedulers.io())
             .subscribe(
                 { data ->
-                    viewState.goToMyOrders()
+                    viewState.goToMain()
                 },
                 {
                     viewState.showError()

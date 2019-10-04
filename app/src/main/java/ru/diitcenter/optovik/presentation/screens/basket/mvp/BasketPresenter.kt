@@ -24,14 +24,14 @@ class BasketPresenter @Inject constructor(
     }
 
     override fun onUpdateBasketItems(items: MutableList<ru.diitcenter.optovik.data.basketholder.BasketHolder.Item>) {
-
+        viewState.basketResultPriceCheсk()
+        viewState.basketEmptyCheck()
         viewState.showBasket(items.map {
             Basket(
                 it.product,
                 it.quantity
             )
         })
-        basketHolder.synchronizeBasketWithServer()
     }
 
     fun getBasketDiliveryPrice() {
@@ -61,7 +61,6 @@ class BasketPresenter @Inject constructor(
                     viewState.showError()
                 }
             )
-        basketHolder.synchronizeBasketWithServer()
     }
 
     fun getBasket() {

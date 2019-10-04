@@ -4,5 +4,5 @@ import com.arellomobile.mvp.MvpView
 
 interface CheckOrderView : MvpView {
     fun showError()
-    fun goToMyOrders()
+    fun goToMain()
 }

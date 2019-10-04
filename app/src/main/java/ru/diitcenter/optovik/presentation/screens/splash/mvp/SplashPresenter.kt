@@ -20,7 +20,7 @@ class SplashPresenter @Inject constructor(
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        getBasket()
+     //   getBasket()
     }
 
     fun getBasket() {
@@ -30,18 +30,25 @@ class SplashPresenter @Inject constructor(
             .subscribe(
                 { data ->
                     data.basket?.let {
-                        basketHolder.synchronizeBasketWithServer()
                         viewState.goToMain()
                     }
-                    viewState.goToMain()
+                        viewState.goToMain()
                 },
                 { error ->
-                    when ((error as HttpException).code()) {
-                        401 -> {
-                            viewState.goToAutorization() // Токен истек или не существует
+                    Log.e("ERROR_Exception: ", "$error")
+                    if (error is HttpException) {
+                        when (error.code()) {
+                            401 -> {
+                                viewState.goToAutorization() // Токен истек или не существует
+                            }
+                            500 -> {
+                                viewState.goToMain()
+                            }
+                            else -> viewState.showError()
                         }
-                        else -> viewState.showError()
                     }
+                    else viewState.showError()
+
 
                 }
             )
@@ -52,7 +59,8 @@ class SplashPresenter @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe(
-                { data ->
+                {
+                        data ->
                 }
                 ,
                 { error ->

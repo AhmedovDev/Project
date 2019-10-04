@@ -99,7 +99,7 @@ class NotificationAdapter(private val notification: List<ru.diitcenter.optovik.d
 //                lastDate = notification.date
 //            }
             containerView.time_notification.text = notification.time
-            containerView.information_notification.text = notification.title
+            containerView.information_notification.text = notification.information
 
             itemView.setOnClickListener { clickListener?.invoke(notification) }
 

@@ -25,6 +25,7 @@ class CatalogAdapter(
 
     private var clickListener: OnCategoryClickListener? = null
 
+    private var isFirstOpen = true
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatalogViewHolder {
         val itemView = LayoutInflater
@@ -34,11 +35,14 @@ class CatalogAdapter(
     }
 
     override fun onBindViewHolder(holder: CatalogViewHolder, position: Int) {
-        holder.bind(products[position], clickListener!!)
         // todo сделать нормально
         holder.plusClick(products[position])
         holder.minusClick(products[position])
+        holder.bind(products[position], clickListener!!)
+
 //        holder.keyboardHide()
+
+
     }
 
     override fun getItemCount(): Int = products.size
@@ -61,20 +65,30 @@ class CatalogAdapter(
             with(containerView) {
 
 
+                val item = basket.items.filter { it.product.id == product.id }.firstOrNull()
+
+
+
                 plus.setOnClickListener {
                     if (input_product.text.toString() == "")
                         input_product.setText("0")
-                    sum = input_product.text.toString().toInt()
-                    minus.visibility = View.VISIBLE
-                    input_product.visibility = View.VISIBLE
-                    sum += 1
-                    basket.addProduct(product) {
-                        if (it)
-                            sum -= 1
+                    else {
+                        if (item != null) {
+                            sum = item.quantity
+                        } else
+                            sum = 0
+                        //  sum = input_product.text.toString().toInt()
+                        minus.visibility = View.VISIBLE
+                        input_product.visibility = View.VISIBLE
+                        sum += 1
+                        basket.addProduct(product) {
+                            if (!it)
+                                sum -= 1
+                        }
+                        input_product.setText("$sum")
+                        clickListenerPlus(product)
+                        notifyDataSetChanged()
                     }
-                    input_product.setText("$sum")
-                    clickListenerPlus(product)
-//                    notifyDataSetChanged()
                 }
             }
 
@@ -82,14 +96,21 @@ class CatalogAdapter(
 
         fun minusClick(product: ru.diitcenter.optovik.data.global.models.Product) {
             minus.setOnClickListener {
+                val item = basket.items.filter { it.product.id == product.id }.firstOrNull()
+
                 if (input_product.text.toString() == "" || input_product.text.toString() == "0") {
                     minus.visibility = View.GONE
                 } else {
                     minus.isEnabled = true
-                    sum = input_product.text.toString().toInt()
+                    if (item != null) {
+                        sum = item.quantity
+                    }
+                    else
+                        sum = 0
+                   // sum = input_product.text.toString().toInt()
                     sum -= 1
                     basket.deleteProduct(product) {
-                        if (it)
+                        if (!it)
                             sum += 1
                     }
                     if (sum == 0) {
@@ -99,8 +120,8 @@ class CatalogAdapter(
                     }
                     input_product.setText("$sum")
                     clickListenerMinus(product)
+                    notifyDataSetChanged()
                 }
-//                notifyDataSetChanged()
             }
         }
 
@@ -126,14 +147,24 @@ class CatalogAdapter(
             val item = basket.items.filter { it.product.id == product.id }.firstOrNull()
 
             if (item != null) {
-                sum = item.quantity
+                if (isFirstOpen) {
+                    sum = item.quantity
+                }
+                isFirstOpen = false
                 containerView.input_product.setText("${item.quantity}")
                 containerView.input_product.visibility = View.VISIBLE
                 containerView.minus.visibility = View.VISIBLE
+
+            }
+            else{
+                containerView.input_product.setText("${0}")
+                containerView.input_product.visibility = View.GONE
+                containerView.minus.visibility = View.GONE
+
             }
 
             Picasso.get()
-                .load(product.image)
+                .load(product.image).fit()
                 .into(containerView.image_product)
             containerView.product_name.text = product.name
             containerView.price.text = "%,d".format(product.price)
@@ -158,12 +189,15 @@ class CatalogAdapter(
 
             if (input_product.text.toString() == "") minus.visibility = View.GONE
 
-            containerView.image_product.setOnClickListener { clickListener.invoke(product)
-            basket.synchronizeBasketWithServer()}
-            containerView.product_name.setOnClickListener { clickListener.invoke(product)
-            basket.synchronizeBasketWithServer()}
-            containerView.price_and_count.setOnClickListener { clickListener.invoke(product)
-            basket.synchronizeBasketWithServer()}
+            containerView.image_product.setOnClickListener {
+                clickListener.invoke(product)
+            }
+            containerView.product_name.setOnClickListener {
+                clickListener.invoke(product)
+            }
+            containerView.price_and_count.setOnClickListener {
+                clickListener.invoke(product)
+            }
         }
     }
 }
