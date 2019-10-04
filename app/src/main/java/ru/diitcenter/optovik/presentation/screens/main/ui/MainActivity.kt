@@ -27,8 +27,6 @@ import ru.diitcenter.optovik.presentation.screens.notofication.ui.NotificationAc
 import ru.diitcenter.optovik.presentation.screens.orderinfo.ui.OrderInfoActivity
 import ru.example.optovik.R
 import ru.terrakok.cicerone.Navigator
-import ru.terrakok.cicerone.Router
-import ru.terrakok.cicerone.Screen
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 
 
@@ -72,16 +70,20 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             .inject(this)
         intent.action
         isPushNavigate = intent.getBooleanExtra(IS_PUSH_NAVIGATE_KEY, false)
-        pushTargetId = intent.getIntExtra(IS_PUSH_NAVIGATE_TARGET_ID,4)
+        pushTargetId = intent.getIntExtra(IS_PUSH_NAVIGATE_TARGET_ID, 3245235)
         pushType = intent.getStringExtra(IS_PUSH_NAVIGATE_TYPE) ?: "not"
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
+
 //        presenter.getBasket()
         initViews()
+
         navigator = SupportAppNavigator(this, R.id.container_main_activity)
         button_basket_main.setOnClickListener {
             val intent = Intent(this, BasketActivity::class.java)
             startActivity(intent)
+
         }
         order_main.setOnClickListener {
             val intent = Intent(this, MyOrderActivity::class.java)
@@ -224,14 +226,23 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
 
         if (isPushNavigate){
-            if(pushType == "mailing"){
+            if(pushType == "1"){
             val intent = Intent(this, NotificationActivity::class.java)
+                isPushNavigate = false
             startActivity(intent)}
-            if(pushType == "stock"){
-                presenter.goToProductCard(pushTargetId)
+            if(pushType == "0"){
+                val intent = Intent(this, CatalogActivity::class.java)
+                intent.putExtra("nameCategory", "Акция")
+                intent.putExtra("category_id", pushTargetId)
+                isPushNavigate = false
+                startActivity(intent)
             }
-            if(pushType == "status"){
-                oneOrderClick(pushTargetId)
+            if(pushType == "2"){
+                val intent = Intent(this, OrderInfoActivity::class.java)
+                intent.putExtra("order_id", pushTargetId)
+                isPushNavigate = false
+                startActivity(intent)
+
             }
         }
     }

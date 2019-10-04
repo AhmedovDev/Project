@@ -32,29 +32,44 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         if (remoteMessage.notification != null) {
 
-            val targetId: String? = remoteMessage.data["targetId"]
 
-            val type: String? = remoteMessage.data["type"]
-            val status: String? = remoteMessage.data["status"]
-            val orderStatus : String? = remoteMessage.data["order_status"]
+            val categoryId: String? = remoteMessage.data.get("category")
+            val orderId: String? = remoteMessage.data.get("order_id")
+
+
+            Log.e("REMOTE_DATE", "${remoteMessage.data}")
+
+            val type: String? = remoteMessage.data.get("type")
+            val status: String? = remoteMessage.data.get("status")
+            //  val orderStatus: String? = remoteMessage.data.get("order_status")
             showNotification(
                 remoteMessage.notification?.title,
                 remoteMessage.notification?.body,
-                targetId?.toInt(),
+                categoryId?.toInt(),
+                orderId?.toInt(),
                 type.toString()
-                )
-            Log.e("TARGET", "$targetId")
-            Log.e("TYPE", "$type")
-            Log.e("STATUS", "$status")
-            Log.e("ORDER_STATUS", "$orderStatus")
+            )
+            Log.e("PUSH_CATEGORY  ", "$categoryId")
+            Log.e("PUSH_TYPE  " , "$type")
+            Log.e("PUSH_STATUS  ", "$status")
+            Log.e("PUSH_ORDER", "$orderId")
         }
     }
 
-    private fun showNotification(title: String?, body: String?, targetId: Int?, type: String) {
-        val intent = Intent(this, SplashActivity::class.java)
+    private fun showNotification(
+        title: String?,
+        body: String?,
+        categoryId: Int?,
+        orderId: Int?,
+        type: String
+    ) {
+        val intent = Intent(this, MainActivity::class.java)
         intent.putExtra(MainActivity.IS_PUSH_NAVIGATE_KEY, true)
         intent.putExtra(MainActivity.IS_PUSH_NAVIGATE_TYPE, type)
-        intent.putExtra(MainActivity.IS_PUSH_NAVIGATE_TARGET_ID, targetId)
+        if(categoryId != null)
+        intent.putExtra(MainActivity.IS_PUSH_NAVIGATE_TARGET_ID, categoryId)
+        if(orderId != null)
+            intent.putExtra(MainActivity.IS_PUSH_NAVIGATE_TARGET_ID, orderId)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val pendingIntent = PendingIntent.getActivity(
             this, 0, intent,

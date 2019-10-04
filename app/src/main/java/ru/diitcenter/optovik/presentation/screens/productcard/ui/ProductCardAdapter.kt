@@ -37,7 +37,6 @@ class ProductCardAdapter(private val productCard: List<String>) :
                     .load(image)
                     .fit()
                     .centerCrop()
-                    .placeholder(R.drawable.box)
                     .into(containerView.image_product_card)
 
 

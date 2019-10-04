@@ -38,6 +38,7 @@ class EventAdapter(private val event: List<ru.diitcenter.optovik.data.global.mod
         fun bind(event: ru.diitcenter.optovik.data.global.models.Event, clickListener: OnEventClickListener?) {
             Picasso.get()
                 .load(event.image)
+                .fit()
                 .into(containerView.image_event)
 
             itemView.setOnClickListener { clickListener?.invoke(event) }

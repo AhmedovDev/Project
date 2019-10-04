@@ -164,7 +164,7 @@ class CatalogAdapter(
             }
 
             Picasso.get()
-                .load(product.image).fit()
+                .load(product.image)
                 .into(containerView.image_product)
             containerView.product_name.text = product.name
             containerView.price.text = "%,d".format(product.price)

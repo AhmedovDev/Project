@@ -30,7 +30,7 @@ class SplashPresenter @Inject constructor(
             .subscribe(
                 { data ->
                     data.basket?.let {
-                        viewState.goToMain()
+                        //viewState.goToMain()
                     }
                         viewState.goToMain()
                 },

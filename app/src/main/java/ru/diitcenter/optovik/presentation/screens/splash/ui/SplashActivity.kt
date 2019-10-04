@@ -48,6 +48,9 @@ class SplashActivity : MvpAppCompatActivity(), SplashView {
     @ProvidePresenter
     fun providePresenter() = presenter
 
+    var pushType = ""
+    var targetId = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         ru.diitcenter.optovik.App.appComponent.splashComponentBuilder()
             .build()
@@ -56,8 +59,8 @@ class SplashActivity : MvpAppCompatActivity(), SplashView {
         setContentView(R.layout.activity_splash)
 
         intent.extras?.let {
-            val pushType = it.getString("type", "")
-            val targetId = it.getString("targetId", "")
+           pushType = it.getString("type", "")
+            targetId = it.getString("targetId", "")
 
             if (pushType == "mailing") {
                 val intent = Intent(this, NotificationActivity::class.java)
@@ -98,6 +101,9 @@ class SplashActivity : MvpAppCompatActivity(), SplashView {
 
     override fun goToMain() {
         val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra(MainActivity.IS_PUSH_NAVIGATE_KEY, true)
+        intent.putExtra(MainActivity.IS_PUSH_NAVIGATE_TYPE, pushType)
+        intent.putExtra(MainActivity.IS_PUSH_NAVIGATE_TARGET_ID, targetId)
         startActivity(intent)
         finish()
 
