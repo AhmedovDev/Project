@@ -80,6 +80,11 @@ interface MainApi {
         @Field("count") count: Int
     ): Single<Product>
 
+    @GET("/api/v1/operatorphone")
+    fun getOreratorPhone (
+
+    ): Single<OperatorPhone>
+
     @GET("/api/v1/cart/clear")
     fun clearBasket(): Single<Basket>
 

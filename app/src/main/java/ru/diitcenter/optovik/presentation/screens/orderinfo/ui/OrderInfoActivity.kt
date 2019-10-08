@@ -70,9 +70,12 @@ class OrderInfoActivity : MvpAppCompatActivity(), OrderInfoView, DialogFeedbackF
         info_constraint.visibility = View.VISIBLE
         check_order_info.visibility = View.VISIBLE
         bottom_buttons.visibility = View.VISIBLE
+
         initViews()
+
         repeat_order.setOnClickListener { showBottomSheetDialogFragmentRepeatOrder() }
         presenter.getOrderInfo(intent.getIntExtra("order_id", 2))
+
         update_order_info.setOnClickListener {
             presenter.getOrderInfo(
                 intent.getIntExtra(
@@ -80,8 +83,10 @@ class OrderInfoActivity : MvpAppCompatActivity(), OrderInfoView, DialogFeedbackF
                     2
                 )
             )
+            order_activity_container.visibility = View.GONE
         }
         back_arrow_order_info.setOnClickListener { finish() }
+
         write_feedback.setOnClickListener { showBottomSheetDialogFragment() }
     }
 

@@ -1,5 +1,6 @@
 package ru.diitcenter.optovik.presentation.screens.basket.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
@@ -141,7 +142,12 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
     }
 
     fun updateClick() {
-        update_catalog.setOnClickListener { presenter.getBasket() }
+        update_catalog.setOnClickListener { presenter.getBasket()
+            basket_nestedscroll.visibility = View.VISIBLE
+            reletiv.visibility = View.VISIBLE
+            basletactivity_container.visibility = View.GONE
+            check_order_basket.visibility = View.VISIBLE
+        }
     }
 
     override fun showProgress(progress: Boolean) {
@@ -179,6 +185,9 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
         basket_nestedscroll.visibility = View.GONE
         reletiv.visibility = View.GONE
         basletactivity_container.visibility = View.VISIBLE
+        check_order_basket.visibility = View.GONE
+        container_basket.visibility = View.GONE
+
     }
 
     override fun visiblBasket() {

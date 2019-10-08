@@ -2,7 +2,6 @@ package ru.diitcenter.optovik.presentation.screens.search.ui
 
 
 import android.os.Bundle
-import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,6 +13,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import kotlinx.android.synthetic.main.fragment_search.*
 import ru.diitcenter.optovik.data.global.models.Product
+import ru.diitcenter.optovik.data.network.isNetworkAvailable
 import ru.diitcenter.optovik.presentation.global.utils.hideKeyboard
 import ru.diitcenter.optovik.presentation.global.utils.showKeyboard
 import ru.diitcenter.optovik.presentation.screens.search.mvp.SearchPresenter
@@ -62,6 +62,18 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //todo на случай если нет интернета
+
+//        if (isNetworkAvailable(context)) {
+//            showNetworkProblem()
+//        }
+//        else {
+//            constraintLayout5.visibility = View.VISIBLE
+//            search_error_container.visibility = View.GONE
+//
+//        }
+
 
         back_arrow_search.setOnClickListener {
             presenter.back()
@@ -113,6 +125,13 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
 
         })
         emptyBasketCheck()
+    }
+
+    private fun showNetworkProblem() {
+        search_error_container.visibility = View.VISIBLE
+        constraintLayout5.visibility = View.GONE
+        constraintLayout2.visibility = View.GONE
+
     }
 
     override fun emptyBasketCheck() {

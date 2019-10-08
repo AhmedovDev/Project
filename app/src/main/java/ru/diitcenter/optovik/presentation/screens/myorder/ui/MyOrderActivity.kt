@@ -1,5 +1,6 @@
 package ru.diitcenter.optovik.presentation.screens.myorder.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
@@ -55,7 +56,8 @@ class MyOrderActivity : MvpAppCompatActivity(), MyOrderView,
         setContentView(R.layout.activity_my_order)
         initViews()
         back_arrow_my_order.setOnClickListener { finish() }
-        update_my_order.setOnClickListener { presenter.getMyOrders() }
+        update_my_order.setOnClickListener { presenter.getMyOrders()
+        my_order_container.visibility = View.GONE }
     }
 
 

@@ -1,10 +1,6 @@
 package ru.diitcenter.optovik.presentation.screens.main.ui
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import android.os.Bundle
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -16,8 +12,6 @@ import android.support.v7.widget.*
 import android.view.View
 import kotlinx.android.synthetic.main.toolbar_main.*
 import ru.diitcenter.optovik.data.network.isNetworkAvailable
-import ru.diitcenter.optovik.presentation.global.Screens
-import ru.diitcenter.optovik.presentation.global.utils.hideKeyboard
 import ru.diitcenter.optovik.presentation.screens.basket.ui.BasketActivity
 import ru.diitcenter.optovik.presentation.screens.catalog.ui.CatalogActivity
 import ru.diitcenter.optovik.presentation.screens.main.mvp.MainPresenter
@@ -97,6 +91,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         }
         emptyBasketCheck()
         updateBasketButtonMain()
+
         if (isNetworkAvailable(applicationContext)) {
             presenter.getAllData()
         } else

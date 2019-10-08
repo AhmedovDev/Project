@@ -159,10 +159,12 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
             input_product.visibility = View.VISIBLE
             sum += 1
             input_product.setText("$sum")
+            plus.isEnabled = false
             basket.addProduct(product) {
                 if (!it) {
                     sum -= 1
                 }
+                plus.isEnabled = true
                 input_product.setText("$sum")
             }
 

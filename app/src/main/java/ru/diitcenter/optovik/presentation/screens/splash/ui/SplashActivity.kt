@@ -1,13 +1,8 @@
 package ru.diitcenter.optovik.presentation.screens.splash.ui
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.content.Intent
-import android.net.ConnectivityManager
-import android.util.Base64
 import android.util.Log
-import android.view.ViewDebug
 import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter

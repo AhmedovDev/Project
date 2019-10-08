@@ -10,6 +10,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import kotlinx.android.synthetic.main.activity_check_order.*
 import kotlinx.android.synthetic.main.activity_check_order.rubl
 import kotlinx.android.synthetic.main.toolbar_check_order.*
+import ru.diitcenter.optovik.data.network.isNetworkAvailable
 import ru.diitcenter.optovik.presentation.global.dialogscreen.DialogFeedbackFragment
 import ru.diitcenter.optovik.presentation.global.utils.hideKeyboard
 import ru.diitcenter.optovik.presentation.screens.adresbook.ui.AdresbookActivity
@@ -78,6 +79,12 @@ class CheckOrderActivity : MvpAppCompatActivity(), CheckOrderView {
             basket.synchronizeBasketWithServer()
 
         }
+
+        //todo как обновлять эран???
+        if (isNetworkAvailable(applicationContext)) {
+            check_order_error_container.visibility = View.VISIBLE
+        } else
+            check_order_error_container.visibility = View.GONE
     }
 
     override fun goToMain() {
