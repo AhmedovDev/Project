@@ -28,8 +28,8 @@ class InputPhonePresenter @Inject constructor(
                     },
                     {
                         when ((it as HttpException).code()) {
-                            404 -> {   // если пользователя нет в системе
-                             //   viewState.goToAutorization() // Токен истек или не существует
+                            404 -> {
+                                viewState.showProblem()
                             }
                             else ->viewState.showError()
                         }

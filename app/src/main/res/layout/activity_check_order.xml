@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/check_order_constraint"
+    xmlns:mask="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -126,18 +127,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <br.com.sapereaude.maskedEditText.MaskedEditText
+                    android:background="@color/colorPrimaryDark"
                     android:id="@+id/connect_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="12dp"
-                    android:fontFamily="@font/sfpromedium"
-                    android:text="8 (928) 472-32-98"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="80dp"
+                    android:ems="10"
+                    android:fontFamily="@font/sfprolight"
+                    android:hint="79001234567"
+                    android:imeOptions="actionDone"
+                    android:includeFontPadding="false"
+                    android:inputType="number"
+                    android:paddingLeft="16dp"
+                    android:singleLine="false"
+                    android:textSize="18sp"
+                    android:typeface="monospace"
+                    android:visibility="visible"
+                    mask:allowed_chars="1234567890"
+                    mask:layout_constraintBottom_toTopOf="@+id/buttonNext"
+                    mask:layout_constraintEnd_toEndOf="parent"
+                    mask:layout_constraintHorizontal_bias="0.0"
+                    mask:layout_constraintStart_toStartOf="parent"
+                    mask:layout_constraintTop_toBottomOf="@+id/message"
+                    mask:mask="+# (###) ###-##-##" />
+
 
                 <ImageView
                     android:id="@+id/imageView7"

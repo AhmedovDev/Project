@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.item_order_info.*
 import kotlinx.android.synthetic.main.item_order_info.view.*
+import kotlinx.android.synthetic.main.item_order_info.view.bottom_border_order_info
 import ru.diitcenter.optovik.data.global.models.Basket
 import ru.example.optovik.R
 
+private  var sizeList = 0
 private typealias OnProductClickListener = ((ru.diitcenter.optovik.data.global.models.Basket) -> Unit)
 
 class OrderInfoAdapter(private val products: List<ru.diitcenter.optovik.data.global.models.Basket>) :
@@ -21,6 +24,7 @@ class OrderInfoAdapter(private val products: List<ru.diitcenter.optovik.data.glo
         val itemView = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.item_order_info, parent, false)
+        sizeList = products.size
         return OrderInfoViewHolder(itemView)
     }
 
@@ -45,6 +49,8 @@ class OrderInfoAdapter(private val products: List<ru.diitcenter.optovik.data.glo
             containerView.quantity_order_info.text = products.quantity.toString()
             itemView.setOnClickListener { clickListener?.invoke(products) }
 
+            if(adapterPosition == sizeList-1)
+                bottom_border_order_info.visibility = View.GONE
 
         }
     }

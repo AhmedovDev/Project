@@ -84,9 +84,7 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView, View.OnClickListene
     private fun initViews() {
         product_recycler.run {
             layoutManager = LinearLayoutManager(product_recycler.context)
-            addItemDecoration(
-                DividerItemDecoration(product_recycler.context, DividerItemDecoration.VERTICAL)
-            )
+
         }
     }
 

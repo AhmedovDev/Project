@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.item_catalog.*
 import kotlinx.android.synthetic.main.item_catalog.view.*
 import ru.diitcenter.optovik.presentation.global.utils.hideKeyboard
 
+private  var sizeList = 0
 private typealias OnCategoryClickListener = ((ru.diitcenter.optovik.data.global.models.Product) -> Unit)
 
 class CatalogAdapter(
@@ -31,6 +32,9 @@ class CatalogAdapter(
         val itemView = LayoutInflater
             .from(parent.context)
             .inflate(ru.example.optovik.R.layout.item_catalog, parent, false)
+
+        sizeList = products.size
+
         return CatalogViewHolder(itemView)
     }
 
@@ -81,9 +85,11 @@ class CatalogAdapter(
                         minus.visibility = View.VISIBLE
                         input_product.visibility = View.VISIBLE
                         sum += 1
+                        plus.isEnabled = false
                         basket.addProduct(product) {
                             if (!it)
                                 sum -= 1
+                            plus.isEnabled = true
                         }
                         input_product.setText("$sum")
                         clickListenerPlus(product)
@@ -189,15 +195,12 @@ class CatalogAdapter(
 
             if (input_product.text.toString() == "") minus.visibility = View.GONE
 
-            containerView.image_product.setOnClickListener {
+            itemView.setOnClickListener {
                 clickListener.invoke(product)
             }
-            containerView.product_name.setOnClickListener {
-                clickListener.invoke(product)
-            }
-            containerView.price_and_count.setOnClickListener {
-                clickListener.invoke(product)
-            }
+
+            if(adapterPosition == sizeList-1)
+                bottom_border_catalog.visibility = View.GONE
         }
     }
 }

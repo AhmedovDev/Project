@@ -40,12 +40,11 @@ class SearchPresenter @Inject constructor(
             .doAfterTerminate { viewState.showProgress(false) }
             .subscribe(
                 { data ->
-                    data.searchProducts?.let {
                         viewState.showFoundProducts(data.searchProducts)
-                    }
+
                 },
                 {
-                    viewState.showError()
+                    viewState.notFound()
                 }
             )
             .connect()

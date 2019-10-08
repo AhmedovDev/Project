@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.item_catalog.*
 import ru.diitcenter.optovik.presentation.global.utils.hideKeyboard
 import ru.example.optovik.R
 
+private var sizeList = 0
 private typealias OnCategoryClickListener = ((ru.diitcenter.optovik.data.global.models.Product) -> Unit)
 
 @Suppress("DEPRECATION")
@@ -31,6 +32,7 @@ class BasketAdapter(
         val itemView = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.item_basket, parent, false)
+            sizeList = basketholder.items.size
         return BasketViewHolder(itemView)
     }
 
@@ -172,6 +174,9 @@ class BasketAdapter(
             itemView.setOnClickListener {
                 clickListener.invoke(product)
             }
+
+            if(adapterPosition == sizeList - 1)
+                bottom_border_basket.visibility = View.GONE
         }
 
 

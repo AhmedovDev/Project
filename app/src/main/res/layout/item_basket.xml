@@ -163,4 +163,11 @@
         app:layout_constraintTop_toTopOf="parent"
         mask:srcCompat="@drawable/xxl" />
 
+    <View
+        android:id="@+id/bottom_border_basket"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="#F6F6F6" />
+
 </android.support.constraint.ConstraintLayout>

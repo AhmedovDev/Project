@@ -74,7 +74,7 @@ class InputCodeFragment : ru.diitcenter.optovik.presentation.global.BaseFragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        phoneOnEditCode.text = phone
+        phoneOnEditCode.text = prefsHelper.getPhone()
 
         getCode.setOnTouchListener { _, _ ->
             hideKeyboard()

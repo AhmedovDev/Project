@@ -70,7 +70,7 @@ class AdresbookAdapter(private val location: List<ru.diitcenter.optovik.data.glo
                 mSelectedItem = getAdapterPosition()
                 // todo доработать
                 prefsHelper.saveAddress(location.address)
-                prefsHelper.savePhone(location.phone)
+              //  prefsHelper.savePhone(location.phone)
                 notifyDataSetChanged()
                 clickListener?.invoke(location)
             }

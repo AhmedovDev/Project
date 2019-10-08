@@ -5,5 +5,6 @@ import com.arellomobile.mvp.MvpView
 interface InputPhoneView : MvpView{
     fun showProgress(progress: Boolean)
     fun showError()
+    fun showProblem()
     fun goToInputCode()
 }

@@ -41,6 +41,8 @@ class EventAdapter(private val event: List<ru.diitcenter.optovik.data.global.mod
                 .fit()
                 .into(containerView.image_event)
 
+
+
             itemView.setOnClickListener { clickListener?.invoke(event) }
         }
     }

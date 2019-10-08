@@ -38,6 +38,8 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
     @ProvidePresenter
     fun providePresenter() = presenter
 
+    var isFirstStart = false
+
 
     private lateinit var navigator: Navigator
 
@@ -73,16 +75,6 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
             false
         }
 
-        // todo реализовать скрыие клавиатуры
-//        search_recycler.setOnTouchListener { _, _ ->
-//            hideKeyboard()
-//            input_search.clearFocus()
-//            search_view.clearFocus()
-//            search_recycler.requestFocus()
-//           // search_view.requestFocus()
-//            true
-//        }
-
         input_search.requestFocus()
 
         context?.let { showKeyboard(it) }
@@ -96,6 +88,7 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
         }
         clear.setOnClickListener {
             input_search.setText("")
+            not_found_container.visibility = View.GONE
         }
 
         input_search.addTextChangedListener(object : TextWatcher {
@@ -107,10 +100,14 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (!input_search.text.toString().isNullOrEmpty()) {
+                if (!input_search.text.toString().isBlank()) {
                     presenter.search(input_search.text.toString())
+                    search_recycler.visibility = View.VISIBLE
                     clear.visibility = View.VISIBLE
+
                 } else {
+                    clear.visibility = View.GONE
+                    search_recycler.visibility = View.GONE
                 }
             }
 
@@ -129,9 +126,6 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
     private fun initViews() {
         search_recycler.run {
             layoutManager = LinearLayoutManager(search_recycler.context)
-            addItemDecoration(
-                DividerItemDecoration(search_recycler.context, DividerItemDecoration.VERTICAL)
-            )
         }
     }
 
@@ -167,9 +161,7 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
             hideKeyboard()
         }
 
-
-        not_found_container.visibility = View.GONE
-        if (products.isEmpty())
+        if (products.size == 0)
             not_found_container.visibility = View.VISIBLE
         else
             not_found_container.visibility = View.GONE
@@ -192,7 +184,7 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
         count_on_button_search.setText("${basket.items.size}")
     }
 
-    override fun showError() {
+    override fun notFound() {
         not_found_container.visibility = View.VISIBLE
     }
 

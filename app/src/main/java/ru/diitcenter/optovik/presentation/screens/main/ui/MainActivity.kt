@@ -124,9 +124,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     private fun initViews() {
         category_recycler.run {
             layoutManager = LinearLayoutManager(category_recycler.context)
-            addItemDecoration(
-                DividerItemDecoration(category_recycler.context, DividerItemDecoration.VERTICAL)
-            )
+
         }
 
         event_recycler.run {
@@ -178,7 +176,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     }
 
     override fun showLastOrder(lastOrder: ru.diitcenter.optovik.data.global.models.MyOrder) {
-        order_id_main.text = "Заказ №" + lastOrder.id.toString()
+        order_id_main.text = "Заказ№ " + lastOrder.id.toString()
         sum_main.text = "%,d".format(lastOrder.sum) + " \u20BD"
         title_main.text = lastOrder.title
         order_date_main.text = lastOrder.date

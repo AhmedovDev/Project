@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_catalog.*
 import kotlinx.android.synthetic.main.activity_catalog.reletiv
 import kotlinx.android.synthetic.main.activity_catalog.update_catalog
 import kotlinx.android.synthetic.main.toolbar_basker.*
+import ru.diitcenter.optovik.presentation.global.utils.hideKeyboard
 import ru.diitcenter.optovik.presentation.screens.basket.mvp.BasketPresenter
 import ru.diitcenter.optovik.presentation.screens.basket.mvp.BasketView
 import ru.diitcenter.optovik.presentation.screens.catalog.ui.CatalogActivity
@@ -74,6 +75,9 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
         delete_basket.setOnClickListener {
             showBottomSheetDialogFragment()
         }
+
+        hideKeyboard()
+
         check_order_basket.setOnClickListener {
             val intent = Intent(this, CheckOrderActivity::class.java)
             startActivity(intent)

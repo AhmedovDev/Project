@@ -149,4 +149,14 @@
         app:srcCompat="@drawable/ic_button_minus"
         tools:ignore="VectorDrawableCompat" />
 
+    <View
+        android:id="@+id/bottom_border_catalog"
+        android:background="#F6F6F6"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
 </android.support.constraint.ConstraintLayout>

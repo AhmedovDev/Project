@@ -16,6 +16,7 @@ import android.widget.Toast
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import kotlinx.android.synthetic.main.fragment_input_phone2.*
+import ru.diitcenter.optovik.data.prefs.PrefsHelper
 import ru.diitcenter.optovik.presentation.global.utils.hideKeyboard
 import ru.diitcenter.optovik.presentation.global.utils.showKeyboard
 import ru.diitcenter.optovik.presentation.screens.inputphone.mvp.InputPhonePresenter
@@ -27,13 +28,20 @@ import javax.inject.Inject
 class InputPhoneFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
     InputPhoneView {
 
+    override fun showProblem() {
+        Toast.makeText(context,"Ваш номер не зарегистрирован", Toast.LENGTH_SHORT).show()
+    }
+
     override fun showError() {
-inputphone_container.visibility = View.VISIBLE
+        inputphone_container.visibility = View.VISIBLE
         message.visibility = View.GONE
     }
 
     override fun showProgress(progress: Boolean) {
     }
+
+    @Inject
+    lateinit var prefsHelper: PrefsHelper
 
     @Inject
     @InjectPresenter
@@ -122,6 +130,7 @@ inputphone_container.visibility = View.VISIBLE
     }
 
     override fun goToInputCode() {
+        prefsHelper.savePhone(phone.text.toString())
         presenter.gotoInputCode(phone.text.toString())
         inputphone_container.visibility = View.GONE
         message.visibility = View.VISIBLE

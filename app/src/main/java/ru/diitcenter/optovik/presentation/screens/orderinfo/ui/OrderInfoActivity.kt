@@ -135,6 +135,7 @@ class OrderInfoActivity : MvpAppCompatActivity(), OrderInfoView, DialogFeedbackF
 
     }
 
+
     override fun showError() {
         order_activity_container.visibility = View.VISIBLE
         info_constraint.visibility = View.GONE

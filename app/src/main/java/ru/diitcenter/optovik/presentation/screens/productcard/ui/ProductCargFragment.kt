@@ -84,6 +84,7 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
         }
 
         updateBasketButton()
+        updateClick()
     }
 
 
@@ -110,7 +111,6 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
                 ru.diitcenter.optovik.presentation.screens.main.ui.CirclePagerIndicatorDecoration()
             )
         }
-        updateClick()
     }
 
     override fun updateBasketButton() {
@@ -204,7 +204,8 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
     }
 
     fun updateClick() {
-        update_productcard.setOnClickListener { presenter.getAllData(product.id) }
+        update_productcard.setOnClickListener { presenter.getAllData(productId) }
+        product_card_container.visibility = View.GONE
     }
 
     override fun showProgress(progress: Boolean) {

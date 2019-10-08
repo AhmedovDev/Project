@@ -75,28 +75,7 @@
             tools:layout_editor_absoluteX="165dp"
             tools:layout_editor_absoluteY="67dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/sfpromedium"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:text="/"
-            android:textColor="#C6C6C6"
-            android:textSize="12sp"
-            tools:layout_editor_absoluteX="223dp"
-            tools:layout_editor_absoluteY="65dp" />
 
-        <TextView
-            android:id="@+id/count_product_order_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/sfpromedium"
-            android:text="2,5кг"
-            android:textColor="#C6C6C6"
-            android:textSize="12sp"
-            tools:layout_editor_absoluteX="198dp"
-            tools:layout_editor_absoluteY="46dp" />
 
         <TextView
             android:paddingLeft="5dp"
@@ -122,6 +101,7 @@
     </LinearLayout>
 
     <View
+        android:id="@+id/bottom_border_order_info"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -57,9 +57,13 @@ class CheckOrderActivity : MvpAppCompatActivity(), CheckOrderView {
         }
         back_arrow_check_order.setOnClickListener { finish() }
 
+//        change_number.setOnClickListener {
+//            connect_number.requestFocus()
+//        }
+
         if (!prefsHelper.getAddress().isNullOrEmpty()) {
             address_check_order.text = prefsHelper.getAddress()
-            connect_number.text = prefsHelper.getPhone()
+            connect_number.setText("${prefsHelper.getPhone()}")
             delivery_address.visibility = View.VISIBLE
             address_check_order.visibility = View.VISIBLE
         }
@@ -115,7 +119,7 @@ class CheckOrderActivity : MvpAppCompatActivity(), CheckOrderView {
 
         if (!prefsHelper.getAddress().isNullOrEmpty()) {
             address_check_order.text = prefsHelper.getAddress()
-            connect_number.text = prefsHelper.getPhone()
+            connect_number.setText("${prefsHelper.getPhone()}")
             delivery_address.visibility = View.VISIBLE
             address_check_order.visibility = View.VISIBLE
         }

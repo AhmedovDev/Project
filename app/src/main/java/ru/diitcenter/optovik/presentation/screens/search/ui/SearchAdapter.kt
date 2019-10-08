@@ -10,10 +10,11 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_catalog.*
 import kotlinx.android.synthetic.main.item_catalog.view.*
+import kotlinx.android.synthetic.main.item_category.*
 import ru.diitcenter.optovik.presentation.global.utils.hideKeyboard
 import ru.example.optovik.R
 
-
+private  var sizeList = 0
 private typealias OnCategoryClickListener = ((ru.diitcenter.optovik.data.global.models.Product) -> Unit)
 
 class SearchAdapter(
@@ -34,6 +35,7 @@ class SearchAdapter(
         val itemView = LayoutInflater
             .from(parent.context)
             .inflate(ru.example.optovik.R.layout.item_catalog, parent, false)
+        sizeList = products.size
         return CatalogViewHolder(itemView)
     }
 
@@ -177,180 +179,14 @@ class SearchAdapter(
 
             if (input_product.text.toString() == "") minus.visibility = View.GONE
 
-            containerView.image_product.setOnClickListener {
+            itemView.setOnClickListener {
                 clickListener.invoke(product)
             }
-            containerView.product_name.setOnClickListener {
-                clickListener.invoke(product)
-            }
-            containerView.price_and_count.setOnClickListener {
-                clickListener.invoke(product)
-            }
+
+
+            // скрывать разделение у последнего итема
+            if(adapterPosition == sizeList-1 && sizeList != 0)
+                bottom_border_catalog.visibility = View.GONE
         }
     }
 }
-//
-//private typealias OnCategoryClickListener = ((ru.diitcenter.optovik.data.global.models.Product) -> Unit)
-//
-//class SearchAdapter(
-//    private val products: List<ru.diitcenter.optovik.data.global.models.Product>,
-//    private val clickListenerPlus: (ru.diitcenter.optovik.data.global.models.Product) -> Unit,
-//    private val clickListenerMinus: (ru.diitcenter.optovik.data.global.models.Product) -> Unit,
-//    private val basket: ru.diitcenter.optovik.data.basketholder.BasketHolder,
-//    private val searchWord: String
-//) :
-//    RecyclerView.Adapter<SearchAdapter.CatalogViewHolder>() {
-//
-//    private var clickListener: OnCategoryClickListener? = null
-//
-//    var isFirstOpen = true
-//
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CatalogViewHolder {
-//        val itemView = LayoutInflater
-//            .from(parent.context)
-//            .inflate(R.layout.item_catalog, parent, false)
-//        return CatalogViewHolder(itemView)
-//    }
-//
-//    override fun onBindViewHolder(holder: CatalogViewHolder, position: Int) {
-//        // todo сделать нормально
-//        holder.plusClick(products[position])
-//        holder.minusClick(products[position])
-//        holder.bind(products[position], clickListener!!)
-//
-//        holder.keyboardHide()
-//    }
-//
-//    override fun getItemCount(): Int = products.size
-//
-//    fun setOnCatalogClickListener(listener: OnCategoryClickListener?) {
-//        clickListener = listener
-//    }
-//
-//    inner class CatalogViewHolder(override val containerView: View) :
-//        RecyclerView.ViewHolder(containerView), LayoutContainer {
-//        var sum = 0
-//
-//        fun plusClick(product: ru.diitcenter.optovik.data.global.models.Product) {
-//            with(containerView) {
-//                val item = basket.items.filter { it.product.id == product.id }.firstOrNull()
-//
-//                plus.setOnClickListener {
-//                    if (input_product.text.toString() == "")
-//                        input_product.setText("0")
-//                    //  sum = input_product.text.toString().toInt()
-//                    if (item != null) {
-//                        sum = item.quantity
-//                    } else
-//                        sum = 0
-//                    minus.visibility = View.VISIBLE
-//                    input_product.visibility = View.VISIBLE
-//                    sum += 1
-//                    basket.addProduct(product) {
-//                        if (!it)
-//                            sum -= 1
-//                    }
-//                    input_product.setText("$sum")
-//                    clickListenerPlus(product)
-//                }
-//            }
-//
-//        }
-//
-//        fun minusClick(product: ru.diitcenter.optovik.data.global.models.Product) {
-//            val item = basket.items.filter { it.product.id == product.id }.firstOrNull()
-//            minus.setOnClickListener {
-//                if (input_product.text.toString() == "" || input_product.text.toString() == "0") {
-//                    minus.visibility = View.GONE
-//                } else {
-//                    minus.isEnabled = true
-//                    //  sum = input_product.text.toString().toInt()
-//                    if (item != null) {
-//                        sum = item.quantity
-//                    } else
-//                        sum = 0
-//                    sum -= 1
-//                    basket.deleteProduct(product) {
-//                        if (!it)
-//                            sum += 1
-//                    }
-//                    if (sum == 0) {
-//                        minus.visibility = View.GONE
-//                        input_product.visibility = View.GONE
-//                        input_product.setText("$sum")
-//                    }
-//                    input_product.setText("$sum")
-//                    clickListenerMinus(product)
-//                }
-//
-//            }
-//        }
-//
-//
-//        fun keyboardHide() {
-//            containerView.input_product.setOnEditorActionListener { _, actionId, _ ->
-//                if (actionId == EditorInfo.IME_ACTION_DONE) {
-//                    keyboardHide()
-//                }
-//                false
-//            }
-//        }
-//
-//
-//        @SuppressLint("ResourceAsColor")
-//        fun bind(
-//            product: ru.diitcenter.optovik.data.global.models.Product,
-//            clickListener: OnCategoryClickListener
-//        ) {
-//
-//            val item = basket.items.filter { it.product.id == product.id }.firstOrNull()
-//
-//            if (item != null) {
-//                sum = item.quantity
-//                isFirstOpen = false
-//                containerView.input_product.setText("${item.quantity}")
-//                containerView.input_product.visibility = View.VISIBLE
-//                containerView.minus.visibility = View.VISIBLE
-//
-//            }
-//
-//            Picasso.get()
-//                .load(product.image)
-//                .fit()
-//                .into(containerView.image_product)
-//            containerView.product_name.text = product.name
-//            containerView.price.text = "%,d".format(product.price)
-//            containerView.count_product.text = product.count
-//            if (product.quantity != null) {
-//                containerView.input_product.visibility = View.VISIBLE
-//                containerView.minus.visibility = View.VISIBLE
-//                containerView.input_product.setText("${product.quantity}")
-//            }
-//            product.quantity
-//            if (product.presence == false) {
-//                containerView.plus.visibility = View.GONE
-//                containerView.minus.visibility = View.GONE
-//                containerView.input_product.visibility = View.VISIBLE
-//                containerView.input_product.maxEms = 6
-//                containerView.input_product.mask = "#############"
-//                containerView.input_product.setTextColor(R.color.colorTextHint)
-//                containerView.input_product.setText("Нет в наличии")
-//                containerView.input_product.isEnabled = false
-//            }
-//            val isEstimatedPrice = product.isEstimatedPrice
-//            if (isEstimatedPrice) containerView.isEstimatedPrise.visibility = View.VISIBLE
-//
-//            if (input_product.text.toString() == "") minus.visibility = View.GONE
-//
-//            containerView.image_product.setOnClickListener {
-//                clickListener.invoke(product)
-//            }
-//            containerView.product_name.setOnClickListener {
-//                clickListener.invoke(product)
-//            }
-//            containerView.price_and_count.setOnClickListener {
-//                clickListener.invoke(product)
-//            }
-//        }
-//    }
-//}

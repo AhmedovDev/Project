@@ -6,7 +6,7 @@ import ru.diitcenter.optovik.data.global.models.Product
 interface SearchView : MvpView {
     fun showProgress(progress: Boolean)
     fun showFoundProducts(products: List<Product>)
-    fun showError()
+    fun notFound()
     fun visiblSearchList()
    // fun adapterUpdate()
     fun updateBasketButtonSearch()
