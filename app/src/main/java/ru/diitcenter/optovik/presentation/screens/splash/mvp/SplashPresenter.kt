@@ -64,7 +64,7 @@ class SplashPresenter @Inject constructor(
                 }
                 ,
                 { error ->
-                    viewState.showError()
+                  //  viewState.showError()
 
                 }
             )

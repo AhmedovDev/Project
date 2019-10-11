@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -11,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_order_info.*
 import kotlinx.android.synthetic.main.toolbar_order_info.*
 import ru.diitcenter.optovik.data.global.models.Basket
 import ru.diitcenter.optovik.data.global.models.Product
+import ru.diitcenter.optovik.data.prefs.PrefsHelper
 import ru.diitcenter.optovik.presentation.global.dialogscreen.DialogFeedbackFragment
 import ru.diitcenter.optovik.presentation.global.dialogscreen.DialogOrderRepeatFragment
 import ru.diitcenter.optovik.presentation.screens.basket.ui.BasketActivity
@@ -30,10 +32,13 @@ class OrderInfoActivity : MvpAppCompatActivity(), OrderInfoView, DialogFeedbackF
         productsForOrder.forEach {
             basketHolder.addProductForReplaseOrder(it.product, it.quantity) {
                 if (!it) {
+                    showError()
                 } else {
-                    basketHolder.synchronizeBasketWithServer()
-                    val intent = Intent(this, BasketActivity::class.java)
-                    startActivity(intent)
+                    if (basketHolder.items.size == productsForOrder.size) {
+                        val intent = Intent(this, BasketActivity::class.java)
+                        startActivity(intent)
+                    }
+
                 }
             }
         }
@@ -49,6 +54,9 @@ class OrderInfoActivity : MvpAppCompatActivity(), OrderInfoView, DialogFeedbackF
 
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
+
+    @Inject
+    lateinit var prefsHelper: PrefsHelper
 
     @Inject
     lateinit var basketHolder: ru.diitcenter.optovik.data.basketholder.BasketHolder
@@ -132,7 +140,7 @@ class OrderInfoActivity : MvpAppCompatActivity(), OrderInfoView, DialogFeedbackF
         order_date_order_info.text = order.date
         all_price_order_info.text = "%,d".format(order.finalPrice)
         if (order.deliveryPrice == 0)
-            diliviry_price_order_info.text = "бесплатно"
+            diliviry_price_order_info.text = "Бесплатно"
         else diliviry_price_order_info.text = order.deliveryPrice.toString() + " \u20BD"
         product_price_order_info.text = "%,d".format(order.priceWithOutDelivery)
 

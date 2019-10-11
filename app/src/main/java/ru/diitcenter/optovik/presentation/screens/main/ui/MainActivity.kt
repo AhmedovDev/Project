@@ -12,6 +12,7 @@ import android.support.v7.widget.*
 import android.view.View
 import kotlinx.android.synthetic.main.toolbar_main.*
 import ru.diitcenter.optovik.data.network.isNetworkAvailable
+import ru.diitcenter.optovik.presentation.global.utils.hideKeyboard
 import ru.diitcenter.optovik.presentation.screens.basket.ui.BasketActivity
 import ru.diitcenter.optovik.presentation.screens.catalog.ui.CatalogActivity
 import ru.diitcenter.optovik.presentation.screens.main.mvp.MainPresenter
@@ -75,6 +76,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
         navigator = SupportAppNavigator(this, R.id.container_main_activity)
         button_basket_main.setOnClickListener {
+            hideKeyboard()
             val intent = Intent(this, BasketActivity::class.java)
             startActivity(intent)
 
@@ -238,6 +240,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
             }
         }
+
     }
 
     override fun onBackPressed() = presenter.onBackPressed()

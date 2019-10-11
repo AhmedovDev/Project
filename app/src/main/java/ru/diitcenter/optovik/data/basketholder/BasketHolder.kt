@@ -67,8 +67,9 @@ class BasketHolder @Inject constructor(private val dataManager: DataManager) {
             .subscribeOn(Schedulers.io())
             .subscribe({
                 items.add(Item(product, quantity))
-                basketUpdated()
                 completion(true)
+                basketUpdated()
+
             }, {
                 completion(false)
             })
@@ -163,7 +164,7 @@ class BasketHolder @Inject constructor(private val dataManager: DataManager) {
                 { data ->
                     data.basket?.let {
                         items = it.map {
-                            ru.diitcenter.optovik.data.basketholder.BasketHolder.Item(
+                            Item(
                                 it.product,
                                 it.quantity
                             )

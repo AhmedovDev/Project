@@ -7,13 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import com.squareup.picasso.Picasso
-import com.squareup.picasso.R
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_catalog.*
 import kotlinx.android.synthetic.main.item_catalog.view.*
 import ru.diitcenter.optovik.presentation.global.utils.hideKeyboard
+import ru.diitcenter.optovik.presentation.global.utils.RoundedTransformation
+import android.R
 
-private  var sizeList = 0
+
+
+private var sizeList = 0
 private typealias OnCategoryClickListener = ((ru.diitcenter.optovik.data.global.models.Product) -> Unit)
 
 class CatalogAdapter(
@@ -110,12 +113,13 @@ class CatalogAdapter(
                     minus.isEnabled = true
                     if (item != null) {
                         sum = item.quantity
-                    }
-                    else
+                    } else
                         sum = 0
-                   // sum = input_product.text.toString().toInt()
+                    // sum = input_product.text.toString().toInt()
                     sum -= 1
+                    minus.isEnabled = false
                     basket.deleteProduct(product) {
+                        minus.isEnabled = true
                         if (!it)
                             sum += 1
                     }
@@ -161,8 +165,7 @@ class CatalogAdapter(
                 containerView.input_product.visibility = View.VISIBLE
                 containerView.minus.visibility = View.VISIBLE
 
-            }
-            else{
+            } else {
                 containerView.input_product.setText("${0}")
                 containerView.input_product.visibility = View.GONE
                 containerView.minus.visibility = View.GONE
@@ -171,6 +174,9 @@ class CatalogAdapter(
 
             Picasso.get()
                 .load(product.image)
+                .fit()
+                .centerCrop()
+                .transform(RoundedTransformation(8, 1))
                 .into(containerView.image_product)
             containerView.product_name.text = product.name
             containerView.price.text = "%,d".format(product.price)
@@ -199,7 +205,7 @@ class CatalogAdapter(
                 clickListener.invoke(product)
             }
 
-            if(adapterPosition == sizeList-1)
+            if (adapterPosition == sizeList - 1)
                 bottom_border_catalog.visibility = View.GONE
         }
     }

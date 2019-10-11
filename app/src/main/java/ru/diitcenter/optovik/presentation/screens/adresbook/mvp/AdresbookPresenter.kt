@@ -2,6 +2,8 @@ package ru.diitcenter.optovik.presentation.screens.adresbook.mvp
 
 import com.arellomobile.mvp.InjectViewState
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.plusAssign
+import io.reactivex.schedulers.Schedulers
 import ru.terrakok.cicerone.Router
 import javax.inject.Inject
 
@@ -24,7 +26,9 @@ class AdresbookPresenter @Inject constructor(
             .doAfterTerminate { viewState.showProgress(false) }
             .subscribe(
                 { data ->
-                    data
+                    if(data.size == 0)
+                        viewState.showError()
+                    else
                     viewState.showLocations(data)
                 },
                 {
@@ -32,6 +36,22 @@ class AdresbookPresenter @Inject constructor(
                 }
             )
             .connect()
+    }
+
+    fun getOperatopPhone() {
+
+        subscriptions += dataManager.getOperatorPhone()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe(
+                { data ->
+                    viewState.getOperatorPhone(data.operatorPhone)
+                },
+                {
+                    viewState.showError()
+                }
+            )
+
     }
 
 }

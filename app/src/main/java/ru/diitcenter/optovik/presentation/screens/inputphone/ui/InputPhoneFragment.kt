@@ -29,7 +29,7 @@ class InputPhoneFragment : ru.diitcenter.optovik.presentation.global.BaseFragmen
     InputPhoneView {
 
     override fun showProblem() {
-        Toast.makeText(context,"Ваш номер не зарегистрирован", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context,"Ваш номер не зарегистрирован, обратитесь к оператору", Toast.LENGTH_SHORT).show()
     }
 
     override fun showError() {

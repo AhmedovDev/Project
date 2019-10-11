@@ -27,8 +27,11 @@ class InputCodePresenter @Inject constructor(
             .subscribeOn(Schedulers.io())
             .subscribe(
                 { data ->
+                    if(data.token != null){
                     viewState.saveToken(data.token)
-                    viewState.goToMain()
+                    viewState.goToMain()}
+                    else
+                    viewState.showError()
 
                 },
                 {

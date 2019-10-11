@@ -116,6 +116,7 @@ class InputCodeFragment : ru.diitcenter.optovik.presentation.global.BaseFragment
     }
 
     override fun showError() {
+
         Toast.makeText(context, "Код неверный, \n повторите попытку", Toast.LENGTH_SHORT).show()
     }
 

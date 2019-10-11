@@ -7,6 +7,7 @@
     android:background="@color/colorPrimaryDark"
     tools:context=".presentation.screens.search.ui.SearchFragment"
     android:id="@+id/search_view"
+    android:elevation="1dp"
     >
 
     <android.support.constraint.ConstraintLayout
@@ -91,6 +92,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout5" />
+
+    <View
+        android:id="@+id/masck"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_basket_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
+        android:background="@color/colorPrimaryDark"
+        android:visibility="gone"
+        android:clickable="true"/>
 
     <ProgressBar
         android:id="@+id/progressBar_Search"
@@ -322,7 +335,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpromedium"
-                    android:paddingRight="4dp"
+                    android:paddingLeft="4dp"
                     android:text="≈"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="17sp"
@@ -333,7 +346,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpromedium"
-                    android:paddingRight="4dp"
+                    android:paddingLeft="4dp"
                     android:text="2970"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="17sp" />
@@ -343,7 +356,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpromedium"
-                    android:paddingLeft="2dp"
+                    android:paddingLeft="4dp"
                     android:text=" ₽ "
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="17sp" />

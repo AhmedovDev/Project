@@ -18,8 +18,8 @@ class BasketPresenter @Inject constructor(
     ru.diitcenter.optovik.data.basketholder.BasketListener {
 
     override fun onFirstViewAttach() {
-        getBasket()
         basketHolder.subscribe(this)
+        getBasket()
         getBasketDiliveryPrice()
     }
 
@@ -41,6 +41,7 @@ class BasketPresenter @Inject constructor(
             .subscribe(
                 { basket ->
                     viewState.showInformation(basket.priceDelivery)
+                    basketHolder.synchronizeBasketWithServer()
                 },
                 {
                     viewState.showError()
@@ -54,8 +55,7 @@ class BasketPresenter @Inject constructor(
             .subscribeOn(Schedulers.io())
             .subscribe(
                 { basket ->
-                    basketHolder.items.clear()
-
+                    basketHolder.clearBasketInServer()
                 },
                 {
                     viewState.showError()

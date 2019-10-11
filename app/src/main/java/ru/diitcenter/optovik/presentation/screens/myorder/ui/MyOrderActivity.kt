@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -40,7 +41,7 @@ class MyOrderActivity : MvpAppCompatActivity(), MyOrderView,
 
     private lateinit var navigator: Navigator
 
-    private var productsForOrder: List<Basket> = ArrayList()
+    private var productsForOrder: MutableList<Basket> = ArrayList()
 
     private var orderId: Int = 0
 
@@ -56,8 +57,12 @@ class MyOrderActivity : MvpAppCompatActivity(), MyOrderView,
         setContentView(R.layout.activity_my_order)
         initViews()
         back_arrow_my_order.setOnClickListener { finish() }
-        update_my_order.setOnClickListener { presenter.getMyOrders()
-        my_order_container.visibility = View.GONE }
+        my_order_recycler.visibility = View.VISIBLE
+        update_my_order.setOnClickListener {
+            presenter.getMyOrders()
+            my_order_container.visibility = View.GONE
+            my_order_recycler.visibility = View.GONE
+        }
     }
 
 
@@ -92,35 +97,54 @@ class MyOrderActivity : MvpAppCompatActivity(), MyOrderView,
             },
             listenerRepeat = {
                 presenter.getOrderProducts(it.id)
+                // orderId = it.id
                 showBottomSheetDialogFragment()
-                orderId = it.id
 
             }
         )
     }
 
     override fun getProductsForOrder(productForOrder: List<Basket>) {
-        productsForOrder = productForOrder
+        productsForOrder = productForOrder as MutableList<Basket>
     }
 
 
     override fun replaceBasket() {
         basketHolder.clearBasketInServer()
+
+        var sum = 0
         productsForOrder.forEach {
             basketHolder.addProductForReplaseOrder(it.product, it.quantity) {
                 if (!it) {
-
+                    showError()
+                    return@addProductForReplaseOrder
                 } else {
-                    basketHolder.synchronizeBasketWithServer()
-                    val intent = Intent(this, BasketActivity::class.java)
-                    startActivity(intent)
+                    sum++
+                    if (sum != 0 && sum == productsForOrder.size) {
+                        basketHolder.synchronizeBasketWithServer()
+                        val intent = Intent(this, BasketActivity::class.java)
+                        startActivity(intent)
+                        productsForOrder.clear()
+                    }
+//                    basketHolder.synchronizeBasketWithServer()
+//                    var itogArray = basketHolder.items.intersect(productsForOrder.toList())
+//                    if (itogArray.size == productsForOrder.size) {
+//                        val intent = Intent(this, BasketActivity::class.java)
+//                        startActivity(intent)
+//                    } else {
+//                        Toast.makeText(applicationContext, "Повторите попытку", Toast.LENGTH_SHORT)
+//                            .show()
+//                    }
+
                 }
             }
+
         }
     }
 
     override fun showError() {
         my_order_container.visibility = View.VISIBLE
+        my_order_recycler.visibility = View.GONE
     }
 
     override fun onBackPressed() = finish()

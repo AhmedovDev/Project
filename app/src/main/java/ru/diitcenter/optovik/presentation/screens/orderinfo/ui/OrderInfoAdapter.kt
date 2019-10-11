@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.item_order_info.*
 import kotlinx.android.synthetic.main.item_order_info.view.*
 import kotlinx.android.synthetic.main.item_order_info.view.bottom_border_order_info
 import ru.diitcenter.optovik.data.global.models.Basket
+import ru.diitcenter.optovik.presentation.global.utils.RoundedTransformation
 import ru.example.optovik.R
 
 private  var sizeList = 0
@@ -43,6 +44,9 @@ class OrderInfoAdapter(private val products: List<ru.diitcenter.optovik.data.glo
         fun bind(products: Basket, clickListener: OnProductClickListener?) {
             Picasso.get()
                 .load(products.product.image)
+                .fit()
+                .centerCrop()
+                .transform(RoundedTransformation(8, 1))
                 .into(containerView.image_product_order_info)
             containerView.product_name_order_info.text = products.product.name
             containerView.price_order_info.text = "%,d".format(products.product.price)

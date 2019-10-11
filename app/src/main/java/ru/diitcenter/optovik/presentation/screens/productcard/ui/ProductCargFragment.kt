@@ -188,7 +188,9 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
                 //  sum = input_product.text.toString().toInt()
                 sum -= 1
                 input_product.setText("$sum")
+                minus.isEnabled = false
                 basket.deleteProduct(product) {
+                    minus.isEnabled = true
                     if (!it) {
                         sum += 1
                     }

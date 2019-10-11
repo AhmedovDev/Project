@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_catalog.*
 import kotlinx.android.synthetic.main.activity_catalog.reletiv
 import kotlinx.android.synthetic.main.activity_catalog.update_catalog
 import kotlinx.android.synthetic.main.toolbar_basker.*
+import ru.diitcenter.optovik.data.prefs.PrefsHelper
 import ru.diitcenter.optovik.presentation.global.utils.hideKeyboard
 import ru.diitcenter.optovik.presentation.screens.basket.mvp.BasketPresenter
 import ru.diitcenter.optovik.presentation.screens.basket.mvp.BasketView
@@ -31,9 +32,10 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
     ru.diitcenter.optovik.presentation.global.dialogscreen.DialogBasketFragment.CallBack {
 
     override fun clearBasket() {
+
+        check.visibility = View.GONE
+        basletactivity_empty_container.visibility = View.VISIBLE
         presenter.clearBasket()
-        basketHolder.synchronizeBasketWithServer()
-        basketHolder.items.clear()
 
     }
 
@@ -53,6 +55,9 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
 
     @Inject
     lateinit var basketHolder: ru.diitcenter.optovik.data.basketholder.BasketHolder
+
+    @Inject
+    lateinit var prefsHelper: PrefsHelper
 
     @ProvidePresenter
     fun providePresenter() = presenter
@@ -124,7 +129,7 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
             diliviry_price.setText("100")
         } else {
             rubl.visibility = View.GONE
-            diliviry_price.setText("бесплатная")
+            diliviry_price.setText("Бесплатная")
             all_price.setText("%,d".format(price()))
         }
         if (price() == 0)
@@ -134,9 +139,6 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
     private fun initViews() {
         basket_recycler.run {
             layoutManager = LinearLayoutManager(basket_recycler.context)
-            addItemDecoration(
-                DividerItemDecoration(basket_recycler.context, DividerItemDecoration.VERTICAL)
-            )
         }
         updateClick()
     }
@@ -179,6 +181,7 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
     override fun showInformation(information: String) {
         information_basket.text = "При заказе на сумму от " + information + " доставка бесплатная."
         freeDeliveryPrice = information.toInt()
+        prefsHelper.saveDelivery(information)
     }
 
     override fun showError() {
@@ -222,6 +225,9 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
         basketHolder.items.forEach { productPrice += (it.product.price * it.quantity) }
         if (basketHolder.items.size == 0)
             check.visibility = View.GONE
+        else{
+            check.visibility = View.VISIBLE
+        }
         return productPrice
     }
 

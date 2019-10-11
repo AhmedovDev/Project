@@ -41,4 +41,6 @@ interface DataManager {
 
     fun changeProductInBasket(productId: Int, count: Int): Single<Product>
 
+    fun getOperatorPhone (): Single<OperatorPhone>
+
 }

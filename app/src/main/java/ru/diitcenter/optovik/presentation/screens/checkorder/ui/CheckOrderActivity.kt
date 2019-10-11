@@ -1,5 +1,6 @@
 package ru.diitcenter.optovik.presentation.screens.checkorder.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -10,6 +11,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import kotlinx.android.synthetic.main.activity_check_order.*
 import kotlinx.android.synthetic.main.activity_check_order.rubl
 import kotlinx.android.synthetic.main.toolbar_check_order.*
+import ru.diitcenter.optovik.data.global.models.OperatorPhone
 import ru.diitcenter.optovik.data.network.isNetworkAvailable
 import ru.diitcenter.optovik.presentation.global.dialogscreen.DialogFeedbackFragment
 import ru.diitcenter.optovik.presentation.global.utils.hideKeyboard
@@ -23,7 +25,6 @@ import ru.terrakok.cicerone.NavigatorHolder
 import javax.inject.Inject
 
 class CheckOrderActivity : MvpAppCompatActivity(), CheckOrderView {
-
 
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
@@ -52,15 +53,16 @@ class CheckOrderActivity : MvpAppCompatActivity(), CheckOrderView {
         setContentView(R.layout.activity_check_order)
 
         delivery_address.isFocusable = true
+
         select_address.setOnClickListener {
             val intent = Intent(this, AdresbookActivity::class.java)
             startActivity(intent)
         }
+
+        connect_number.setText("${prefsHelper.getPhone()}")
+
         back_arrow_check_order.setOnClickListener { finish() }
 
-//        change_number.setOnClickListener {
-//            connect_number.requestFocus()
-//        }
 
         if (!prefsHelper.getAddress().isNullOrEmpty()) {
             address_check_order.text = prefsHelper.getAddress()
@@ -75,41 +77,47 @@ class CheckOrderActivity : MvpAppCompatActivity(), CheckOrderView {
         }
 
         check_order.setOnClickListener {
+            if(!prefsHelper.getAddress().isNullOrEmpty())
             presenter.chackOrder(input_comment.text.toString(), connect_number.text.toString())
-            basket.synchronizeBasketWithServer()
+            else
+                Toast.makeText(applicationContext,"Выберите адрес!", Toast.LENGTH_SHORT).show()
 
         }
 
-        //todo как обновлять эран???
-        if (isNetworkAvailable(applicationContext)) {
-            check_order_error_container.visibility = View.VISIBLE
-        } else
+//        //todo как обновлять эран???
+//        if (isNetworkAvailable(applicationContext)) {
+//            check_order_error_container.visibility = View.VISIBLE
+//        } else
+//            check_order_error_container.visibility = View.GONE
+
+        update_check_order_fragment.setOnClickListener {
             check_order_error_container.visibility = View.GONE
+        }
     }
 
     override fun goToMain() {
-        finish()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+        basketHolder.items.clear()
         finish()
     }
 
     private fun basketResultPriceCheсk() {
         product_price_check_order.setText("%,d".format(price()))
-        if (price() < 3000) {
+        if (price() < prefsHelper.getDelivery()!!.toInt()) {
             all_price_check_order.setText("%,d".format(price() + 100))
             diliviry_price_check_order.setText("100")
         } else {
             rubl.visibility = View.GONE
-            diliviry_price_check_order.setText("бесплатная")
+            diliviry_price_check_order.setText("Бесплатная")
             all_price_check_order.setText("%,d".format(price()))
         }
         if (price() == 0)
             all_price_check_order.setText(price())
     }
 
-    override fun showError() {
-        Toast.makeText(this, "Проблемы с интернетом", Toast.LENGTH_SHORT).show()
+    override fun showError(show: Boolean) {
+        check_order_error_container.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     fun price(): Int {

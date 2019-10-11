@@ -134,14 +134,14 @@
                     android:layout_height="45dp"
                     android:layout_marginTop="80dp"
                     android:ems="10"
-                    android:fontFamily="@font/sfprolight"
+                    android:fontFamily="@font/sfpromedium"
                     android:hint="79001234567"
                     android:imeOptions="actionDone"
                     android:includeFontPadding="false"
                     android:inputType="number"
                     android:paddingLeft="16dp"
                     android:singleLine="false"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:typeface="monospace"
                     android:visibility="visible"
                     mask:allowed_chars="1234567890"
@@ -169,6 +169,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:fontFamily="@font/sfpromedium"
+                    android:layout_marginBottom="12dp"
                     android:text="Изменить"
                     android:textColor=" #2DB72A"
                     android:textSize="12sp"
@@ -218,6 +219,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+            <View
+                android:id="@+id/view10"
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="#F6F6F6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+               />
+
 
             <RelativeLayout
                 android:id="@+id/check"
@@ -434,12 +446,14 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginBottom="7dp"
             android:background="#F6F6F6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-          />
+            mask:layout_constraintBottom_toTopOf="@+id/constraintLayout4" />
 
         <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -480,15 +494,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
         android:background="@color/colorPrimaryDark"
-
-        >
-
-
+        android:visibility="gone">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
             android:layout_gravity="center"
             >
 

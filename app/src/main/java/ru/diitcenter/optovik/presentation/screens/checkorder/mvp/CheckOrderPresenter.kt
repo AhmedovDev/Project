@@ -18,18 +18,18 @@ class CheckOrderPresenter @Inject constructor(
     fun chackOrder(description: String ,telephone: String ) {
 
         subscriptions += dataManager.checkOut(description, telephone)
+            .doOnSubscribe { viewState.showError(false) }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe(
                 { data ->
                     viewState.goToMain()
+                    basketHolder.synchronizeBasketWithServer()
                 },
                 {
-                    viewState.showError()
+                    viewState.showError(true)
                 }
             )
 
     }
-
-
 }

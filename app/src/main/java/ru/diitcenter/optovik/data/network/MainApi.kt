@@ -82,7 +82,6 @@ interface MainApi {
 
     @GET("/api/v1/operatorphone")
     fun getOreratorPhone (
-
     ): Single<OperatorPhone>
 
     @GET("/api/v1/cart/clear")

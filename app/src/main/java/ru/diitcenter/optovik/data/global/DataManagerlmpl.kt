@@ -12,6 +12,10 @@ class DataManagerlmpl @Inject constructor(
     @Named("API_OPTOVIK") val api: ru.diitcenter.optovik.data.network.MainApi
 
 ) : DataManager {
+    override fun getOperatorPhone(): Single<OperatorPhone> =
+        api.getOreratorPhone()
+            .subscribeOn(Schedulers.io())
+
     override fun addProductInBasket(productId: Int, count: Int): Single<Product> =
         api.addProductInBasket(productId, count)
             .subscribeOn(Schedulers.io())

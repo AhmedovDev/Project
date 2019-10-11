@@ -116,10 +116,13 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
                     presenter.search(input_search.text.toString())
                     search_recycler.visibility = View.VISIBLE
                     clear.visibility = View.VISIBLE
+                    masck.visibility = View.GONE
 
                 } else {
                     clear.visibility = View.GONE
                     search_recycler.visibility = View.GONE
+                    masck.visibility = View.VISIBLE
+
                 }
             }
 
@@ -199,7 +202,7 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
         else
             isEstimatedPrise_search.visibility = View.VISIBLE
 
-        price_on_button_search.setText("$priceAll")
+        price_on_button_search.setText("%,d".format(priceAll))
         count_on_button_search.setText("${basket.items.size}")
     }
 

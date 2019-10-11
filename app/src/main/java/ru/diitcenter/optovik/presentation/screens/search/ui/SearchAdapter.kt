@@ -11,6 +11,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_catalog.*
 import kotlinx.android.synthetic.main.item_catalog.view.*
 import kotlinx.android.synthetic.main.item_category.*
+import ru.diitcenter.optovik.presentation.global.utils.RoundedTransformation
 import ru.diitcenter.optovik.presentation.global.utils.hideKeyboard
 import ru.example.optovik.R
 
@@ -103,7 +104,9 @@ class SearchAdapter(
 
                     // sum = input_product.text.toString().toInt()
                     sum -= 1
+                    minus.isEnabled = false
                     basket.deleteProduct(product) {
+                        minus.isEnabled = true
                         if (!it)
                             sum += 1
                     }
@@ -154,7 +157,10 @@ class SearchAdapter(
             }
 
             Picasso.get()
-                .load(product.image).fit()
+                .load(product.image)
+                .fit()
+                .centerCrop()
+                .transform(RoundedTransformation(8, 1))
                 .into(containerView.image_product)
             containerView.product_name.text = product.name
             containerView.price.text = "%,d".format(product.price)

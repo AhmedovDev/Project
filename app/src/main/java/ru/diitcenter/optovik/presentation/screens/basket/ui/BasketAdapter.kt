@@ -11,6 +11,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_basket.*
 import kotlinx.android.synthetic.main.item_basket.view.*
 import kotlinx.android.synthetic.main.item_catalog.*
+import ru.diitcenter.optovik.presentation.global.utils.RoundedTransformation
 import ru.diitcenter.optovik.presentation.global.utils.hideKeyboard
 import ru.example.optovik.R
 
@@ -108,7 +109,9 @@ class BasketAdapter(
                     //     sum = input_product_basket.text.toString().toInt()
                     sum -= 1
                     input_product_basket.setText("$sum")
+                    minus_basket.isEnabled = false
                     basketholder.deleteProduct(product) {
+                        minus_basket.isEnabled = true
                         if (!it) {
                             sum += 1
                             input_product_basket.setText("$sum")
@@ -155,6 +158,9 @@ class BasketAdapter(
             sum = quantity
             Picasso.get()
                 .load(product.image)
+                .fit()
+                .centerCrop()
+                .transform(RoundedTransformation(8, 1))
                 .into(containerView.image_product_basket)
             containerView.product_name_basket.text = product.name
             containerView.price_basket.text = "%,d".format(product.price)

@@ -6,4 +6,6 @@ interface AdresbookView : MvpView {
     fun showProgress(progress: Boolean)
     fun showLocations(locations: List<ru.diitcenter.optovik.data.global.models.Location>)
     fun showError()
+    fun getOperatorPhone(operatorPhone: String)
+
 }
