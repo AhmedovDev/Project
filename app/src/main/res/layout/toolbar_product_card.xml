@@ -21,7 +21,6 @@
             android:layout_alignParentEnd="true"
             android:fontFamily="@font/sfpromedium"
             android:gravity="center"
-            android:text="Картошка фри 9мл LW"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="18sp"

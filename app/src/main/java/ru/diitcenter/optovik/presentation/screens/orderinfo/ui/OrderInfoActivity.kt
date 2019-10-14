@@ -112,6 +112,7 @@ class OrderInfoActivity : MvpAppCompatActivity(), OrderInfoView, DialogFeedbackF
     private fun showBottomSheetDialogFragmentRepeatOrder() {
         val dialogOrderRepeatFragment =
             DialogOrderRepeatFragment()
+        dialogOrderRepeatFragment.isCancelable = false
         dialogOrderRepeatFragment.show(supportFragmentManager, dialogOrderRepeatFragment.tag)
     }
 
@@ -127,6 +128,7 @@ class OrderInfoActivity : MvpAppCompatActivity(), OrderInfoView, DialogFeedbackF
     private fun showBottomSheetDialogFragment() {
         val dialogfeedbackFragment =
             ru.diitcenter.optovik.presentation.global.dialogscreen.DialogFeedbackFragment()
+        dialogfeedbackFragment.isCancelable = false
         dialogfeedbackFragment.show(supportFragmentManager, dialogfeedbackFragment.tag)
     }
 

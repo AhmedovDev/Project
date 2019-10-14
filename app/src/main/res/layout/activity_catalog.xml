@@ -72,7 +72,7 @@
                     android:layout_marginTop="12dp"
                     android:layout_marginBottom="12dp"
                     android:layout_toEndOf="@+id/imageView3"
-                    android:fontFamily="@font/sfpromedium"
+                    android:fontFamily="@font/sfprodisplay"
                     android:textColor="#000000"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"

@@ -27,7 +27,8 @@
     <string name="empty_basket">Корзина пуста</string>
     <string name="go_to_catalog">Перейдите в каталог и добавьте \n товары в корзину</string>
     <string name="clean_basket">Вы точно хотите очистить корзину ?</string>
-    <string name="no">Нет,не хочу</string>
+    <string name="no">Нет, не хочу</string>
+
     <string name="yas">Да, удалить</string>
     <string name="sum">Сумма</string>
     <string name="adresbook">Адресная книга</string>

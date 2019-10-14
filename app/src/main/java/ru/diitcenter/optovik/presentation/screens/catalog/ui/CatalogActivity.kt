@@ -117,6 +117,18 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView, View.OnClickListene
           //  isEstimatedPrise_catalog.visibility = View.VISIBLE
         price_on_button.setText("%,d".format(priceAll))
         count_on_button.setText("${basket.items.size}")
+
+        val haveItemCatalog = basket.items.filter {
+            it.product.isEstimatedPrice == true
+        }.firstOrNull()
+
+        if (haveItemCatalog == null) {
+            isEstimatedPrise_catalog.visibility = View.GONE
+        } else
+
+            isEstimatedPrise_catalog.visibility = View.VISIBLE
+        price_on_button.setText("%,d".format(priceAll))
+        count_on_button.setText("${basket.items.size}")
     }
 
     override fun showProgress(progress: Boolean) {

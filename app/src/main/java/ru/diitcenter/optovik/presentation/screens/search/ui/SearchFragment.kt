@@ -61,16 +61,7 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //todo на случай если нет интернета
 
-//        if (isNetworkAvailable(context)) {
-//            showNetworkProblem()
-//        }
-//        else {
-//            constraintLayout5.visibility = View.VISIBLE
-//            search_error_container.visibility = View.GONE
-//
-//        }
 
 
         back_arrow_search.setOnClickListener {
@@ -95,7 +86,10 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
         updateBasketButtonSearch()
 
         update_search.setOnClickListener {
-            presenter.search("")
+            //presenter.search("")
+            search_error_container.visibility = View.GONE
+            constraintLayout5.visibility = View.VISIBLE
+            constraintLayout2.visibility = View.VISIBLE
         }
         clear.setOnClickListener {
             input_search.setText("")
@@ -111,6 +105,17 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+                if (!isNetworkAvailable(context))
+                    showNetworkProblem()
+                else{
+                    search_error_container.visibility = View.GONE
+                    constraintLayout5.visibility = View.VISIBLE
+                    constraintLayout2.visibility = View.VISIBLE
+                }
+
+
+
                 if (!input_search.text.toString().isBlank()) {
                     presenter.search(input_search.text.toString())
                     search_recycler.visibility = View.VISIBLE
@@ -133,6 +138,7 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
         search_error_container.visibility = View.VISIBLE
         constraintLayout5.visibility = View.GONE
         constraintLayout2.visibility = View.GONE
+        hideKeyboard()
 
     }
 

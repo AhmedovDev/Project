@@ -54,7 +54,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="12dp"
                     android:layout_toEndOf="@+id/imageView3"
-                    android:fontFamily="@font/sfpromedium"
+                    android:fontFamily="@font/sfprodisplay"
                     android:text="При заказе на сумму от 3000 ₽ доставка бесплатная."
                     android:textColor="#000000"
                     android:textSize="12sp"
@@ -97,6 +97,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
+                    android:background="#F6F6F6"
                     />
 
                 <TextView
@@ -150,7 +151,7 @@
                     android:fontFamily="@font/sfpromedium"
                     android:text="Итого"
                     android:textColor="@color/black"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -223,7 +224,7 @@
                         android:layout_alignParentStart="true"
                         android:fontFamily="@font/sfprolight"
                         android:paddingLeft="8dp"
-                        android:text="100"
+                        android:text="100 ₽"
                         android:textColor="#444444"
                         android:textSize="12sp" />
 
@@ -267,7 +268,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/textView8"
                         android:layout_alignParentStart="true"
-                        android:fontFamily="@font/sfprolight"
+                        android:fontFamily="@font/sfpromedium"
                         android:paddingLeft="8dp"
                         android:text="17 970"
                         android:textColor="#000000"
@@ -277,8 +278,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/textView8"
-
-                        android:fontFamily="@font/sfprolight"
+                        android:fontFamily="@font/sfpromedium"
                         android:paddingLeft="4dp"
                         android:text="₽"
                         android:textColor="#000000"
@@ -343,7 +343,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
         tools:context=".presentation.screens.catalog.ui.CatalogActivity"
-
         >
 
         <android.support.constraint.ConstraintLayout
@@ -425,6 +424,14 @@
         app:layout_constraintTop_toBottomOf="@+id/tool_bar_basket"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:context=".presentation.screens.catalog.ui.CatalogActivity">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F6F6F6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+     />
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="wrap_content"

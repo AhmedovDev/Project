@@ -137,7 +137,10 @@
             app:srb_drawableEmpty="@drawable/ic_star_paw"
             app:srb_drawableFilled="@drawable/ic_star_active"
             app:srb_numStars="5"
-            app:srb_stepSize="1" />
+            app:srb_stepSize="1"
+            app:srb_minimumStars="1"
+            
+            />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

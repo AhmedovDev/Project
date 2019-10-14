@@ -45,6 +45,7 @@ class DialogBasketFragment : BottomSheetDialogFragment() {
             call.updateBasketView()
             call.clearBasket()
 
+
         }
     }
 

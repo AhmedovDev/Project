@@ -116,6 +116,7 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
     private fun showBottomSheetDialogFragment() {
         val dialogBasketFragment =
             ru.diitcenter.optovik.presentation.global.dialogscreen.DialogBasketFragment()
+        dialogBasketFragment.isCancelable = false
         dialogBasketFragment.show(supportFragmentManager, dialogBasketFragment.tag)
     }
 
@@ -126,7 +127,7 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
         product_price.setText("%,d".format(price()))
         if (price() < freeDeliveryPrice) {
             all_price.setText("%,d".format(price() + 100))
-            diliviry_price.setText("100")
+            diliviry_price.setText(prefsHelper.getDelivery() + " \u20BD")
         } else {
             rubl.visibility = View.GONE
             diliviry_price.setText("Бесплатная")
