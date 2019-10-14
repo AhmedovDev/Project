@@ -188,7 +188,7 @@ class BasketHolder @Inject constructor(private val dataManager: DataManager) {
     }
 
 
-    fun clearBasketInServer() {
+    fun clearBasketInServer(completion: () -> Unit) {
         subscriptions += dataManager.clearBasket()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
@@ -196,6 +196,7 @@ class BasketHolder @Inject constructor(private val dataManager: DataManager) {
                 { basket ->
                     items.clear()
                     basketUpdated()
+                    completion()
                 },
                 {
 

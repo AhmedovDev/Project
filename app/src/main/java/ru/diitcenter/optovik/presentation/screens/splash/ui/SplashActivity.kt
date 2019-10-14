@@ -83,11 +83,11 @@ class SplashActivity : MvpAppCompatActivity(), SplashView {
         Log.d("TOKEN_PUSH", "$token")
 
         Log.e("TOKEN_USER", "${prefsHelper.getToken()}")
-        basketHelper.synchronizeBasketWithServer()
 
         if(isNetworkAvailable(applicationContext)){
             presenter.getBasket()
             presenter.setPushToken(token.toString(),prefsHelper.getToken().toString())
+            basketHelper.synchronizeBasketWithServer()
         }
         else{
             goToMain()

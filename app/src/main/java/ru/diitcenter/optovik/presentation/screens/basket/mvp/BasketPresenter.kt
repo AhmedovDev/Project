@@ -55,7 +55,7 @@ class BasketPresenter @Inject constructor(
             .subscribeOn(Schedulers.io())
             .subscribe(
                 { basket ->
-                    basketHolder.clearBasketInServer()
+                    basketHolder.clearBasketInServer{}
                 },
                 {
                     viewState.showError()

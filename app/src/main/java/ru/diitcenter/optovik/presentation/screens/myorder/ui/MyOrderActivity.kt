@@ -97,7 +97,6 @@ class MyOrderActivity : MvpAppCompatActivity(), MyOrderView,
             },
             listenerRepeat = {
                 presenter.getOrderProducts(it.id)
-                // orderId = it.id
                 showBottomSheetDialogFragment()
 
             }
@@ -110,22 +109,27 @@ class MyOrderActivity : MvpAppCompatActivity(), MyOrderView,
 
 
     override fun replaceBasket() {
-        basketHolder.clearBasketInServer()
 
-        var sum = 0
-        productsForOrder.forEach {
-            basketHolder.addProductForReplaseOrder(it.product, it.quantity) {
-                if (!it) {
-                    showError()
-                    return@addProductForReplaseOrder
-                } else {
-                    sum++
-                    if (sum != 0 && sum == productsForOrder.size) {
-                        basketHolder.synchronizeBasketWithServer()
-                        val intent = Intent(this, BasketActivity::class.java)
-                        startActivity(intent)
-                        productsForOrder.clear()
-                    }
+        basketHolder.clearBasketInServer {
+
+            var sum = 0
+
+            productsForOrder.forEach {
+
+                basketHolder.addProductForReplaseOrder(it.product, it.quantity) {
+
+                    if (!it) {
+                        showError()
+                        return@addProductForReplaseOrder
+
+                    } else {
+                        sum++
+
+                        if (sum != 0 && sum == productsForOrder.size) {
+                            basketHolder.synchronizeBasketWithServer()
+                            val intent = Intent(this, BasketActivity::class.java)
+                            startActivity(intent)
+                        }
 //                    basketHolder.synchronizeBasketWithServer()
 //                    var itogArray = basketHolder.items.intersect(productsForOrder.toList())
 //                    if (itogArray.size == productsForOrder.size) {
@@ -136,9 +140,10 @@ class MyOrderActivity : MvpAppCompatActivity(), MyOrderView,
 //                            .show()
 //                    }
 
+                    }
                 }
-            }
 
+            }
         }
     }
 

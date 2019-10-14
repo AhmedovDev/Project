@@ -25,21 +25,32 @@ import javax.inject.Inject
 class OrderInfoActivity : MvpAppCompatActivity(), OrderInfoView, DialogFeedbackFragment.CallBack,
     DialogOrderRepeatFragment.CallBackDialogOrderRepeat {
 
-    var productsForOrder: List<Basket> = ArrayList()
+    var productsForOrder: MutableList<Basket> = ArrayList()
 
     override fun replaceBasket() {
-        basketHolder.clearBasketInServer()
-        productsForOrder.forEach {
-            basketHolder.addProductForReplaseOrder(it.product, it.quantity) {
-                if (!it) {
-                    showError()
-                } else {
-                    if (basketHolder.items.size == productsForOrder.size) {
-                        val intent = Intent(this, BasketActivity::class.java)
-                        startActivity(intent)
-                    }
+        basketHolder.clearBasketInServer {
 
+            var sum = 0
+
+            productsForOrder.forEach {
+
+                basketHolder.addProductForReplaseOrder(it.product, it.quantity) {
+
+                    if (!it) {
+                        showError()
+                        return@addProductForReplaseOrder
+
+                    } else {
+                        sum++
+
+                        if (sum != 0 && sum == productsForOrder.size) {
+                            basketHolder.synchronizeBasketWithServer()
+                            val intent = Intent(this, BasketActivity::class.java)
+                            startActivity(intent)
+                        }
+                    }
                 }
+
             }
         }
 
@@ -134,7 +145,7 @@ class OrderInfoActivity : MvpAppCompatActivity(), OrderInfoView, DialogFeedbackF
         order: ru.diitcenter.optovik.data.global.models.Order,
         productForOrder: List<Basket>
     ) {
-        productsForOrder = productForOrder
+        productsForOrder = productForOrder as MutableList<Basket>
         order_id_order_info.text = "Заказ№ " + order.id.toString()
         status_order_info.text = order.status
         order_date_order_info.text = order.date

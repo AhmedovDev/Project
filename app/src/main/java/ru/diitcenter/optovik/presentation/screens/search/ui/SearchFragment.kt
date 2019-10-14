@@ -38,8 +38,6 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
     @ProvidePresenter
     fun providePresenter() = presenter
 
-    var isFirstStart = false
-
 
     private lateinit var navigator: Navigator
 
@@ -76,16 +74,17 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
 
 
         back_arrow_search.setOnClickListener {
-            presenter.back()
+            presenter.onBackPressed()
             hideKeyboard()
         }
 
         input_search.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                hideKeyboard()
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                context?.hideKeyboard(input_search)
             }
             false
         }
+
 
         input_search.requestFocus()
 
@@ -159,18 +158,10 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
         val adapter = SearchAdapter(
             products = products,
             clickListenerPlus = {
-                //  search_recycler.adapter?.notifyDataSetChanged()
-                //  basket.synchronizeBasketWithServer()
-//                basket.addProduct(it){ bool ->
-//                    if(!bool)
-//
-//                }
+
             },
             clickListenerMinus = {
-                //  search_recycler.adapter?.notifyDataSetChanged()
 
-                //basket.synchronizeBasketWithServer()
-                //          basket.deleteProduct(it)
             },
             basket = basket,
             searchWord = input_search.text.toString()
@@ -183,7 +174,7 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
             hideKeyboard()
         }
 
-        if (products.size == 0)
+        if (products.isEmpty())
             not_found_container.visibility = View.VISIBLE
         else
             not_found_container.visibility = View.GONE
@@ -222,9 +213,5 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
         emptyBasketCheck()
     }
 
-    override fun onBackPressed() {
-        presenter.back()
-        hideKeyboard()
-    }
-
+    override fun onBackPressed() = presenter.onBackPressed()
 }
