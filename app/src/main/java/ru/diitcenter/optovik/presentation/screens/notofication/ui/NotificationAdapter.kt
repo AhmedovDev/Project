@@ -75,29 +75,16 @@ class NotificationAdapter(private val notification: List<ru.diitcenter.optovik.d
             if ((lastItem != null && notification.date != lastItem.date) || lastItem == null) {
                 date_notification.text = notification.date
                 date_notification_in.visibility = View.VISIBLE
-//                borderTop.visibility = View.VISIBLE
+                borderTopBig.visibility = View.VISIBLE
+                borderTop.visibility = View.GONE
+
             } else {
                 date_notification_in.visibility = View.GONE
-//                      borderTop.visibility = View.GONE
+                borderTopBig.visibility = View.GONE
+
             }
 
-//            var date = SimpleDateFormat("dd.MM.yyyy")
-//            var currentDate = date.format(Date())
-//            var yesterday = date.format(yesterday())
-//            if (notification.date == lastDate)
-//                containerView.date_notification_in.visibility = View.GONE
-//            if (notification.date == currentDate) {
-//                containerView.date_notification.text = "Сегодня"
-//                lastDate = notification.date
-//            }
-//            if (notification.date == yesterday) {
-//                containerView.date_notification.text = "Вчера"
-//                lastDate = notification.date
-//            }
-//            if (notification.date != yesterday && notification.date != currentDate) {
-//                containerView.date_notification.text = notification.date
-//                lastDate = notification.date
-//            }
+
             containerView.time_notification.text = notification.time
             containerView.information_notification.text = notification.information
 

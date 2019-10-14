@@ -103,6 +103,9 @@ class OrderInfoActivity : MvpAppCompatActivity(), OrderInfoView, DialogFeedbackF
                 )
             )
             order_activity_container.visibility = View.GONE
+            info_constraint.visibility = View.VISIBLE
+            check_order_info.visibility = View.VISIBLE
+            bottom_buttons.visibility = View.VISIBLE
         }
         back_arrow_order_info.setOnClickListener { finish() }
 

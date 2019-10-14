@@ -85,12 +85,15 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
 
         updateBasketButtonSearch()
 
-        update_search.setOnClickListener {
+        update_search_fragment.setOnClickListener {
             //presenter.search("")
             search_error_container.visibility = View.GONE
             constraintLayout5.visibility = View.VISIBLE
             constraintLayout2.visibility = View.VISIBLE
+            search_recycler.visibility = View.VISIBLE
+            border.visibility = View.VISIBLE
         }
+
         clear.setOnClickListener {
             input_search.setText("")
             not_found_container.visibility = View.GONE
@@ -106,27 +109,30 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
-                if (!isNetworkAvailable(context))
+                if (!isNetworkAvailable(context)){
+                    context?.hideKeyboard(input_search)
                     showNetworkProblem()
-                else{
+                        }
+                else {
                     search_error_container.visibility = View.GONE
                     constraintLayout5.visibility = View.VISIBLE
                     constraintLayout2.visibility = View.VISIBLE
-                }
 
 
 
-                if (!input_search.text.toString().isBlank()) {
-                    presenter.search(input_search.text.toString())
-                    search_recycler.visibility = View.VISIBLE
-                    clear.visibility = View.VISIBLE
-                    masck.visibility = View.GONE
 
-                } else {
-                    clear.visibility = View.GONE
-                    search_recycler.visibility = View.GONE
-                    masck.visibility = View.VISIBLE
+                    if (!input_search.text.toString().isBlank()) {
+                        presenter.search(input_search.text.toString())
+                        search_recycler.visibility = View.VISIBLE
+                        clear.visibility = View.VISIBLE
+                        masck.visibility = View.GONE
 
+                    } else {
+                        clear.visibility = View.GONE
+                        search_recycler.visibility = View.GONE
+                        masck.visibility = View.VISIBLE
+
+                    }
                 }
             }
 
@@ -138,6 +144,9 @@ class SearchFragment : ru.diitcenter.optovik.presentation.global.BaseFragment(),
         search_error_container.visibility = View.VISIBLE
         constraintLayout5.visibility = View.GONE
         constraintLayout2.visibility = View.GONE
+        not_found_container.visibility = View.GONE
+        search_recycler.visibility = View.GONE
+        border.visibility = View.GONE
         hideKeyboard()
 
     }
