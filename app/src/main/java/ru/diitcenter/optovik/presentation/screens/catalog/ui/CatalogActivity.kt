@@ -1,5 +1,6 @@
 package ru.diitcenter.optovik.presentation.screens.catalog.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
@@ -170,8 +171,9 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView, View.OnClickListene
     }
 
     override fun showInformation(information: String) {
-        if(information.isNotEmpty())
-        information_catalog.text = information
+        if(information.isNotEmpty()){
+            reletiv.visibility = View.VISIBLE
+        information_catalog.text = information}
         else
             reletiv.visibility = View.GONE
     }
@@ -216,12 +218,6 @@ class CatalogActivity : MvpAppCompatActivity(), CatalogView, View.OnClickListene
         super.onStart()
         presenter.getAllCatalog(intent.getIntExtra("category_id", 1))
     }
-
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        disposable.dispose()
-//
-//    }
 
     override fun onBackPressed() = currentFragment?.onBackPressed() ?: presenter.onBackPressed()
 

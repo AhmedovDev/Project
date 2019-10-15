@@ -61,7 +61,7 @@
         android:background="#14FFC700"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date_notification_in"
-        app:srcCompat="@drawable/nitification_icon" />
+         />
 
     <TextView
         android:id="@+id/time_notification"

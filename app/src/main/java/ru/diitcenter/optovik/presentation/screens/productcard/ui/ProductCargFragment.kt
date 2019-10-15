@@ -1,6 +1,7 @@
 package ru.diitcenter.optovik.presentation.screens.productcard.ui
 
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -13,6 +14,8 @@ import android.view.inputmethod.EditorInfo
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import kotlinx.android.synthetic.main.fragment_product_carg.*
+import kotlinx.android.synthetic.main.fragment_product_carg.recycler_images
+import kotlinx.android.synthetic.main.fragment_product_carg.view.*
 import kotlinx.android.synthetic.main.toolbar_product_card.*
 import ru.diitcenter.optovik.data.global.models.Product
 import ru.diitcenter.optovik.presentation.global.utils.hideKeyboard
@@ -252,8 +255,20 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
 
 
     //Предовать в метод продукт
+    @SuppressLint("ResourceAsColor")
     override fun showProductCardInformation(productCard: ru.diitcenter.optovik.data.global.models.ProductCard) {
         var sumProducts = 0
+
+        if (productCard.presence == false) {
+            plus.visibility = View.GONE
+            minus.visibility = View.GONE
+           input_product.visibility = View.VISIBLE
+            input_product.maxEms = 6
+            input_product.mask = "#############"
+            input_product.setTextColor(ru.example.optovik.R.color.colorTextHint)
+            input_product.setText("Нет в наличии")
+            input_product.input_product.isEnabled = false
+        }
 
         val haveItem = basket.items.filter {
             it.product.id == productCard.id
