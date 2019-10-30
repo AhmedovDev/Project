@@ -1,5 +1,6 @@
 package ru.diitcenter.optovik.presentation.screens.notofication.mvp
 
+import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.os.Build
 import android.support.annotation.RequiresApi
@@ -10,8 +11,10 @@ import io.reactivex.schedulers.Schedulers
 import ru.diitcenter.optovik.presentation.global.Screens
 import ru.terrakok.cicerone.Router
 import ru.terrakok.cicerone.Screen
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.*
 import javax.inject.Inject
 
 
@@ -51,18 +54,30 @@ class NotificationPresenter @Inject constructor(
             )
     }
 
-    @TargetApi(Build.VERSION_CODES.O)
-    @RequiresApi(Build.VERSION_CODES.O)
+//    @TargetApi(Build.VERSION_CODES.O)
+//    @RequiresApi(Build.VERSION_CODES.O)
+//    fun toMeasurementDate(date: String): String {
+//        val accessor = DateTimeFormatter.ofPattern("dd.MM.yyyy").parse(date)
+//        val localDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+//        return when (LocalDate.now().dayOfYear - localDate.dayOfYear) {
+//            0 -> "Сегодня"
+//            1 -> "Вчера"
+//            else -> DateTimeFormatter.ofPattern("dd.MM.yyyy").format(accessor)
+//        }
+
+
     fun toMeasurementDate(date: String): String {
-        val accessor = DateTimeFormatter.ofPattern("dd.MM.yyyy").parse(date)
-        val localDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd.MM.yyyy"))
-        return when (LocalDate.now().dayOfYear - localDate.dayOfYear) {
+        val accessor = SimpleDateFormat("dd.MM.yyyy").parse(date)
+        val localDate = Date()
+        val res = (accessor.time - localDate.time) / (24 * 60 * 60 * 1000)
+        return when (  res.toInt() ){
             0 -> "Сегодня"
             1 -> "Вчера"
-            else -> DateTimeFormatter.ofPattern("dd.MM.yyyy").format(accessor)
+            else -> date
         }
     }
 
+   // SimpleDateFormat("dd.MM.yyyy").format(Date())
     fun goToProductCard(productId: Int) {
         router.navigateTo(Screens.ProductCard(productId))
     }
