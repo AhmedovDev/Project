@@ -29,7 +29,7 @@ class ProductCardPresenter @Inject constructor(private val router: Router, priva
             .subscribe(
                 { prpductCard ->
                     viewState.showProductCardInformation(prpductCard)
-                    viewState.showProductCardImages(prpductCard)
+                       viewState.showProductCardImages(prpductCard)
                     viewState.visiblProductCard()
 
                 },

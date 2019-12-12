@@ -188,7 +188,8 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     }
 
     override fun showEvents(event: List<ru.diitcenter.optovik.data.global.models.Event>) {
-
+if(event.size == 0)
+    event_recycler.visibility = View.GONE
         val adapter = EventAdapter(event)
         event_recycler.adapter = adapter
         adapter.setOnEventClickListener {

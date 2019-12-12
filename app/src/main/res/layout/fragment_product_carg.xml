@@ -36,6 +36,16 @@
             android:layout_height="0dp"
             android:orientation="vertical">
 
+            <ImageView
+                android:id="@+id/product_image_default"
+                android:layout_width="match_parent"
+                android:layout_height="360dp"
+                android:layout_gravity="center"
+                android:src="@drawable/image_product_card"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></ImageView>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_images"
@@ -45,6 +55,9 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+
+
 
 
             <TextView

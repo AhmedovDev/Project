@@ -239,8 +239,11 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
     }
 
     override fun showProductCardImages(productCard: ru.diitcenter.optovik.data.global.models.ProductCard) {
+        if(productCard.images.size !=0)
+            product_image_default.visibility = View.GONE
         val adapter = ProductCardAdapter(productCard.images)
         recycler_images.adapter = adapter
+
     }
 
     override fun onResume() {
@@ -294,7 +297,7 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
             plusClick(
                 Product(
                     id = productCard.id,
-                    image = productCard.images[0],
+                    image = "dsf",
                     name = productCard.title,
                     price = productCard.price,
                     count = productCard.count,
@@ -307,7 +310,7 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
             plusClick(
                 Product(
                     id = productCard.id,
-                    image = productCard.images[0],
+                    image = "reer",
                     name = productCard.title,
                     price = productCard.price,
                     count = productCard.count,
@@ -322,7 +325,7 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
             minusClick(
                 Product(
                     id = productCard.id,
-                    image = productCard.images[0],
+                    image = "ewfew",
                     name = productCard.title,
                     price = productCard.price,
                     count = productCard.count,
@@ -335,7 +338,7 @@ class ProductCargFragment : ru.diitcenter.optovik.presentation.global.BaseFragme
             minusClick(
                 Product(
                     id = productCard.id,
-                    image = productCard.images[0],
+                    image = "dsg",
                     name = productCard.title,
                     price = productCard.price,
                     count = productCard.count,

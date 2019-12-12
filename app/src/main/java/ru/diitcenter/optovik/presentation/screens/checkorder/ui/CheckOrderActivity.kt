@@ -104,7 +104,7 @@ class CheckOrderActivity : MvpAppCompatActivity(), CheckOrderView {
 
     private fun basketResultPriceCheсk() {
         product_price_check_order.setText("%,d".format(price()))
-        if (price() < prefsHelper.getDelivery()!!.toInt()) {
+        if (price() < 1000) {
             all_price_check_order.setText("%,d".format(price() + 100))
             diliviry_price_check_order.setText("100")
         } else {

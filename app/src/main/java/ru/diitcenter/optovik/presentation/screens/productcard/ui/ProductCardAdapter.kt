@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.item_product_card_image.*
 import kotlinx.android.synthetic.main.item_product_card_image.view.*
 import ru.example.optovik.R
 
@@ -36,7 +37,9 @@ class ProductCardAdapter(private val productCard: List<String>) :
                 Picasso.get()
                     .load(image)
                     .fit()
+                    .error(R.drawable.image_product_card)
                     .centerCrop()
+                    .error(R.drawable.image_product_card)
                     .into(containerView.image_product_card)
 
 

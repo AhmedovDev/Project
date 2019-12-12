@@ -180,8 +180,8 @@ class BasketActivity : MvpAppCompatActivity(), BasketView,
     }
 
     override fun showInformation(information: String) {
-        information_basket.text = "При заказе на сумму от " + information + " рублей доставка бесплатная."
-        freeDeliveryPrice = information.toInt()
+        information_basket.text = "При заказе на сумму от 1000 рублей доставка бесплатная."
+        freeDeliveryPrice = 1000
         prefsHelper.saveDelivery(information)
     }
 

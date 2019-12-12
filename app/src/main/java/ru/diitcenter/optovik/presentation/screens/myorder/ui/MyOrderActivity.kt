@@ -32,12 +32,12 @@ class MyOrderActivity : MvpAppCompatActivity(), MyOrderView,
     @Inject
     lateinit var basketHolder: ru.diitcenter.optovik.data.basketholder.BasketHolder
 
-    @Inject
-    @InjectPresenter
-    lateinit var presenter: MyOrderPresenter
+        @Inject
+        @InjectPresenter
+        lateinit var presenter: MyOrderPresenter
 
-    @ProvidePresenter
-    fun providePresenter() = presenter
+        @ProvidePresenter
+        fun providePresenter() = presenter
 
     private lateinit var navigator: Navigator
 

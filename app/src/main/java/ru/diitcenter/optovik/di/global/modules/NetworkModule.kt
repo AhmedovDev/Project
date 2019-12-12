@@ -67,8 +67,7 @@ class NetworkModule {
 
     companion object {
 
-        private const val BASE_API_URL_OPTOVIK = "http://muradbfr.beget.tech"
-
+        private const val BASE_API_URL_OPTOVIK = "http://japan-optovik-dagestan.ru"
 
     }
 }
